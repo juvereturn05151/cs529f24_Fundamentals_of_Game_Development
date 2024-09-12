@@ -8,6 +8,7 @@
 
 class Matrix4 {
 private:
+    const int matrix_size = 4;
     float data[4][4];
 
 public:
