@@ -49,7 +49,13 @@ Vector3 Vector3::normalized() const
 {
     // Write implementation here
     float vectorMagnitude = magnitude();
-    Vector3 normalizedVector = Vector3(x / vectorMagnitude, y * vectorMagnitude, z * vectorMagnitude);
+
+    // Handle case where magnitude is zero (return a zero vector or handle error)
+    if (vectorMagnitude == 0) {
+        return Vector3(0, 0, 0);
+    }
+
+    Vector3 normalizedVector = Vector3(x / vectorMagnitude, y / vectorMagnitude, z / vectorMagnitude);
     return normalizedVector;
 }
 

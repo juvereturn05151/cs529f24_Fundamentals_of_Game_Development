@@ -36,7 +36,7 @@ void expectEqualVector3(const Vector3& expected, const Vector3& actual, const st
 }
 
 void testMatrixMultiplication() {
-    Matrix4 m1, m2;
+    Matrix4<float> m1, m2;
 
     // Set up test matrices
     m1.updateElement(0, 0, 1); m1.updateElement(0, 1, 2); m1.updateElement(0, 2, 3); m1.updateElement(0, 3, 4);
@@ -49,7 +49,7 @@ void testMatrixMultiplication() {
     m2.updateElement(2, 0, 25); m2.updateElement(2, 1, 26); m2.updateElement(2, 2, 27); m2.updateElement(2, 3, 28);
     m2.updateElement(3, 0, 29); m2.updateElement(3, 1, 30); m2.updateElement(3, 2, 31); m2.updateElement(3, 3, 32);
 
-    Matrix4 result = m1 * m2;
+    Matrix4<float> result = m1 * m2;
 
     expectEqual(250, result.getElement(0, 0), "Matrix multiplication failed at (0,0)");
     expectEqual(644, result.getElement(1, 1), "Matrix multiplication failed at (1,1)");
@@ -58,7 +58,7 @@ void testMatrixMultiplication() {
 }
 
 void testVectorTransformation() {
-    Matrix4 m;
+    Matrix4<float> m;
     m.updateElement(0, 0, 1); m.updateElement(0, 1, 0); m.updateElement(0, 2, 0); m.updateElement(0, 3, 5);
     m.updateElement(1, 0, 0); m.updateElement(1, 1, 1); m.updateElement(1, 2, 0); m.updateElement(1, 3, 0);
     m.updateElement(2, 0, 0); m.updateElement(2, 1, 0); m.updateElement(2, 2, 1); m.updateElement(2, 3, 0);
@@ -71,7 +71,7 @@ void testVectorTransformation() {
 }
 
 void testTranslationMatrix() {
-    Matrix4 trans = Matrix4::translation(2, 3, 4);
+    Matrix4<float> trans = Matrix4<float>::translation(2, 3, 4);
     Vector3 v(1, 1, 1);
     Vector3 result = trans * v;
 
@@ -79,7 +79,7 @@ void testTranslationMatrix() {
 }
 
 void testScaleMatrix() {
-    Matrix4 scale = Matrix4::scale(2, 3, 4);
+    Matrix4<float> scale = Matrix4<float>::scale(2, 3, 4);
     Vector3 v(1, 1, 1);
     Vector3 result = scale * v;
 
@@ -88,21 +88,21 @@ void testScaleMatrix() {
 
 void testRotationMatrices() {
     // Test rotation around X-axis
-    Matrix4 rotX = Matrix4::rotationX(M_PI / 2); // 90 degrees
+    Matrix4<float> rotX = Matrix4<float>::rotationX(M_PI / 2); // 90 degrees
     Vector3 v(0, 1, 0);
     Vector3 result = rotX * v;
 
     expectEqualVector3(Vector3(0, 0, 1), result, "Rotation X matrix failed");
 
     // Test rotation around Y-axis
-    Matrix4 rotY = Matrix4::rotationY(M_PI / 2); // 90 degrees
+    Matrix4<float> rotY = Matrix4<float>::rotationY(M_PI / 2); // 90 degrees
     v = Vector3(1, 0, 0);
     result = rotY * v;
 
     expectEqualVector3(Vector3(0, 0, -1), result, "Rotation Y matrix failed");
 
     // Test rotation around Z-axis
-    Matrix4 rotZ = Matrix4::rotationZ(M_PI / 2); // 90 degrees
+    Matrix4<float> rotZ = Matrix4<float>::rotationZ(M_PI / 2); // 90 degrees
     v = Vector3(1, 0, 0);
     result = rotZ * v;
 
