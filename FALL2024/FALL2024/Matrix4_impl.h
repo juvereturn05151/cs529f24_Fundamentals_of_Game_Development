@@ -44,7 +44,7 @@ template <typename T>
 Matrix4<T> Matrix4<T>::operator*(const Matrix4<T>& other)
 {
     Matrix4<T> result_Matrix;
-    // Write implementation here
+
     for (int i = 0; i < matrix_size; ++i) {
         for (int j = 0; j < matrix_size; ++j) {
             T sum = 0.0;
@@ -62,10 +62,11 @@ template <typename T>
 Vector3 Matrix4<T>::operator*(const Vector3& vec) const
 {
     float x, y, z;
-    // Write implementation here
+
     x = data[0][0] * vec.x + data[0][1] * vec.y + data[0][2] * vec.z + data[0][3];
     y = data[1][0] * vec.x + data[1][1] * vec.y + data[1][2] * vec.z + data[1][3];
     z = data[2][0] * vec.x + data[2][1] * vec.y + data[2][2] * vec.z + data[2][3];
+
     return Vector3(x, y, z);
 }
 
@@ -73,7 +74,7 @@ template <typename T>
 Matrix4<T> Matrix4<T>::translation(T tx, T ty, T tz)
 {
     Matrix4 result;
-    // Write implementation here
+
     result.updateElement(0, 3, tx);
     result.updateElement(1, 3, ty);
     result.updateElement(2, 3, tz);
@@ -85,10 +86,11 @@ template <typename T>
 Matrix4<T> Matrix4<T>::scale(T sx, T sy, T sz)
 {
     Matrix4 result;
-    // Write implementation here
+
     result.updateElement(0, 0, sx);
     result.updateElement(1, 1, sy);
     result.updateElement(2, 2, sz);
+
     return result;
 }
 
@@ -96,7 +98,7 @@ template <typename T>
 Matrix4<T> Matrix4<T>::rotationX(T angle)
 {
     Matrix4 result;
-    // Write implementation here
+
     T cosA = cos(angle);
     T sinA = sin(angle);
 
@@ -106,6 +108,7 @@ Matrix4<T> Matrix4<T>::rotationX(T angle)
     result.updateElement(2, 1, sinA);
     result.updateElement(2, 2, cosA);
     result.updateElement(3, 3, 1);
+
     return result;
 }
 
@@ -113,7 +116,7 @@ template <typename T>
 Matrix4<T> Matrix4<T>::rotationY(T angle)
 {
     Matrix4 result;
-    // Write implementation here
+
     T cosA = cos(angle);
     T sinA = sin(angle);
 
@@ -123,6 +126,7 @@ Matrix4<T> Matrix4<T>::rotationY(T angle)
     result.updateElement(2, 0, -sinA);
     result.updateElement(2, 2, cosA);
     result.updateElement(3, 3, 1);
+
     return result;
 }
 
@@ -130,7 +134,6 @@ template <typename T>
 Matrix4<T> Matrix4<T>::rotationZ(T angle)
 {
     Matrix4 result;
-    // Write implementation here
     T cosA = cos(angle);
     T sinA = sin(angle);
 
@@ -140,6 +143,7 @@ Matrix4<T> Matrix4<T>::rotationZ(T angle)
     result.updateElement(1, 1, cosA);
     result.updateElement(2, 2, 1);
     result.updateElement(3, 3, 1);
+
     return result;
 }
 
