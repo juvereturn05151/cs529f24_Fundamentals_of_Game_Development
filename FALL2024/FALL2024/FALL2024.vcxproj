@@ -70,6 +70,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -77,14 +85,19 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\include\glm;$(SolutionDir)$(ProjectName)\include\glfw;$(SolutionDir)$(ProjectName)\include\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)$(ProjectName)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>NotSet</TargetMachine>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -108,11 +121,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>NotSet</TargetMachine>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -131,13 +151,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="FALL2024.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Matrix4_impl.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="VectorTemplated.h" />
   </ItemGroup>
