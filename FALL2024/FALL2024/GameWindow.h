@@ -22,10 +22,6 @@ public:
 	GLFWwindow* createWindow();
 
 	//Setter Getter
-	int getWidth();
-	int getHeight();
-	const char* getWindowName();
-	void setWindow(GLFWwindow* window);
 	GLFWwindow* getWindow();
 };
 

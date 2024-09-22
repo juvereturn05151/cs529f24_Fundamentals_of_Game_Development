@@ -24,4 +24,3 @@ private:
 	void shutdownWindow(GLFWwindow* window);
 	void shutdownLibraries();
 };
-

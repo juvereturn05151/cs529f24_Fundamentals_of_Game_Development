@@ -18,9 +18,9 @@ GLFWwindow* GameWindow::createWindow() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(getWidth(), getHeight(), getWindowName(), NULL, NULL);
+	window = glfwCreateWindow(width, height, window_name, NULL, NULL);
 
-	if (!window)
+	if (window == nullptr)
 	{
 		std::cerr << "Failed to create GLFW window" << std::endl;
 		return nullptr;
@@ -42,26 +42,6 @@ bool GameWindow::shouldClose()
 	}
 
 	return glfwWindowShouldClose(window);
-}
-
-int GameWindow::getWidth() 
-{
-	return width;
-}
-
-int GameWindow::getHeight() 
-{
-	return height;
-}
-
-const char* GameWindow::getWindowName() 
-{
-	return window_name;
-}
-
-void GameWindow::setWindow(GLFWwindow* window) 
-{
-	this->window = window;
 }
 
 GLFWwindow* GameWindow::getWindow() 

@@ -14,13 +14,15 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
         return;
     }
 
-    if (!setupGraphicsContext(window)) {
+    if (!setupGraphicsContext(window)) 
+    {
         shutdownWindow(window);
         shutdownLibraries();
         return;
     }
 
-    if (!loadGraphicsAPIFunctions()) {
+    if (!loadGraphicsAPIFunctions()) 
+    {
         shutdownWindow(window);
         shutdownLibraries();
         return;
@@ -45,7 +47,8 @@ void Renderer::swapBuffers()
 }
 
 bool Renderer::initializeLibraries() {
-    if (!glfwInit()) {
+    if (!glfwInit()) 
+    {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return false;
     }
@@ -60,7 +63,8 @@ bool Renderer::setupGraphicsContext(GLFWwindow* window)
 
 bool Renderer::loadGraphicsAPIFunctions() 
 {
-    if (glewInit() != GLEW_OK) {
+    if (glewInit() != GLEW_OK)
+    {
         std::cerr << "Failed to initialize GLEW" << std::endl;
         return false;
     }
