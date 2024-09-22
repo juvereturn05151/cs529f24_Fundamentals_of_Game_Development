@@ -1,3 +1,8 @@
+/*
+    Brief: 
+    Legacy code from the assignment 1
+*/
+
 #include <iostream>
 #include <stdexcept>
 #include <cmath>

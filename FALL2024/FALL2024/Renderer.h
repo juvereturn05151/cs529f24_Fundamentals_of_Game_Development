@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+	Auther: Ju-ve Chankasemporn
+	E-mail: juvereturn@gmail.com
+	Brief: Initialize graphic library, clear the screen, and swap the buffer
+*/
+
 #include <glew/glew.h>
 #include <glfw/glfw3.h>
 
@@ -19,8 +25,6 @@ public:
 
 private:
 	bool initializeLibraries();
-	bool setupGraphicsContext(GLFWwindow* window);
 	bool loadGraphicsAPIFunctions();
-	void shutdownWindow(GLFWwindow* window);
 	void shutdownLibraries();
 };

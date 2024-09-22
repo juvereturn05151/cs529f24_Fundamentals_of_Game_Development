@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+	Auther: Ju-ve Chankasemporn
+	E-mail: juvereturn@gmail.com
+	Brief: Managing window: creating, updating events, and cleaning up when shutting down
+*/
+
 #include <glew/glew.h>
 #include <glfw/glfw3.h>
 
@@ -17,11 +23,11 @@ public:
 	//Functions
 	GameWindow(int width, int height, const char* name);
 	~GameWindow();
+	GLFWwindow* createWindow();
+	GLFWwindow* getWindow();
 	void pollEvents();
 	bool shouldClose();
-	GLFWwindow* createWindow();
-
-	//Setter Getter
-	GLFWwindow* getWindow();
+	bool setupGraphicsContext();
+	void shutdownWindow();
 };
 

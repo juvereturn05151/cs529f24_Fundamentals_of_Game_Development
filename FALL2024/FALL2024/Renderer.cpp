@@ -14,16 +14,16 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
         return;
     }
 
-    if (!setupGraphicsContext(window)) 
+    if (!game_window.setupGraphicsContext())
     {
-        shutdownWindow(window);
+        game_window.shutdownWindow();
         shutdownLibraries();
         return;
     }
 
     if (!loadGraphicsAPIFunctions()) 
     {
-        shutdownWindow(window);
+        game_window.shutdownWindow();
         shutdownLibraries();
         return;
     }
@@ -55,12 +55,6 @@ bool Renderer::initializeLibraries() {
     return true;
 }
 
-bool Renderer::setupGraphicsContext(GLFWwindow* window) 
-{
-    glfwMakeContextCurrent(window);
-    return true;
-}
-
 bool Renderer::loadGraphicsAPIFunctions() 
 {
     if (glewInit() != GLEW_OK)
@@ -71,16 +65,7 @@ bool Renderer::loadGraphicsAPIFunctions()
     return true;
 }
 
-void updateWindow(GLFWwindow* window) {
-    glfwSwapBuffers(window);
-}
-
 void Renderer::shutdownLibraries()
 {
     glfwTerminate();
-}
-
-void Renderer::shutdownWindow(GLFWwindow* window)
-{
-    glfwDestroyWindow(window);
 }

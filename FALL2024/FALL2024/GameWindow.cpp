@@ -9,8 +9,7 @@ GameWindow::GameWindow(int width, int height, const char* name)
 
 GameWindow::~GameWindow()
 {
-	glfwDestroyWindow(window);
-	glfwTerminate();
+	shutdownWindow();
 }
 
 GLFWwindow* GameWindow::createWindow() {
@@ -29,6 +28,11 @@ GLFWwindow* GameWindow::createWindow() {
 	return window;
 }
 
+GLFWwindow* GameWindow::getWindow()
+{
+	return this->window;
+}
+
 void GameWindow::pollEvents() 
 {
 	glfwPollEvents();
@@ -44,7 +48,14 @@ bool GameWindow::shouldClose()
 	return glfwWindowShouldClose(window);
 }
 
-GLFWwindow* GameWindow::getWindow() 
+bool GameWindow::setupGraphicsContext() 
 {
-	return this->window;
+	glfwMakeContextCurrent(window);
+	return true;
+}
+
+void GameWindow::shutdownWindow() 
+{
+	glfwDestroyWindow(window);
+	glfwTerminate();
 }
