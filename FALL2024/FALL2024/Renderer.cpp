@@ -29,6 +29,8 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     }
 
     this->game_window = game_window;
+
+    setupCallbacks();
 }
 
 
@@ -46,7 +48,8 @@ void Renderer::swapBuffers()
     }
 }
 
-bool Renderer::initializeLibraries() {
+bool Renderer::initializeLibraries() 
+{
     if (!glfwInit()) 
     {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -63,6 +66,20 @@ bool Renderer::loadGraphicsAPIFunctions()
         return false;
     }
     return true;
+}
+
+void Renderer::setupCallbacks() 
+{
+    game_window.setResizeCallback([this](GLFWwindow* window, int width, int height)
+    {
+        this->frameBufferSuzeCallback(window, width, height);
+    });
+}
+
+void Renderer::frameBufferSuzeCallback(GLFWwindow* window, int width, int height) 
+{
+    glViewport(0, 0, width, height);
+    //Additional Rendering Can Be Made Here
 }
 
 void Renderer::shutdownLibraries()

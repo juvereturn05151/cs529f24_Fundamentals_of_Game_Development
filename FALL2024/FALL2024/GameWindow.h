@@ -10,6 +10,7 @@
 #include <glfw/glfw3.h>
 
 #include <iostream>
+#include <functional>
 
 class GameWindow
 {
@@ -18,6 +19,7 @@ private:
 	int height;
 	const char* window_name;
 	GLFWwindow* window;
+	std::function <void(GLFWwindow*, int, int)> resizeCallBack;
 
 public:
 	//Functions
@@ -29,5 +31,10 @@ public:
 	bool shouldClose();
 	bool setupGraphicsContext();
 	void shutdownWindow();
+	void setWindowHints(const std::function<void()>& hintSetter);
+	void setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback);
+
+private: 
+	static void resizeCallbackWrapper(GLFWwindow* window, int width, int height);
 };
 

@@ -59,3 +59,25 @@ void GameWindow::shutdownWindow()
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
+
+void GameWindow::setWindowHints(const std::function<void()>& hintSetter)
+{
+	hintSetter();
+}
+
+void GameWindow::setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback) 
+{
+	resizeCallBack = std::move(callback);
+	glfwSetFramebufferSizeCallback(window, resizeCallbackWrapper);
+	glfwSetWindowUserPointer(window, this);
+}
+
+void GameWindow::resizeCallbackWrapper(GLFWwindow* window, int width, int height)
+{
+	auto* gameWindow = static_cast<GameWindow*>(glfwGetWindowUserPointer(window));
+	if (gameWindow && gameWindow->resizeCallBack)
+	{
+		gameWindow->resizeCallBack(window, width, height);
+		std::cout << "Window size: (" << width << ", " << height << ")" << std::endl;
+	}
+}
