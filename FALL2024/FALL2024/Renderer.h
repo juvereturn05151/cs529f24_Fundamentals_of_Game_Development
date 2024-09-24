@@ -27,6 +27,6 @@ private:
 	bool initializeLibraries();
 	bool loadGraphicsAPIFunctions();
 	void setupCallbacks();
-	void frameBufferSuzeCallback(GLFWwindow* window, int width, int height);
+	void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 	void shutdownLibraries();
 };

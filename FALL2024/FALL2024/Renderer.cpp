@@ -72,11 +72,11 @@ void Renderer::setupCallbacks()
 {
     game_window.setResizeCallback([this](GLFWwindow* window, int width, int height)
     {
-        this->frameBufferSuzeCallback(window, width, height);
+        this->frameBufferSizeCallback(window, width, height);
     });
 }
 
-void Renderer::frameBufferSuzeCallback(GLFWwindow* window, int width, int height) 
+void Renderer::frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
     //Additional Rendering Can Be Made Here
