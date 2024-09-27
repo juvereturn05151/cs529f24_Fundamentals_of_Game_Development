@@ -12,16 +12,19 @@
 #include <iostream>
 
 #include "GameWindow.h"
+#include "Vector3.h"
 
 class Renderer
 {
 private:
 	GameWindow &game_window;
+	GLuint shaderProgram;
 
 public:
 	Renderer(GameWindow &game_window);
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
+	void drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3);
 
 private:
 	bool initializeLibraries();
@@ -29,4 +32,5 @@ private:
 	void setupCallbacks();
 	void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 	void shutdownLibraries();
+	void initShader();
 };
