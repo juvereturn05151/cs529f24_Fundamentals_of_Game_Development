@@ -153,15 +153,15 @@ void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
     glBindVertexArray(VAO);
 
     glGenBuffers(1, &VBO);
+    // Bind the VBO specifying it's a GL_ARRAY_BUFFER
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
+    //Introduce the vertices to the VBO
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // Configure the Vertex Attribute so that OpenGL knows how to read the VBO
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // Enable the Vertex Attribute so that OpenGL knows how to use it
     glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
 
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
