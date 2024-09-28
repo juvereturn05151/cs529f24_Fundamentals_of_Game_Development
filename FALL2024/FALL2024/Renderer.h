@@ -19,6 +19,7 @@ class Renderer
 private:
 	GameWindow &game_window;
 	GLuint shaderProgram;
+	GLuint VAO, VBO, EBO;
 
 public:
 	Renderer(GameWindow &game_window);
