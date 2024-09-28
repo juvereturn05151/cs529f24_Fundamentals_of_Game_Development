@@ -5,5 +5,5 @@ in vec4 color;
 
 void main()
 {
-FragColor = color;
-};
+	FragColor = color; // Use the color with alpha channel
+}
