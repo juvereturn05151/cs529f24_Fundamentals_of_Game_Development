@@ -24,6 +24,8 @@ private:
 	GameWindow &game_window;
 	Shader* shader;
 	VAO* VAO1;
+	Vector3 color;
+	float alpha = 1.0f;
 
 public:
 	Renderer(GameWindow &game_window);
@@ -31,6 +33,7 @@ public:
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
 	void drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3);
+	void setColor(Vector3 color, float alpha);
 
 private:
 	bool initializeLibraries();
