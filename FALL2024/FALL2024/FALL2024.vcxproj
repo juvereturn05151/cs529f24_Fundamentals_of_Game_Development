@@ -155,6 +155,7 @@
     <ClCompile Include="FALL2024.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="VectorTemplated.cpp" />
   </ItemGroup>
@@ -163,8 +164,13 @@
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Matrix4_impl.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="VectorTemplated.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.frag" />
+    <None Include="default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

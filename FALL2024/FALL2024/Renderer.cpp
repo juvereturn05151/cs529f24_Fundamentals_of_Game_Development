@@ -106,36 +106,7 @@ void Renderer::shutdownLibraries()
 
 void Renderer::initShader()
 {
-    // Read vertexFile and fragmentFile and store the strings
-    std::string vertexCode = vertextShaderSource;
-    std::string fragmentCode = fragmentShaderSource;
-
-    // Convert the shader source strings into character arrays
-    const char* vertexSource = vertexCode.c_str();
-    const char* fragmentSource = fragmentCode.c_str();
-
-    // Create Vertex Shader Object and get its reference
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    // Attach Vertex Shader source to the Vertex Shader Object
-    glShaderSource(vertexShader, 1, &vertexSource, NULL);
-    // Compile the Vertex Shader into machine code
-    glCompileShader(vertexShader);
-
-    // Create Fragment Shader Object and get its reference
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // Attach Fragment Shader source to the Fragment Shader Object
-    glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
-    // Compile the Vertex Shader into machine code
-    glCompileShader(fragmentShader);
-
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    // Delete the now useless Vertex and Fragment Shader objects
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    shader = new Shader("default.vert", "default.frag");
 }
 
 void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
@@ -170,12 +141,17 @@ void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
     // Enable the Vertex Attribute so that OpenGL knows how to use it
     glEnableVertexAttribArray(0);
 
-    glUseProgram(shaderProgram);
+    shader->Activate();
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
     glDeleteBuffers(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteProgram(shaderProgram);
+    shader->Delete();
+}
+
+Renderer::~Renderer()
+{
+    delete shader;
 }

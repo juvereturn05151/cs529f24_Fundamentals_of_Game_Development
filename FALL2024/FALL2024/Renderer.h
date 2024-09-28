@@ -13,16 +13,18 @@
 
 #include "GameWindow.h"
 #include "Vector3.h"
+#include "Shader.h"
 
 class Renderer
 {
 private:
 	GameWindow &game_window;
-	GLuint shaderProgram;
+	Shader* shader;
 	GLuint VAO, VBO, EBO;
 
 public:
 	Renderer(GameWindow &game_window);
+	~Renderer();
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
 	void drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3);
