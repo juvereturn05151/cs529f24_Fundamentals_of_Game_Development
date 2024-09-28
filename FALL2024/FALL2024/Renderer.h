@@ -14,13 +14,16 @@
 #include "GameWindow.h"
 #include "Vector3.h"
 #include "Shader.h"
+#include "VAO.h"
+#include "VBO.h"
+#include "EBO.h"
 
 class Renderer
 {
 private:
 	GameWindow &game_window;
 	Shader* shader;
-	GLuint VAO, VBO, EBO;
+	VAO* VAO1;
 
 public:
 	Renderer(GameWindow &game_window);

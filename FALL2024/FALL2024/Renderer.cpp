@@ -113,45 +113,38 @@ void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
 {
     GLfloat vertices[] =
     {
-        point1.x, point1.y, point1.z,
-        point2.x, point2.y, point2.z,
-        point3.x, point3.y, point3.z
+        // Vertex                     //Color
+        point1.x, point1.y, point1.z, 0.8f, 0.3f, 0.4f, 1.0,
+        point2.x, point2.y, point2.z, 0.8f, 0.3f, 0.4f, 1.0,
+        point3.x, point3.y, point3.z, 0.8f, 0.3f, 0.4f, 1.0
     };
 
-    GLint indices[] =
+    GLuint indices[] =
     {
         0,1,2
     };
 
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
+    VAO1 = new VAO();
+    VAO1->Bind();
 
-    glGenBuffers(1, &VBO);
-    // Bind the VBO specifying it's a GL_ARRAY_BUFFER
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    //Introduce the vertices to the VBO
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    VBO VBO1(vertices, sizeof(vertices));
+    EBO EBO1(indices, sizeof(indices));
 
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // Configure the Vertex Attribute so that OpenGL knows how to read the VBO
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    // Enable the Vertex Attribute so that OpenGL knows how to use it
-    glEnableVertexAttribArray(0);
+    VAO1->LinkAttrib(VBO1, 0, 3, GL_FLOAT, 7 * sizeof(float), (void*)0);
+    VAO1->LinkAttrib(VBO1, 1, 4, GL_FLOAT, 7 * sizeof(float), (void*)(3 * sizeof(float)));
 
     shader->Activate();
-    glBindVertexArray(VAO);
+    VAO1->Bind();
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-    glDeleteBuffers(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    VAO1->Delete();
+    VBO1.Delete();
+    EBO1.Delete();
     shader->Delete();
 }
 
 Renderer::~Renderer()
 {
     delete shader;
+    delete VAO1;
 }
