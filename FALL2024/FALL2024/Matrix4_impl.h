@@ -1,4 +1,6 @@
 #include "Matrix4.h"
+#include <iostream>
+#include <iomanip>
 
 template <typename T>
 Matrix4<T>::Matrix4()
@@ -154,7 +156,7 @@ Matrix4<T> Matrix4<T>::perspective(T fovY, T aspect, T nearPlane, T farPlane)
     T zero = static_cast<T>(0);
     T one = static_cast<T>(1);
     T two = static_cast<T>(2);
-    T tanHalfFovY = tan(fovY / two);
+    T tanHalfFovY = tan(fovY / 2.0f);
     T range = nearPlane - farPlane;
 
     result.updateElement(0, 0, one / (aspect * tanHalfFovY));
@@ -162,7 +164,7 @@ Matrix4<T> Matrix4<T>::perspective(T fovY, T aspect, T nearPlane, T farPlane)
     result.updateElement(2, 2, (nearPlane + farPlane) / range);
     result.updateElement(2, 3, two * nearPlane * farPlane / range);
     result.updateElement(3, 2, -one);
-    result.updateElement(3, 3, zero);
+    result.updateElement(3, 3, 0.0f);
 
     return result;
 }
@@ -188,4 +190,58 @@ Matrix4<T> Matrix4<T>::orthographic(T left, T right, T bottom, T top, T nearPlan
     result.updateElement(3, 3, one);
 
     return result;
+}
+
+template <typename T>
+Matrix4<T> Matrix4<T>::lookAt(const Vector3& eye, const Vector3& center, const Vector3& up)
+{
+    Vector3 f = (center - eye).normalized();  // Forward vector
+    Vector3 r = (f.cross(up)).normalized();   // Right vector
+    Vector3 u = r.cross(f);                  // Up vector
+
+    Matrix4<T> result;
+
+    result.updateElement(0, 0, r.x);
+    result.updateElement(0, 1, r.y);
+    result.updateElement(0, 2, r.z);
+    result.updateElement(0, 3, 0);
+
+    result.updateElement(1, 0, u.x);
+    result.updateElement(1, 1, u.y);
+    result.updateElement(1, 2, u.z);
+    result.updateElement(1, 3, 0);
+
+    result.updateElement(2, 0, -f.x);
+    result.updateElement(2, 1, -f.y);
+    result.updateElement(2, 2, -f.z);
+    result.updateElement(2, 3, 0);
+
+    result.updateElement(3, 0, 0);
+    result.updateElement(3, 1, 0);
+    result.updateElement(3, 2, 0);
+    result.updateElement(3, 3, 1);
+
+    // Translation part
+    result.updateElement(0, 3, -(r.dot(eye)));
+    result.updateElement(1, 3, -(u.dot(eye)));
+    result.updateElement(2, 3, (f.dot(eye)));
+
+    return result;
+}
+
+template <typename T>
+const T* Matrix4<T>::getData() const 
+{
+    return &data[0][0];  // Returns a pointer to the first element
+}
+
+template <typename T>
+void Matrix4<T>::printMatrix4(const Matrix4<T>& matrix) {
+    // Print each row of the matrix
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            std::cout << std::setw(10) << matrix.getElement(i, j) << " "; // Set width for better formatting
+        }
+        std::cout << std::endl; // Move to the next line after each row
+    }
 }

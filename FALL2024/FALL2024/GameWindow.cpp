@@ -81,3 +81,13 @@ void GameWindow::resizeCallbackWrapper(GLFWwindow* window, int width, int height
 		std::cout << "Window size: (" << width << ", " << height << ")" << std::endl;
 	}
 }
+
+int GameWindow::getWidth()
+{
+	return width;
+}
+
+int GameWindow::getHeight()
+{
+	return height;
+}

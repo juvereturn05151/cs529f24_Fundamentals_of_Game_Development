@@ -33,6 +33,8 @@ public:
 	void shutdownWindow();
 	void setWindowHints(const std::function<void()>& hintSetter);
 	void setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback);
+	int getWidth();
+	int getHeight();
 
 private: 
 	static void resizeCallbackWrapper(GLFWwindow* window, int width, int height);

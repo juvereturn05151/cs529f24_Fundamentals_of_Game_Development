@@ -26,6 +26,7 @@ private:
 	VAO* VAO1;
 	Vector3 color;
 	float alpha = 1.0f;
+	float angle;
 
 public:
 	Renderer(GameWindow &game_window);
@@ -34,6 +35,7 @@ public:
 	void swapBuffers();
 	void drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3);
 	void setColor(Vector3 color, float alpha);
+	void updateCamera();
 
 private:
 	bool initializeLibraries();
@@ -42,4 +44,5 @@ private:
 	void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 	void shutdownLibraries();
 	void initShader();
+
 };

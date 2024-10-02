@@ -23,6 +23,7 @@ public:
 
     void updateElement(int row, int col, T value);
     T getElement(int row, int col) const;
+    const T* getData() const;
 
     // Transformation utilities based on matrix
     // For practicity, I added these in the Matrix API,
@@ -35,6 +36,8 @@ public:
     static Matrix4<T> rotationZ(T angle);
     static Matrix4<T> perspective(T fovY, T aspect, T nearPlane, T farPlane);
     static Matrix4<T> orthographic(T left, T right, T bottom, T top, T nearPlane, T farPlane);
+    static Matrix4<T> lookAt(const Vector3& eye, const Vector3& center, const Vector3& up);
+    static void printMatrix4(const Matrix4<T>& matrix);
     // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 };
 
