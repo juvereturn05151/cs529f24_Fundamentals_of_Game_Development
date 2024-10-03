@@ -144,7 +144,7 @@ void Renderer::updateCamera()
 {
     angle += 0.05f*0.05f;
 
-    Matrix4<float> modelMatrix = Matrix4<float>::translation(0.0f,1.0f,0.0f) * Matrix4<float>::rotationY(angle) * Matrix4<float>::scale(2.0f,1.0f,1.0f);
+    Matrix4<float> modelMatrix = Matrix4<float>::translation(0.0f,2.0f,0.0f) * Matrix4<float>::rotationY(angle) * Matrix4<float>::scale(2.0f,2.0f,2.0f);
 
     // We only use this for perspective projection
     Vector3 cameraPos(0.0f, 0.0f, -5.0f);
@@ -156,7 +156,7 @@ void Renderer::updateCamera()
     float aspectRatio = (game_window.getHeight() != 0) ?
         static_cast<float>(game_window.getWidth()) / static_cast<float>(game_window.getHeight()) : 1.0f;
 
-    Matrix4<float> projectionMatrix = Matrix4<float>::perspective(45.0f * 3.14159f / 180.0f, aspectRatio, 0.5f, 100.0f);
+    Matrix4<float> projectionMatrix = Matrix4<float>::perspective(45.0f * 3.14159f / 180.0f, aspectRatio, 1.0f, 100.0f);
 
     GLint modelMatrixLoc = glGetUniformLocation(shader->ID, "ModelMatrix");
     glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());

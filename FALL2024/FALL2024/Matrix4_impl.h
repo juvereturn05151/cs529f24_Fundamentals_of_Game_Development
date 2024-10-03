@@ -77,9 +77,9 @@ Matrix4<T> Matrix4<T>::translation(T tx, T ty, T tz)
 {
     Matrix4 result;
 
-    result.updateElement(0, 3, tx);
-    result.updateElement(1, 3, ty);
-    result.updateElement(2, 3, tz);
+    result.updateElement(3, 0, tx);
+    result.updateElement(3, 1, ty);
+    result.updateElement(3, 2, tz);
 
     return result;
 }
