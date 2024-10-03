@@ -144,7 +144,7 @@ void Renderer::updateCamera()
 {
     angle += 0.05f*0.05f;
 
-    Matrix4<float> modelMatrix = Matrix4<float>::translation(0.0f,0.0f,0.0f) * Matrix4<float>::rotationY(angle) * Matrix4<float>::scale(1.0f,1.0f,1.0f);
+    Matrix4<float> modelMatrix = Matrix4<float>::translation(0.0f,1.0f,0.0f) * Matrix4<float>::rotationY(angle) * Matrix4<float>::scale(2.0f,1.0f,1.0f);
 
     // We only use this for perspective projection
     Vector3 cameraPos(0.0f, 0.0f, -5.0f);
