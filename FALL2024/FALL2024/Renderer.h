@@ -40,7 +40,6 @@ public:
 	~Renderer();
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
-	void update();
 	void draw();
 	void setColor(Vector3 color, float alpha);
 	void updateCamera();

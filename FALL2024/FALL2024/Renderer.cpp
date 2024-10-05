@@ -48,10 +48,10 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     projectionMatrixLoc = glGetUniformLocation(shader->ID, "ProjectionMatrix");
 
     Mesh* mesh = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
-    objectMesh = new ObjectMesh(mesh, modelMatrixLoc);
+    objectMesh = new ObjectMesh(mesh);
 
     Mesh* mesh2 = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
-    objectMesh2 = new ObjectMesh(mesh2, modelMatrixLoc);
+    objectMesh2 = new ObjectMesh(mesh2);
 
     shader->Activate();
 }
@@ -113,11 +113,6 @@ void Renderer::shutdownLibraries()
 void Renderer::initShader()
 {
     shader = new Shader("default.vert", "default.frag");
-}
-
-void Renderer::update()
-{
-
 }
 
 void Renderer::draw()
