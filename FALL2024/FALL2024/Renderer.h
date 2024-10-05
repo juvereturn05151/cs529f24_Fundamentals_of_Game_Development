@@ -18,17 +18,18 @@
 #include "VBO.h"
 #include "EBO.h"
 #include "Camera.h"
+#include "ObjectMesh.h"
 
 class Renderer
 {
 private:
 	GameWindow &game_window;
 	Shader* shader;
-	VAO* VAO1;
 	Vector3 color;
 	float alpha = 1.0f;
 	float angle;
 	Camera camera;
+	ObjectMesh* objectMesh;
 
 public:
 	Renderer(GameWindow &game_window);

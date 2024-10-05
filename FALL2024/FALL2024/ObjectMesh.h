@@ -8,5 +8,7 @@ private:
 public:
     ObjectMesh(Mesh* mesh);
     ~ObjectMesh();
+    void draw();
+    void cleanup();
 };
 

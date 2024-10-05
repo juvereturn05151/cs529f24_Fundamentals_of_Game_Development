@@ -4,7 +4,7 @@
 #include "Transform.h"
 #include "Node.h"
 #include "Mesh.h"
-#include "ObjectMesh.h"
+
 #include<vector>
 
 Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
@@ -42,6 +42,9 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     initShader();
 
     glEnable(GL_DEPTH_TEST);
+
+    Mesh* mesh = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    objectMesh = new ObjectMesh(mesh);
 }
 
 
@@ -105,13 +108,11 @@ void Renderer::initShader()
 
 void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
 {
-    Mesh *mesh = new Mesh (point1, point2, point3, color, alpha);
-    ObjectMesh* objectMesh = new ObjectMesh(mesh);
-
     shader->Activate();
-    mesh->draw();
-    mesh->cleanup();
-    shader->Delete();
+    objectMesh->draw();
+    //objectMesh->cleanup();
+    //shader->Delete();
+
 }
 
 void Renderer::setColor(Vector3 color, float alpha)
@@ -124,8 +125,7 @@ void Renderer::updateCamera()
 {
     angle += 0.05f*0.05f;
 
-    Node node;
-    Transform transform = node.getTransform();
+    Transform transform = objectMesh->getTransform();
     transform.setPosition(Vector3(0.0f, 2.0f, 0.0f));
     transform.setRotation(Vector3(0.0f, angle, 0.0f));
     transform.setScale(Vector3(2.0f, 2.0f, 2.0f));
@@ -151,6 +151,6 @@ void Renderer::updateCamera()
 
 Renderer::~Renderer()
 {
+    delete objectMesh;
     delete shader;
-    delete VAO1;
 }
