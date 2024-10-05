@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Node.h"
 #include "Mesh.h"
+#include "ObjectMesh.h"
 #include<vector>
 
 Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
@@ -105,6 +106,8 @@ void Renderer::initShader()
 void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
 {
     Mesh *mesh = new Mesh (point1, point2, point3, color, alpha);
+    ObjectMesh* objectMesh = new ObjectMesh(mesh);
+
     shader->Activate();
     mesh->draw();
     mesh->cleanup();

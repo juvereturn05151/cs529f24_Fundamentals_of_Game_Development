@@ -1,7 +1,5 @@
 #include "Mesh.h"
 
-
-
 Mesh::Mesh(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 color, float alpha) : point1(point1), point2(point2), point3(point3), color(color), alpha(alpha){
     setupBuffers();
 }
