@@ -16,9 +16,7 @@ int main()
             // Render your 3D scene here
             renderer.setColor(Vector3(0.0f, 1.0f, 0.0f), 0.1f);
             renderer.updateCamera();
-            renderer.drawTriangle(Vector3(-0.5f, -0.5f, 0.0f),
-                Vector3(0.5f, -0.5f, 0.0f),
-                Vector3(0.0f, 0.5f, 0.0f));
+            renderer.draw();
             renderer.swapBuffers();
         }
     }

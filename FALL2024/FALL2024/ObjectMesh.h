@@ -9,6 +9,7 @@ public:
     ObjectMesh(Mesh* mesh);
     ~ObjectMesh();
     void draw();
+    void draw(GLint modelMatrixLoc);
     void cleanup();
 };
 

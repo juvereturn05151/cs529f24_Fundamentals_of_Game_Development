@@ -30,13 +30,18 @@ private:
 	float angle;
 	Camera camera;
 	ObjectMesh* objectMesh;
+	ObjectMesh* objectMesh2;
+	GLint viewMatrixLoc;
+	GLint projectionMatrixLoc;
+	GLint modelMatrixLoc;
 
 public:
 	Renderer(GameWindow &game_window);
 	~Renderer();
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
-	void drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3);
+	void update();
+	void draw();
 	void setColor(Vector3 color, float alpha);
 	void updateCamera();
 
