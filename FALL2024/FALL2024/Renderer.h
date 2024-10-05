@@ -17,6 +17,7 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
+#include "Camera.h"
 
 class Renderer
 {
@@ -27,6 +28,7 @@ private:
 	Vector3 color;
 	float alpha = 1.0f;
 	float angle;
+	Camera camera;
 
 public:
 	Renderer(GameWindow &game_window);
