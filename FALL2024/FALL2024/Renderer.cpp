@@ -3,6 +3,8 @@
 #include "GameWindow.h"
 #include "Transform.h"
 #include "Node.h"
+#include "Mesh.h"
+#include<vector>
 
 Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
 {
@@ -102,37 +104,10 @@ void Renderer::initShader()
 
 void Renderer::drawTriangle(Vector3 point1, Vector3 point2, Vector3 point3)
 {
-    GLfloat vertices[] =
-    {
-        // Vertex                     //Color
-        point1.x, point1.y, point1.z, color.x, color.y, color.z, alpha,
-        point2.x, point2.y, point2.z, color.x, color.y, color.z, alpha,
-        point3.x, point3.y, point3.z, color.x, color.y, color.z, alpha
-    };
-
-    GLuint indices[] =
-    {
-        0,1,2
-    };
-
-    VAO1 = new VAO();
-    VAO1->Bind();
-
-    VBO VBO1(vertices, sizeof(vertices));
-    EBO EBO1(indices, sizeof(indices));
-
-    VAO1->LinkAttrib(VBO1, 0, 3, GL_FLOAT, 7 * sizeof(float), (void*)0);
-    VAO1->LinkAttrib(VBO1, 1, 4, GL_FLOAT, 7 * sizeof(float), (void*)(3 * sizeof(float)));
-
+    Mesh *mesh = new Mesh (point1, point2, point3, color, alpha);
     shader->Activate();
-    VAO1->Bind(); 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
-    VAO1->Delete();
-    VBO1.Delete();
-    EBO1.Delete();
+    mesh->draw();
+    mesh->cleanup();
     shader->Delete();
 }
 
