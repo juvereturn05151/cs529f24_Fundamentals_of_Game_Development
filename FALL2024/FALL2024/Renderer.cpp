@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "Matrix4.h"
 #include "GameWindow.h"
+#include "Transform.h"
 
 Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
 {
@@ -144,7 +145,12 @@ void Renderer::updateCamera()
 {
     angle += 0.05f*0.05f;
 
-    Matrix4<float> modelMatrix = Matrix4<float>::translation(0.0f,2.0f,0.0f) * Matrix4<float>::rotationY(angle) * Matrix4<float>::scale(2.0f,2.0f,2.0f);
+    Transform transform;
+    transform.setPosition(Vector3(0.0f, 2.0f, 0.0f));
+    transform.setRotation(Vector3(0.0f, angle, 0.0f));
+    transform.setScale(Vector3(2.0f, 2.0f, 2.0f));
+
+    Matrix4<float> modelMatrix = transform.getModelMatrix();
     
     Matrix4<float> viewMatrix = camera.getViewMatrix();
 
