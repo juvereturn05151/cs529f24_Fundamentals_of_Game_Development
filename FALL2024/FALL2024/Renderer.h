@@ -25,10 +25,6 @@ class Renderer
 private:
 	GameWindow &game_window;
 	Shader* shader;
-	float angle;
-	Camera *camera;
-	ObjectMesh* objectMesh;
-	ObjectMesh* objectMesh2;
 	GLint modelMatrixLoc;
 	GLint viewMatrixLoc;
 	GLint projectionMatrixLoc;
@@ -41,9 +37,7 @@ public:
 	GLint GetProjectionMatrixLoc();
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
-	void draw();
 	void setColor(Vector3 color, float alpha);
-	void updateCamera();
 
 private:
 	bool initializeLibraries();
@@ -52,5 +46,4 @@ private:
 	void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 	void shutdownLibraries();
 	void initShader();
-
 };

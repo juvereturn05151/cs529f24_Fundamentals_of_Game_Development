@@ -11,7 +11,6 @@ public:
     ObjectMesh(Mesh* mesh, GLint modelMatrixLoc);
     ~ObjectMesh();
     void draw() override;
-    void draw(GLint modelMatrixLoc);
     void cleanup();
 };
 

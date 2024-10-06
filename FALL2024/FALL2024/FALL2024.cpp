@@ -20,6 +20,9 @@ int main()
             scene->update(1.0f);
             scene->draw();
         }
+
+        delete camera;
+        delete scene;
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

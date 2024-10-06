@@ -22,8 +22,6 @@ private:
     GLint projectionMatrixLoc;
 
 public:
-    Camera();
-    Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc);
     Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc, GameWindow& game_window);
     ~Camera();
 
