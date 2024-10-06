@@ -8,11 +8,13 @@ class Scene {
 private:
     std::vector<Node*> objects;  // List of objects in the scene
     Camera* camera;                // Pointer to the camera
-    Renderer* renderer;            // Pointer to the renderer
-
+    Renderer& renderer;            // Pointer to the renderer
+    float angle;
 public:
     // Constructor
-    Scene(Camera* cam, Renderer* rend);
+    Scene(Camera* cam, Renderer& rend);
+
+    void AssignObjects();
 
     // Add objects to the scene
     void addObject(Node* obj);
@@ -22,9 +24,6 @@ public:
 
     // Update the scene (e.g., for animations or physics)
     void update(float deltaTime);
-
-    // Set camera for the scene
-    void setCamera(Camera* cam);
 
     // Destructor to clean up dynamically allocated objects
     ~Scene();

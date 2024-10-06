@@ -30,10 +30,15 @@ private:
 	ObjectMesh* objectMesh;
 	ObjectMesh* objectMesh2;
 	GLint modelMatrixLoc;
+	GLint viewMatrixLoc;
+	GLint projectionMatrixLoc;
 
 public:
 	Renderer(GameWindow &game_window);
 	~Renderer();
+	GLint GetModelMatrixLoc();
+	GLint GetViewMatrixLoc();
+	GLint GetProjectionMatrixLoc();
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
 	void draw();

@@ -44,20 +44,34 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     glEnable(GL_DEPTH_TEST);
 
     modelMatrixLoc = glGetUniformLocation(shader->ID, "ModelMatrix");
-    GLint viewMatrixLoc = glGetUniformLocation(shader->ID, "ViewMatrix");
-    GLint projectionMatrixLoc = glGetUniformLocation(shader->ID, "ProjectionMatrix");
+    viewMatrixLoc = glGetUniformLocation(shader->ID, "ViewMatrix");
+    projectionMatrixLoc = glGetUniformLocation(shader->ID, "ProjectionMatrix");
 
-    camera = new Camera(viewMatrixLoc, projectionMatrixLoc);
+    /*camera = new Camera(viewMatrixLoc, projectionMatrixLoc);
 
     Mesh* mesh = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
     objectMesh = new ObjectMesh(mesh, modelMatrixLoc);
 
     Mesh* mesh2 = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
-    objectMesh2 = new ObjectMesh(mesh2, modelMatrixLoc);
+    objectMesh2 = new ObjectMesh(mesh2, modelMatrixLoc);*/
 
     shader->Activate();
 }
 
+GLint Renderer::GetModelMatrixLoc()
+{
+    return modelMatrixLoc;
+}
+
+GLint Renderer::GetViewMatrixLoc()
+{
+    return viewMatrixLoc;
+}
+
+GLint Renderer::GetProjectionMatrixLoc()
+{
+    return projectionMatrixLoc;
+}
 
 void Renderer::clear(float r, float g, float b, float a)
 {

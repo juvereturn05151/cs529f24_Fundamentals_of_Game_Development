@@ -4,9 +4,11 @@
 #include "Matrix4.h"
 #include "Vector3.h"
 #include"Node.h"
+#include "GameWindow.h"
 
 class Camera : public Node {
 private:
+    GameWindow& game_window;
     Vector3 position;  // Camera position
     Vector3 target;    // Camera target position (where the camera is looking at)
     Vector3 up;        // Up vector
@@ -22,10 +24,12 @@ private:
 public:
     Camera();
     Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc);
+    Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc, GameWindow& game_window);
     ~Camera();
 
     void update(float deltaTime) override;
     void updateAspectRatio(int windowHeight, int windowWidth);
+    void updateCamera();
 
     void setPosition(const Vector3& position);
     void setTarget(const Vector3& target);

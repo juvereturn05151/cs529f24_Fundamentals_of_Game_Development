@@ -1,13 +1,8 @@
 #include "Camera.h"
-#include <cmath> // For M_PI
+#include <cmath>
 
-Camera::Camera() : position(0.0f, 0.0f, -5.0f), target(0.0f, 0.0f, 0.0f), up(0.0f, 1.0f, 0.0f) 
-{
-
-}
-
-Camera::Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc) : position(0.0f, 0.0f, -5.0f), target(0.0f, 0.0f, 0.0f), up(0.0f, 1.0f, 0.0f), 
-viewMatrixLoc(viewMatrixLoc), projectionMatrixLoc(projectionMatrixLoc)
+Camera::Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc, GameWindow& game_window) : position(0.0f, 0.0f, -5.0f), target(0.0f, 0.0f, 0.0f), up(0.0f, 1.0f, 0.0f),
+viewMatrixLoc(viewMatrixLoc), projectionMatrixLoc(projectionMatrixLoc), game_window(game_window)
 {
 
 }
@@ -47,6 +42,20 @@ void Camera::updateAspectRatio(int windowHeight, int windowWidth)
 
     aspectRatio = (windowHeight != 0) ?
         static_cast<float>(windowWidth) / static_cast<float>(windowHeight) : 1.0f;
+
+    Matrix4<float> projectionMatrix = getProjectionMatrix(45.0f * 3.14159f / 180.0f, aspectRatio, 1.0f, 100.0f);
+
+    glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, viewMatrix.getData());
+
+    glUniformMatrix4fv(projectionMatrixLoc, 1, GL_FALSE, projectionMatrix.getData());
+}
+
+void Camera::updateCamera()
+{
+    Matrix4<float> viewMatrix = getViewMatrix();
+
+    aspectRatio = (game_window.getHeight() != 0) ?
+        static_cast<float>(game_window.getWidth()) / static_cast<float>(game_window.getHeight()) : 1.0f;
 
     Matrix4<float> projectionMatrix = getProjectionMatrix(45.0f * 3.14159f / 180.0f, aspectRatio, 1.0f, 100.0f);
 
