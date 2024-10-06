@@ -25,14 +25,10 @@ class Renderer
 private:
 	GameWindow &game_window;
 	Shader* shader;
-	Vector3 color;
-	float alpha = 1.0f;
 	float angle;
-	Camera camera;
+	Camera *camera;
 	ObjectMesh* objectMesh;
 	ObjectMesh* objectMesh2;
-	GLint viewMatrixLoc;
-	GLint projectionMatrixLoc;
 	GLint modelMatrixLoc;
 
 public:

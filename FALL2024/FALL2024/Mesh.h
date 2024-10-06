@@ -6,7 +6,7 @@
 #include "EBO.h"
 
 class Mesh {
-public:
+private:
     VAO* VAO1;
     VBO* VBO1;
     EBO* EBO1;
@@ -18,6 +18,7 @@ public:
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
 
+public:
     Mesh(Vector3 point1, Vector3 point2, Vector3 point3,Vector3 color, float alpha);
     void setupBuffers(); // Setup VBO, VAO, etc.
     void cleanup(); // Cleanup resources

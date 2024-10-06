@@ -6,7 +6,7 @@
 class Node
 {
 protected:
-    Transform transform;
+    Transform *transform;
     std::vector<Node*> children;
 
 public:
@@ -14,9 +14,10 @@ public:
     virtual ~Node();
 
     // Get access to the Transform object
-    Transform getTransform();
+    Transform *getTransform();
 
-    virtual void update();
+    virtual void update(float deltaTime);
+    virtual void draw();
 
     void addChild(Node* child);
 };

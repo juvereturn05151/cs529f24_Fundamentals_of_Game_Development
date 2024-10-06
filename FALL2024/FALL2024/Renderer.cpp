@@ -44,14 +44,16 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     glEnable(GL_DEPTH_TEST);
 
     modelMatrixLoc = glGetUniformLocation(shader->ID, "ModelMatrix");
-    viewMatrixLoc = glGetUniformLocation(shader->ID, "ViewMatrix");
-    projectionMatrixLoc = glGetUniformLocation(shader->ID, "ProjectionMatrix");
+    GLint viewMatrixLoc = glGetUniformLocation(shader->ID, "ViewMatrix");
+    GLint projectionMatrixLoc = glGetUniformLocation(shader->ID, "ProjectionMatrix");
+
+    camera = new Camera(viewMatrixLoc, projectionMatrixLoc);
 
     Mesh* mesh = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
-    objectMesh = new ObjectMesh(mesh);
+    objectMesh = new ObjectMesh(mesh, modelMatrixLoc);
 
     Mesh* mesh2 = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
-    objectMesh2 = new ObjectMesh(mesh2);
+    objectMesh2 = new ObjectMesh(mesh2, modelMatrixLoc);
 
     shader->Activate();
 }
@@ -119,47 +121,27 @@ void Renderer::draw()
 {
     angle += 0.05f * 0.05f;
 
-    Transform transform = objectMesh->getTransform();
-    transform.setPosition(Vector3(0.0f, 2.0f, 0.0f));
-    transform.setRotation(Vector3(0.0f, angle, 0.0f));
-    transform.setScale(Vector3(2.0f, 2.0f, 2.0f));
+    objectMesh->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
+    objectMesh->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
+    objectMesh->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
 
-    Transform transform2 = objectMesh2->getTransform();
-    transform2.setPosition(Vector3(3.0f, 1.0f, -2.0f));  // Different position from object1
-    transform2.setRotation(Vector3(0.0f, -angle, 0.0f));  // Different rotation
-    transform2.setScale(Vector3(1.0f, 1.0f, 1.0f));      // Different scale
+    objectMesh2->getTransform()->setPosition(Vector3(3.0f, 1.0f, -2.0f));  // Different position from object1
+    objectMesh2->getTransform()->setRotation(Vector3(0.0f, -angle, 0.0f));  // Different rotation
+    objectMesh2->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));      // Different scale
 
-    Matrix4<float> modelMatrix = transform.getModelMatrix();
-    glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
     objectMesh->draw();
 
-    Matrix4<float> modelMatrix2 = transform2.getModelMatrix();
-    glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix2.getData());
     objectMesh2->draw();
-}
-
-void Renderer::setColor(Vector3 color, float alpha)
-{
-    this->color = color;
-    this->alpha = alpha;
 }
 
 void Renderer::updateCamera()
 {
-    Matrix4<float> viewMatrix = camera.getViewMatrix();
-
-    float aspectRatio = (game_window.getHeight() != 0) ?
-        static_cast<float>(game_window.getWidth()) / static_cast<float>(game_window.getHeight()) : 1.0f;
-
-    Matrix4<float> projectionMatrix = camera.getProjectionMatrix(45.0f * 3.14159f / 180.0f, aspectRatio, 1.0f, 100.0f);
-
-    glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, viewMatrix.getData());
-
-    glUniformMatrix4fv(projectionMatrixLoc, 1, GL_FALSE, projectionMatrix.getData());
+    camera->updateAspectRatio(game_window.getHeight(), game_window.getWidth());
 }
 
 Renderer::~Renderer()
 {
     delete objectMesh;
     delete shader;
+    delete camera;
 }

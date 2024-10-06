@@ -2,7 +2,7 @@
 
 Node::Node()
 {
-
+    transform = new Transform();
 }
 
 Node::~Node()
@@ -10,15 +10,20 @@ Node::~Node()
 
 }
 
-void Node::update()
+void Node::update(float deltaTime)
 {
     for (Node* child : children)
     {
-        child->update();
+        child->update(deltaTime);
     }
 }
 
-Transform Node::getTransform()
+void Node::draw()
+{
+
+}
+
+Transform* Node::getTransform()
 {
     return transform;
 }
