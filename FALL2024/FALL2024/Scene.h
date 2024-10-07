@@ -14,7 +14,7 @@ public:
     // Constructor
     Scene(Camera* cam, Renderer& rend);
 
-    void AssignObjects();
+    void assignObjects();
 
     // Add objects to the scene
     void addObject(Node* obj);

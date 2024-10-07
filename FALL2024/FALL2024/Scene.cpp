@@ -1,24 +1,28 @@
 #include "Scene.h"
 #include "ObjectMesh.h"
+#include "Triangle.h"
+#include "RotatingObject.h"
 
 // Constructor initializes camera and renderer
 Scene::Scene(Camera* cam, Renderer& rend) : camera(cam), renderer(rend) {}
 
-void Scene::AssignObjects()
+void Scene::assignObjects()
 {
-    Mesh* mesh = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
-    ObjectMesh * objectMesh = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
-    objectMesh->getTransform()->setPosition(Vector3(0.0f, 2.0f, 0.0f));
-    objectMesh->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
+    //Create Rotating Triangle Which is the root
+    Triangle* triangleMesh = new Triangle(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
+    RotatingObject* rotatingObject = new RotatingObject(triangleMesh, renderer.GetModelMatrixLoc());
+    rotatingObject->getTransform()->setPosition(Vector3(0.0f, -1.0f, 0.0f));
+    rotatingObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
-    addObject(objectMesh);
+    //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
+    Triangle* mesh = new Triangle(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
+    stationaryObject->getTransform()->setPosition(Vector3(0.0f, 1.0f, 0.0f));
+    stationaryObject->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
 
-    Mesh* mesh2 = new Mesh(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
-    ObjectMesh * objectMesh2 = new ObjectMesh(mesh2, renderer.GetModelMatrixLoc());
-    objectMesh2->getTransform()->setPosition(Vector3(3.0f, 1.0f, -2.0f));  // Different position from object1
-    objectMesh2->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
+    rotatingObject->addChild(stationaryObject);
 
-    addObject(objectMesh2);
+    addObject(rotatingObject);
 }
 
 // Add objects to the scene
@@ -29,10 +33,10 @@ void Scene::addObject(Node* obj)
 
 // Update objects in the scene (animations, physics, etc.)
 void Scene::update(float deltaTime) {
-    angle += 0.05f * 0.05f;
+    //angle += 0.05f * 0.05f;
     for (Node* obj : objects) 
     {
-        obj->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
+        //obj->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
         obj->update(deltaTime);  // Assuming objects have an update method
     }
 }

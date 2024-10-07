@@ -7,7 +7,10 @@ class Node
 {
 protected:
     Transform *transform;
+    Node* parent = nullptr;
     std::vector<Node*> children;
+    void setParent(Node* parent);
+    Matrix4<float> getGlobalModelMatrix() const;
 
 public:
     Node();
@@ -20,4 +23,5 @@ public:
     virtual void draw();
 
     void addChild(Node* child);
+
 };

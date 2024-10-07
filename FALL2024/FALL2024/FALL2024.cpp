@@ -12,7 +12,7 @@ int main()
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
         Scene * scene = new Scene(camera,renderer);
 
-        scene->AssignObjects();
+        scene->assignObjects();
 
         while (!window.shouldClose()) {
             window.pollEvents();

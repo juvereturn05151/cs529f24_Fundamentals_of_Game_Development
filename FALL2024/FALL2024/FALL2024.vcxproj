@@ -160,9 +160,11 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="ObjectMesh.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RotatingObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Vector4.cpp" />
@@ -178,9 +180,11 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="ObjectMesh.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RotatingObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
     <ClInclude Include="Vector3.h" />

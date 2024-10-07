@@ -19,9 +19,11 @@ ObjectMesh::~ObjectMesh() {
 
 void ObjectMesh::draw()
 {
-    Matrix4<float> modelMatrix = transform->getModelMatrix();
+    Matrix4<float> modelMatrix = getGlobalModelMatrix();
     glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
     mesh->draw();
+
+    Node::draw();
 }
 
 void ObjectMesh::cleanup()
