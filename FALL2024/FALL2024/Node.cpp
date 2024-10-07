@@ -38,7 +38,7 @@ Matrix4<float> Node::getGlobalModelMatrix() const {
     // If this object has a parent, multiply the parent's global matrix with the local matrix
     if (parent) 
     {
-        return parent->getGlobalModelMatrix() * localModelMatrix; // Parent's transform * Local transform
+        return localModelMatrix * parent->getGlobalModelMatrix(); // Parent's transform * Local transform
     }
 
     // If no parent, return the local matrix
