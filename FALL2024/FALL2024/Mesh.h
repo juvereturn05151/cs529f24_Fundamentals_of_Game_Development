@@ -5,14 +5,12 @@
 #include "VAO.h"
 #include "EBO.h"
 
-class Mesh {
-private:
+class Mesh 
+{
+protected:
     VAO* VAO1;
     VBO* VBO1;
     EBO* EBO1;
-    
-
-protected:
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
     Vector3 color;
@@ -22,5 +20,5 @@ public:
     Mesh(Vector3 color, float alpha);
     void setupBuffers(); // Setup VBO, VAO, etc.
     void cleanup(); // Cleanup resources
-    void draw();
+    virtual void draw();
 };

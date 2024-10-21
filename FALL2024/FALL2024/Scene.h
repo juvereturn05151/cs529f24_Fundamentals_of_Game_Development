@@ -9,7 +9,6 @@ private:
     std::vector<Node*> objects;  // List of objects in the scene
     Camera* camera;                // Pointer to the camera
     Renderer& renderer;            // Pointer to the renderer
-    float angle;
 public:
     // Constructor
     Scene(Camera* cam, Renderer& rend);

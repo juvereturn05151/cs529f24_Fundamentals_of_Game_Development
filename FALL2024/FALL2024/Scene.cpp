@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "ObjectMesh.h"
 #include "Triangle.h"
+#include "Square.h"
 #include "RotatingObject.h"
 
 // Constructor initializes camera and renderer
@@ -15,7 +16,7 @@ void Scene::assignObjects()
     rotatingObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
-    Triangle* mesh = new Triangle(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    Square* mesh = new Square(Vector3(-0.5f, -0.5f, 0.0f), Vector3(-0.5f, 0.5f, 0.0f), Vector3(0.5f, 0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
     ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
     stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
     stationaryObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
