@@ -15,7 +15,7 @@ void Scene::assignObjects()
     ryu->AddTexture();
     RotatingObject* rotatingObject = new RotatingObject(ryu, renderer.GetModelMatrixLoc());
     rotatingObject->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
-    rotatingObject->getTransform()->setScale(Vector3(-4.0f, 4.0f, 4.0f));
+    rotatingObject->getTransform()->setScale(Vector3(-2.0f, 2.0f, 2.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
     Triangle* triangleMesh = new Triangle (Vector3(0.0f, 1.0f, 0.0f), 0.1f, renderer.GetShader());
