@@ -17,6 +17,7 @@ void Scene::assignObjects()
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
     Square* mesh = new Square(Vector3(-0.5f, -0.5f, 0.0f), Vector3(-0.5f, 0.5f, 0.0f), Vector3(0.5f, 0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    mesh->AddTexture(renderer.GetShader());
     ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
     stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
     stationaryObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));

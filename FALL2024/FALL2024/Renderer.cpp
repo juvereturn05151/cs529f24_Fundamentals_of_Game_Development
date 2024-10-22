@@ -50,6 +50,11 @@ Renderer::Renderer(GameWindow &game_window) : game_window(game_window)
     shader->Activate();
 }
 
+Shader* Renderer::GetShader()
+{
+    return shader;
+}
+
 GLint Renderer::GetModelMatrixLoc()
 {
     return modelMatrixLoc;

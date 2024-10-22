@@ -4,6 +4,7 @@
 #include <glew/glew.h>
 #include "VAO.h"
 #include "EBO.h"
+#include "Texture.h"
 
 class Mesh 
 {
@@ -11,6 +12,7 @@ protected:
     VAO* VAO1;
     VBO* VBO1;
     EBO* EBO1;
+    Texture* texture;
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
     Vector3 color;
@@ -21,4 +23,5 @@ public:
     void setupBuffers(); // Setup VBO, VAO, etc.
     void cleanup(); // Cleanup resources
     virtual void draw();
+    void AddTexture(Shader* shaderProgram);
 };

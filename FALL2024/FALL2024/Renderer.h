@@ -32,6 +32,7 @@ private:
 public:
 	Renderer(GameWindow &game_window);
 	~Renderer();
+	Shader* GetShader();
 	GLint GetModelMatrixLoc();
 	GLint GetViewMatrixLoc();
 	GLint GetProjectionMatrixLoc();

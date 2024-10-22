@@ -25,15 +25,42 @@ void Mesh::draw()
         return;
     }
 
+
+    if (texture != NULL)
+    {
+        std::cout << "texture draw";
+        texture->Bind();
+    }
+    else 
+    {
+        std::cout << "no draw";
+    }
+
     VAO1->Bind();
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 }
 
-void Mesh::cleanup() {
+void Mesh::cleanup() 
+{
     // Cleanup the buffers if necessary
     VAO1->Delete();
     VBO1->Delete();
     EBO1->Delete();
+
+    if (texture != NULL) 
+    {
+
+        texture->Delete();
+    }
+}
+
+void Mesh::AddTexture(Shader *shaderProgram)
+{
+    GLint isUsingTexture = glGetUniformLocation(shaderProgram->ID, "useTexture");
+    glUniform1i(isUsingTexture, true);
+    texture = new Texture("pop_cat.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texture->texUnit(*shaderProgram, "tex0", 0);
 }
