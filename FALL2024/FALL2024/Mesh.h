@@ -22,10 +22,10 @@ protected:
     Shader* shader;
 
 public:
-    Mesh(Vector3 color, float alpha);
+    Mesh(Vector3 color, float alpha, Shader* shaderProgram);
     void setupBuffers(); // Setup VBO, VAO, etc.
     void cleanup(); // Cleanup resources
     virtual void draw();
-    void AddTexture(Shader* shaderProgram);
+    void AddTexture();
     void SetShader(Shader* shaderProgram);
 };

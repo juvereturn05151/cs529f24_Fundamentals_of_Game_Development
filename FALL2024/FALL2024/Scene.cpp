@@ -10,16 +10,14 @@ Scene::Scene(Camera* cam, Renderer& rend) : camera(cam), renderer(rend) {}
 void Scene::assignObjects()
 {
     //Create Rotating Triangle Which is the root
-    Triangle* triangleMesh = new Triangle(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
-    triangleMesh->SetShader(renderer.GetShader());
+    Triangle* triangleMesh = new Triangle(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     RotatingObject* rotatingObject = new RotatingObject(triangleMesh, renderer.GetModelMatrixLoc());
     rotatingObject->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
     rotatingObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
-    Square* mesh = new Square(Vector3(-0.5f, -0.5f, 0.0f), Vector3(-0.5f, 0.5f, 0.0f), Vector3(0.5f, 0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
-    mesh->SetShader(renderer.GetShader());
-    mesh->AddTexture(renderer.GetShader());
+    Square* mesh = new Square(Vector3(0.0f, 1.0f, 0.0f), 0.1f, renderer.GetShader());
+    mesh->AddTexture();
     ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
     stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
     stationaryObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));

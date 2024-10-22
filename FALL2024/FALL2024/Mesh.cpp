@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-Mesh::Mesh(Vector3 color, float alpha) : color(color), alpha(alpha)
+Mesh::Mesh(Vector3 color, float alpha, Shader* shaderProgram) : color(color), alpha(alpha), shader(shaderProgram)
 {
 
 }
@@ -39,19 +39,14 @@ void Mesh::draw()
 
     if (texture != NULL)
     {
-        std::cout << "texture draw";
         texture->Bind();
-    }
-    else 
-    {
-        std::cout << "no draw";
     }
 
     VAO1->Bind();
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Mesh::cleanup() 
@@ -67,11 +62,9 @@ void Mesh::cleanup()
     }
 }
 
-void Mesh::AddTexture(Shader *shaderProgram)
+void Mesh::AddTexture()
 {
-    GLint isUsingTexture = glGetUniformLocation(shaderProgram->ID, "useTexture");
-    glUniform1i(isUsingTexture, true);
     hasTexture = true;
     texture = new Texture("pop_cat.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-    texture->texUnit(*shaderProgram, "tex0", 0);
+    texture->texUnit(*shader, "tex0", 0);
 }
