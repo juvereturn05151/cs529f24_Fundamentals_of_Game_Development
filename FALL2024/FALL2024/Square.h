@@ -2,7 +2,7 @@
 #include "Mesh.h"
 class Square : public Mesh
 {
-	private:
+	protected:
 		std::vector<GLfloat> squareVertices =
 		{
 			-0.5f, -0.5f, 0.0f,

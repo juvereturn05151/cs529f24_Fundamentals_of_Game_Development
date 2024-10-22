@@ -3,10 +3,12 @@
 #include "Camera.h"
 #include "Renderer.h"
 #include "Node.h" // A class representing individual 3D objects
+#include "AnimatedSquare.h"
 
 class Scene {
 private:
     std::vector<Node*> objects;  // List of objects in the scene
+    std::vector<AnimatedSquare*> animatedSquare;  // List of objects in the scene
     Camera* camera;                // Pointer to the camera
     Renderer& renderer;            // Pointer to the renderer
 public:

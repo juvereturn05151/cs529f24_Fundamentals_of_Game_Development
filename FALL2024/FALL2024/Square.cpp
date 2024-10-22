@@ -6,8 +6,8 @@ Square::Square(Vector3 color, float alpha, Shader* shaderProgram) : Mesh(color, 
     {
         squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, 0.0f, 0.0f,
         squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, 0.0f, 1.0f,
-        squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, 1.0f, 1.0f,
-        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, 1.0f, 0.0f
+        squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, 0.25f, 1.0f,
+        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, 0.25f, 0.0f
     };
 
     indices =

@@ -151,10 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSquare.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FALL2024.cpp" />
+    <ClCompile Include="FrameController.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -174,8 +176,10 @@
     <ClCompile Include="VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSquare.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="FrameController.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Matrix4_impl.h" />

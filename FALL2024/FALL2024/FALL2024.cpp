@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "FrameController.h"
 
 int main() 
 {
@@ -17,7 +18,9 @@ int main()
         while (!window.shouldClose()) {
             window.pollEvents();
 
-            scene->update(1.0f);
+            FrameController::getInstance().update();
+
+            scene->update(FrameController::getInstance().getDeltaTime());
             scene->draw();
         }
 

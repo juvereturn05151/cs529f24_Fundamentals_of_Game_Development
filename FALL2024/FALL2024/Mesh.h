@@ -20,6 +20,14 @@ protected:
     float alpha;
     bool hasTexture;
     Shader* shader;
+    std::vector<GLfloat> textureCoor =
+    {
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
+    };
+
 
 public:
     Mesh(Vector3 color, float alpha, Shader* shaderProgram);

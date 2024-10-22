@@ -65,6 +65,6 @@ void Mesh::cleanup()
 void Mesh::AddTexture()
 {
     hasTexture = true;
-    texture = new Texture("pop_cat.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texture = new Texture("Ryu.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     texture->texUnit(*shader, "tex0", 0);
 }
