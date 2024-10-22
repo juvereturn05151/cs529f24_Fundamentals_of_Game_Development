@@ -5,6 +5,7 @@
 #include "VAO.h"
 #include "EBO.h"
 #include "Texture.h"
+#include "Shader.h"
 
 class Mesh 
 {
@@ -17,6 +18,8 @@ protected:
     std::vector<GLuint> indices;
     Vector3 color;
     float alpha;
+    bool hasTexture;
+    Shader* shader;
 
 public:
     Mesh(Vector3 color, float alpha);
@@ -24,4 +27,5 @@ public:
     void cleanup(); // Cleanup resources
     virtual void draw();
     void AddTexture(Shader* shaderProgram);
+    void SetShader(Shader* shaderProgram);
 };

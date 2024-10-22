@@ -11,12 +11,14 @@ void Scene::assignObjects()
 {
     //Create Rotating Triangle Which is the root
     Triangle* triangleMesh = new Triangle(Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f), 0.5f);
+    triangleMesh->SetShader(renderer.GetShader());
     RotatingObject* rotatingObject = new RotatingObject(triangleMesh, renderer.GetModelMatrixLoc());
     rotatingObject->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
     rotatingObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
     Square* mesh = new Square(Vector3(-0.5f, -0.5f, 0.0f), Vector3(-0.5f, 0.5f, 0.0f), Vector3(0.5f, 0.5f, 0.0f), Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    mesh->SetShader(renderer.GetShader());
     mesh->AddTexture(renderer.GetShader());
     ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
     stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));

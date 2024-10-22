@@ -18,11 +18,22 @@ void Mesh::setupBuffers()
     VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 }
 
+void Mesh::SetShader(Shader* shaderProgram)
+{
+    shader = shaderProgram;
+}
+
 void Mesh::draw()
 {
     if (VAO1 == NULL)
     {
         return;
+    }
+
+    if (shader != NULL) 
+    {
+        GLint isUsingTexture = glGetUniformLocation(shader->ID, "useTexture");
+        glUniform1i(isUsingTexture, hasTexture);
     }
 
 
@@ -52,7 +63,6 @@ void Mesh::cleanup()
 
     if (texture != NULL) 
     {
-
         texture->Delete();
     }
 }
@@ -61,6 +71,7 @@ void Mesh::AddTexture(Shader *shaderProgram)
 {
     GLint isUsingTexture = glGetUniformLocation(shaderProgram->ID, "useTexture");
     glUniform1i(isUsingTexture, true);
+    hasTexture = true;
     texture = new Texture("pop_cat.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     texture->texUnit(*shaderProgram, "tex0", 0);
 }

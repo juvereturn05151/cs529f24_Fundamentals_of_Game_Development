@@ -26,6 +26,12 @@ void Square::draw()
         return;
     }
 
+    if (shader != NULL)
+    {
+        GLint isUsingTexture = glGetUniformLocation(shader->ID, "useTexture");
+        glUniform1i(isUsingTexture, hasTexture);
+    }
+
     if (texture != NULL)
     {
         texture->Bind();
