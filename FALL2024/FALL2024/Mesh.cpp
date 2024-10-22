@@ -18,6 +18,17 @@ void Mesh::setupBuffers()
     VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 }
 
+void  Mesh::editBUffers()
+{
+    VAO1->Bind();
+    VBO1->EditVBO(&vertices[0], vertices.size() * sizeof(GLfloat));
+    EBO1->EditEBO(&indices[0], indices.size() * sizeof(GLfloat));
+
+    VAO1->LinkAttrib(*VBO1, 0, 3, GL_FLOAT, 9 * sizeof(float), (void*)0);
+    VAO1->LinkAttrib(*VBO1, 1, 4, GL_FLOAT, 9 * sizeof(float), (void*)(3 * sizeof(float)));
+    VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
+}
+
 void Mesh::SetShader(Shader* shaderProgram)
 {
     shader = shaderProgram;
@@ -52,9 +63,20 @@ void Mesh::draw()
 void Mesh::cleanup() 
 {
     // Cleanup the buffers if necessary
-    VAO1->Delete();
-    VBO1->Delete();
-    EBO1->Delete();
+    if (VAO1 != NULL) 
+    {
+        VAO1->Delete();
+    }
+
+    if (VBO1 != NULL)
+    {
+        VBO1->Delete();
+    }
+
+    if (EBO1 != NULL)
+    {
+        EBO1->Delete();
+    }
 
     if (texture != NULL) 
     {

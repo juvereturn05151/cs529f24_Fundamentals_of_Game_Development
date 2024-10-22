@@ -32,6 +32,7 @@ protected:
 public:
     Mesh(Vector3 color, float alpha, Shader* shaderProgram);
     void setupBuffers(); // Setup VBO, VAO, etc.
+    void editBUffers();
     void cleanup(); // Cleanup resources
     virtual void draw();
     void AddTexture();

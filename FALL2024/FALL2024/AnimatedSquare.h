@@ -3,8 +3,6 @@
 class AnimatedSquare : public Square
 {
 protected:
-	float startingOffsetX;
-	float offsetXIncrement;
 	int frameCount = 4;
 	float frameDuration = 0.2f; // Duration of each frame in seconds
 	int currentFrame = 0;

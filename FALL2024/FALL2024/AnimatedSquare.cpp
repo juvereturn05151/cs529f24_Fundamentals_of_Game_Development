@@ -3,8 +3,6 @@
 
 AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram) : Square(color, alpha, shaderProgram)
 {
-    startingOffsetX = 0.25f;
-    offsetXIncrement = 0.0f;
     frameWidth = 0.25f;
 }
 
@@ -22,8 +20,6 @@ void AnimatedSquare::update_animation(float deltaTime)
     float top = 0.0f;  // Assuming the sprite is single-row, so top = 0
     float bottom = 1.0f;
 
-    printf("left %f\n", left);
-
     vertices =
     {
         squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, 0.0f,
@@ -38,11 +34,22 @@ void AnimatedSquare::update_animation(float deltaTime)
         0, 3, 2
     };
 
-    VAO1->Delete();
-    VBO1->Delete();
-    EBO1->Delete();
+    /*if (VAO1 != NULL)
+    {
+        VAO1->Delete();
+    }
 
-    setupBuffers();
+    if (VBO1 != NULL)
+    {
+        VBO1->Delete();
+    }
+
+    if (EBO1 != NULL)
+    {
+        EBO1->Delete();
+    }*/
+
+    editBUffers();
 }
 
 void AnimatedSquare::draw()

@@ -11,22 +11,22 @@ Scene::Scene(Camera* cam, Renderer& rend) : camera(cam), renderer(rend) {}
 void Scene::assignObjects()
 {
     //Create Rotating Triangle Which is the root
-    /*Triangle* triangleMesh = new Triangle(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    RotatingObject* rotatingObject = new RotatingObject(triangleMesh, renderer.GetModelMatrixLoc());
+    AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    ryu->AddTexture();
+    RotatingObject* rotatingObject = new RotatingObject(ryu, renderer.GetModelMatrixLoc());
     rotatingObject->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
-    rotatingObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));*/
+    rotatingObject->getTransform()->setScale(Vector3(-4.0f, 4.0f, 4.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
-    AnimatedSquare* mesh = new AnimatedSquare(Vector3(0.0f, 1.0f, 0.0f), 0.1f, renderer.GetShader());
-    mesh->AddTexture();
-    ObjectMesh * stationaryObject = new ObjectMesh(mesh, renderer.GetModelMatrixLoc());
-    //stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
-    stationaryObject->getTransform()->setScale(Vector3(-4.0f, 4.0f, 4.0f));
+    Triangle* triangleMesh = new Triangle (Vector3(0.0f, 1.0f, 0.0f), 0.1f, renderer.GetShader());
+    ObjectMesh * stationaryObject = new ObjectMesh(triangleMesh, renderer.GetModelMatrixLoc());
+    stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
+    stationaryObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
-    //rotatingObject->addChild(stationaryObject);
+    rotatingObject->addChild(stationaryObject);
 
-    animatedSquare.push_back(mesh);
-    addObject(stationaryObject);
+    animatedSquare.push_back(ryu);
+    addObject(rotatingObject);
 
 }
 
@@ -75,8 +75,10 @@ void Scene::draw() {
 Scene::~Scene() {
     for (AnimatedSquare* obj : animatedSquare)
     {
+        obj->cleanup();
         delete obj;
     }
+
     for (Node* obj : objects) 
     {
         delete obj;
