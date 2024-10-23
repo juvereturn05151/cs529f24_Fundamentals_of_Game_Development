@@ -11,6 +11,11 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelM
 	isOnGround = true;
 }
 
+void Character::SetAnimatedSquare(AnimatedSquare* animated)
+{
+    animatedSquare = animated;
+}
+
 void Character::update(float deltaTime)
 {
     //position = position + velocity;
@@ -35,9 +40,41 @@ void Character::updateInput(PlayerInput* input) {
     // Handle left/right movement
     if (InputManager::IsKeyPressed(input->GetMoveRight())) {
         deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
+        if (animatedSquare != NULL) 
+        {
+            if (faceRight) 
+            {
+                animatedSquare->set_animation(AnimationState::WalkFront);
+            }
+            else
+            {
+                animatedSquare->set_animation(AnimationState::WalkBack);
+            }
+
+        }
     }
     if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
         deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
+        if (animatedSquare != NULL)
+        {
+            if (faceRight)
+            {
+                animatedSquare->set_animation(AnimationState::WalkBack);
+            }
+            else
+            {
+                animatedSquare->set_animation(AnimationState::WalkFront);
+            }
+            
+        }
+    }
+
+    if (deltaX == 0.0f && deltaY == 0.0f)
+    {
+        if (animatedSquare != NULL)
+        {
+            animatedSquare->set_animation(AnimationState::Idle);
+        }
     }
 
     // Handle jumping (only if the character is on the ground)
@@ -72,4 +109,9 @@ void Character::Jump() {
 
 void Character::Attack() {
     std::cout << "Character attacked!" << std::endl;
+}
+
+void Character::SetFaceRight(bool isRight)
+{
+    faceRight = isRight;
 }

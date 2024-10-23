@@ -19,8 +19,10 @@ void Scene::assignObjects()
     Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
     visualHolder->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
     visualHolder->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
-    
+
     character1 = new Character(NULL, renderer.GetModelMatrixLoc());
+    character1->SetAnimatedSquare(ryu);
+    character1->SetFaceRight(true);
     character1->addChild(visualHolder);
 
     animatedSquares.push_back(ryu);
@@ -33,6 +35,7 @@ void Scene::assignObjects()
     visualHolder2->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
     
     character2 = new Character(NULL, renderer.GetModelMatrixLoc());
+    character2->SetAnimatedSquare(ryu2);
     character2->addChild(visualHolder2);
 
     animatedSquares.push_back(ryu2);
