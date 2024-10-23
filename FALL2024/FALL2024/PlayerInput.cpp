@@ -23,10 +23,10 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
         keys.insert({ GLFW_KEY_RIGHT, false });*/
         InputManager::AddKey(GLFW_KEY_LEFT);
         InputManager::AddKey(GLFW_KEY_RIGHT);
-        InputManager::AddKey(GLFW_KEY_KP_0);
+        InputManager::AddKey(GLFW_KEY_RIGHT_SHIFT);
         moveLeft = GLFW_KEY_LEFT;
         moveRight = GLFW_KEY_RIGHT;
-        cMK = GLFW_KEY_KP_0;
+        cMK = GLFW_KEY_RIGHT_SHIFT;
     }
     // Set GLFW callbacks for input
 }
