@@ -43,9 +43,14 @@ void Mesh::draw()
 
     VAO1->Bind();
 
+    glEnable(GL_DEPTH_TEST);
+
+    // 2. Render transparent objects (like characters with alpha)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(GL_FALSE);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    glDepthMask(GL_TRUE);
 }
 
 void Mesh::cleanup() 
