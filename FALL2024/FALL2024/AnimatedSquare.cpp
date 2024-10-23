@@ -3,7 +3,27 @@
 
 AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram) : Square(color, alpha, shaderProgram)
 {
+    animations[AnimationState::Idle] = {0, 5, 0.2f };
+    animations[AnimationState::WalkFront] = {1, 6, 0.2f };
+    animations[AnimationState::WalkBack] = {2, 6, 0.2f };
+
+    set_animation(AnimationState::Idle);
+
     frameWidth = 0.1f;
+    frameHeight = 0.1f;
+}
+
+void AnimatedSquare::set_animation(AnimationState newState)
+{
+    if (currentState != newState) 
+    {
+        currentState = newState;
+        currentFrame = 0; // Reset to the first frame
+        elapsedTime = 0.0f; // Reset time tracking
+        animIndex = animations[currentState].animIndex;
+        frameCount = animations[currentState].frameCount;
+        frameDuration = animations[currentState].frameDuration;
+    }
 }
 
 void AnimatedSquare::update_animation(float deltaTime)
@@ -17,15 +37,15 @@ void AnimatedSquare::update_animation(float deltaTime)
 
     float left = currentFrame * frameWidth;
     float right = left + frameWidth;
-    float top = 0.0f;  // Assuming the sprite is single-row, so top = 0
-    float bottom = 1.0f;
+    float top = 1.0f - (frameHeight * animIndex);  // Assuming the sprite is single-row, so top = 0
+    float bottom = top - frameHeight;
 
     vertices =
     {
-        squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, 0.9f,
-        squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, left, 1.0f,
-        squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, right, 1.0f,
-        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, right, 0.9f
+        squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, bottom,
+        squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, left, top,
+        squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, right, top,
+        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, right, bottom
     };
 
     indices =
