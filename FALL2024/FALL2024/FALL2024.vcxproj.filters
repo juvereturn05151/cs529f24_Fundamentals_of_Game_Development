@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{9d9db2b6-43df-4d0f-a65c-92e0e05a941f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Manager">
+      <UniqueIdentifier>{0e015100-4101-4a01-8a70-f404c02c5e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Manager">
+      <UniqueIdentifier>{6103ec3c-48a4-475a-87dc-1636c5a7215b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -121,16 +127,16 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSquare.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="FrameController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SceneComponents</Filter>
     </ClCompile>
     <ClCompile Include="PlayerInput.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,16 +201,16 @@
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSquare.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="FrameController.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SceneComponents</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInput.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
