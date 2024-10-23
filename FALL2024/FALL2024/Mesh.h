@@ -6,6 +6,7 @@
 #include "EBO.h"
 #include "Texture.h"
 #include "Shader.h"
+#include "Material.h"
 
 class Mesh 
 {
@@ -13,12 +14,11 @@ protected:
     VAO* VAO1;
     VBO* VBO1;
     EBO* EBO1;
-    Texture* texture;
+    Material* material;
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
     Vector3 color;
     float alpha;
-    bool hasTexture;
     Shader* shader;
     std::vector<GLfloat> textureCoor =
     {
@@ -36,5 +36,4 @@ public:
     void cleanup(); // Cleanup resources
     virtual void draw();
     void AddTexture();
-    void SetShader(Shader* shaderProgram);
 };

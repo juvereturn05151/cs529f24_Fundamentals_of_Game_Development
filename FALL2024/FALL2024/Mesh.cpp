@@ -2,7 +2,7 @@
 
 Mesh::Mesh(Vector3 color, float alpha, Shader* shaderProgram) : color(color), alpha(alpha), shader(shaderProgram)
 {
-
+    material = new Material(shaderProgram);
 }
 
 void Mesh::setupBuffers() 
@@ -29,11 +29,6 @@ void  Mesh::editBUffers()
     VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 }
 
-void Mesh::SetShader(Shader* shaderProgram)
-{
-    shader = shaderProgram;
-}
-
 void Mesh::draw()
 {
     if (VAO1 == NULL)
@@ -41,16 +36,9 @@ void Mesh::draw()
         return;
     }
 
-    if (shader != NULL) 
+    if (material != NULL) 
     {
-        GLint isUsingTexture = glGetUniformLocation(shader->ID, "useTexture");
-        glUniform1i(isUsingTexture, hasTexture);
-    }
-
-
-    if (texture != NULL)
-    {
-        texture->Bind();
+        material->Draw();
     }
 
     VAO1->Bind();
@@ -66,27 +54,32 @@ void Mesh::cleanup()
     if (VAO1 != NULL) 
     {
         VAO1->Delete();
+        delete VAO1;
     }
 
     if (VBO1 != NULL)
     {
         VBO1->Delete();
+        delete VBO1;
     }
 
     if (EBO1 != NULL)
     {
         EBO1->Delete();
+        delete EBO1;
     }
 
-    if (texture != NULL) 
+    if (material != NULL)
     {
-        texture->Delete();
+        material->Delete();
+        delete material;
     }
 }
 
 void Mesh::AddTexture()
 {
-    hasTexture = true;
-    texture = new Texture("Ryu.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-    texture->texUnit(*shader, "tex0", 0);
+    if (material != NULL)
+    {
+        material->AddTexture();
+    }
 }

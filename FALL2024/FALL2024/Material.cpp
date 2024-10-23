@@ -1,5 +1,10 @@
 #include "Material.h"
 
+Material::Material(Shader* shaderProgram) : shader(shaderProgram)
+{
+
+}
+
 void Material::Draw()
 {
     if (shader != NULL)
