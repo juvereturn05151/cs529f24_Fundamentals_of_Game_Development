@@ -28,7 +28,7 @@ public:
 
     bool IsGamepadButtonPressed(int button) const;
     void GetGamepadAxes(float& leftX, float& leftY, float& rightX, float& rightY) const;
-    std::unordered_map<int, bool> keys;
+
 private:
     GameWindow& window;
 
@@ -36,7 +36,7 @@ private:
     InputDevice device;  // The input device used by this player
 
     // Keyboard/Mouse states
-
+    std::unordered_map<int, bool> keys;
     //std::unordered_map<int, bool> mouseButtons;
     double lastMouseX, lastMouseY;
     double deltaX, deltaY;
