@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include <cmath>
 
-Camera::Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc, GameWindow& game_window) : position(0.0f, 0.0f, -5.0f), target(0.0f, 0.0f, 0.0f), up(0.0f, 1.0f, 0.0f),
+Camera::Camera(GLint viewMatrixLoc, GLint projectionMatrixLoc, GameWindow& game_window) : position(0.0f, 0.0f, 5.0f), target(0.0f, 0.0f, 0.0f), up(0.0f, 1.0f, 0.0f),
 viewMatrixLoc(viewMatrixLoc), projectionMatrixLoc(projectionMatrixLoc), game_window(game_window)
 {
 
