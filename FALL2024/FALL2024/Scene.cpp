@@ -17,8 +17,8 @@ void Scene::assignObjects()
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture();
     Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
-    visualHolder->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
-    visualHolder->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
+    visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
+    visualHolder->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
 
     character1 = new Character(NULL, renderer.GetModelMatrixLoc());
     character1->SetAnimatedSquare(ryu);
@@ -31,8 +31,8 @@ void Scene::assignObjects()
     AnimatedSquare* ryu2 = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu2->AddTexture();
     Node* visualHolder2 = new ObjectMesh(ryu2, renderer.GetModelMatrixLoc());
-    visualHolder2->getTransform()->setScale(Vector3(-2.0f, 2.0f, 2.0f));
-    visualHolder2->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
+    visualHolder2->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
+    visualHolder2->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
     
     character2 = new Character(NULL, renderer.GetModelMatrixLoc());
     character2->SetAnimatedSquare(ryu2);
