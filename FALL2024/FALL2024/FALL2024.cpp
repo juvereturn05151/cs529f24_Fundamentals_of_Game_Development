@@ -8,7 +8,7 @@
 int main() 
 {
     try {
-        GameWindow window(800, 600, "OpenGL Window");
+        GameWindow window(1600, 900, "OpenGL Window");
         Renderer renderer(window);
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
         Scene * scene = new Scene(camera,renderer, window);

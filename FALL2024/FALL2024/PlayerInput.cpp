@@ -5,9 +5,22 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
 {
     glfwSetWindowUserPointer(window.getWindow(), this);
 
-    keys.insert({GLFW_KEY_A, false});
+    if (playerId == 0) 
+    {
+        keys.insert({ GLFW_KEY_A, false });
+        keys.insert({ GLFW_KEY_D, false });
+        moveLeft = GLFW_KEY_A;
+        moveRight = GLFW_KEY_D;
+    }
+    else if (playerId == 1)
+    {
+        keys.insert({ GLFW_KEY_LEFT, false });
+        keys.insert({ GLFW_KEY_RIGHT, false });
+        moveLeft = GLFW_KEY_LEFT;
+        moveRight = GLFW_KEY_RIGHT;
+    }
 
-    keys.insert({ GLFW_KEY_D, false });
+
     // Set GLFW callbacks for input
     glfwSetKeyCallback(window.getWindow(), KeyCallback);
     glfwSetMouseButtonCallback(window.getWindow(), MouseButtonCallback);
@@ -69,6 +82,12 @@ void PlayerInput::UpdateGamepad() {
 bool PlayerInput::IsKeyPressed(int key) 
 {
     PlayerInput* input = reinterpret_cast<PlayerInput*>(glfwGetWindowUserPointer(window.getWindow()));
+
+    if (!input->keys.contains(key)) 
+    {
+        return false;
+    }
+
     return input->keys.at(key);
 }
 
@@ -83,4 +102,14 @@ void PlayerInput::GetMousePosition(double& xpos, double& ypos) const {
 void PlayerInput::GetMouseDelta(double& xoffset, double& yoffset) const {
     xoffset = deltaX;
     yoffset = deltaY;
+}
+
+int PlayerInput::GetMoveLeft()
+{
+    return moveLeft;
+}
+
+int PlayerInput::GetMoveRight()
+{
+    return moveRight;
 }

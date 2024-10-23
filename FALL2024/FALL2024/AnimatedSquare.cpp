@@ -34,21 +34,6 @@ void AnimatedSquare::update_animation(float deltaTime)
         0, 3, 2
     };
 
-    /*if (VAO1 != NULL)
-    {
-        VAO1->Delete();
-    }
-
-    if (VBO1 != NULL)
-    {
-        VBO1->Delete();
-    }
-
-    if (EBO1 != NULL)
-    {
-        EBO1->Delete();
-    }*/
-
     editBUffers();
 }
 

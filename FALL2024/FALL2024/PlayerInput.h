@@ -29,6 +29,9 @@ public:
     bool IsGamepadButtonPressed(int button) const;
     void GetGamepadAxes(float& leftX, float& leftY, float& rightX, float& rightY) const;
 
+    int GetMoveLeft();
+    int GetMoveRight();
+
 private:
     GameWindow& window;
 
@@ -50,6 +53,9 @@ private:
     // Internal functions to handle input updates
     void UpdateKeyboardMouse();
     void UpdateGamepad();
+
+    int moveLeft = -1;
+    int moveRight = -1;
 };
 
 #endif

@@ -32,10 +32,10 @@ void Character::updateInput(PlayerInput* input) {
     float deltaX = 0.0f, deltaY = 0.0f;
 
     // Handle left/right movement
-    if (input->IsKeyPressed(GLFW_KEY_D)) {
+    if (input->IsKeyPressed(input->GetMoveRight())) {
         deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
     }
-    if (input->IsKeyPressed(GLFW_KEY_A)) {
+    if (input->IsKeyPressed(input->GetMoveLeft())) {
         deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
     }
 
