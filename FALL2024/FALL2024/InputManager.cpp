@@ -2,7 +2,7 @@
 
 // Static member initialization
 GLFWwindow* InputManager::window = nullptr;
-std::unordered_map<int, bool> InputManager::keys;
+std::unordered_map<int, InputManager::KeyState> InputManager::keys;
 std::unordered_map<int, bool> InputManager::mouseButtons;
 double InputManager::lastX = 0.0;
 double InputManager::lastY = 0.0;
@@ -21,17 +21,31 @@ void InputManager::Initialize(GLFWwindow* windowContext) {
 
 void InputManager::Update() {
     // Poll for any GLFW events, such as keyboard and mouse inputs
+    for (auto& [key, state] : keys) {
+        state.previousState = state.currentState;
+    }
+
     glfwPollEvents();
 }
 
 void InputManager::AddKey(int key)
 {
-    keys.insert({ key, false });
+    keys.insert({ key, KeyState() });
 }
 
 bool InputManager::IsKeyPressed(int key) {
-    // Return the state of the specified key
-    return keys[key];
+    // Check if key is being held down
+    return keys[key].currentState;
+}
+
+bool InputManager::IsKeyJustPressed(int key) {
+    // Key was pressed this frame but wasn't in the previous frame
+    return keys[key].currentState && !keys[key].previousState;
+}
+
+bool InputManager::IsKeyJustReleased(int key) {
+    // Key was released this frame but was pressed in the previous frame
+    return !keys[key].currentState && keys[key].previousState;
 }
 
 bool InputManager::IsMouseButtonPressed(int button) {
@@ -50,11 +64,15 @@ void InputManager::GetMouseDelta(double& xoffset, double& yoffset) {
 }
 
 void InputManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (keys.find(key) == keys.end()) {
+        keys[key] = KeyState(); // Initialize if not present
+    }
+
     if (action == GLFW_PRESS) {
-        keys[key] = true;
+        keys[key].currentState = true;
     }
     else if (action == GLFW_RELEASE) {
-        keys[key] = false;
+        keys[key].currentState = false;
     }
 }
 

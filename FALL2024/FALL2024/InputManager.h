@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unordered_map>
 
+
 class InputManager {
 public:
     // Initializes the input manager with the GLFW window context
@@ -17,6 +18,8 @@ public:
 
     // Key press detection
     static bool IsKeyPressed(int key);
+    static bool IsKeyJustPressed(int key);   // Check if key was just pressed this frame
+    static bool IsKeyJustReleased(int key);
 
     // Mouse button press detection
     static bool IsMouseButtonPressed(int button);
@@ -35,8 +38,14 @@ public:
 private:
     static GLFWwindow* window;  // Reference to the window
 
+    struct KeyState 
+    {
+        bool currentState = false;
+        bool previousState = false;
+    };
+    
     // Track key and mouse button states
-    static std::unordered_map<int, bool> keys;
+    static std::unordered_map<int, KeyState> keys;
     static std::unordered_map<int, bool> mouseButtons;
 
     // Mouse position and movement tracking
