@@ -6,16 +6,19 @@
 #include "RotatingObject.h"
 
 // Constructor initializes camera and renderer
-Scene::Scene(Camera* cam, Renderer& rend) : camera(cam), renderer(rend) {}
+Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) {}
 
 void Scene::assignObjects()
 {
+    player1Controller = new PlayerInput(0, KeyboardMouse, window);
+    player2Controller = new PlayerInput(1, Gamepad, window);
+
     //Create Rotating Triangle Which is the root
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture();
-    RotatingObject* rotatingObject = new RotatingObject(ryu, renderer.GetModelMatrixLoc());
-    rotatingObject->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
-    rotatingObject->getTransform()->setScale(Vector3(-2.0f, 2.0f, 2.0f));
+    character1 = new Character(ryu, renderer.GetModelMatrixLoc());
+    character1->getTransform()->setPosition(Vector3(0.0f, 0.0f, 0.0f));
+    character1->getTransform()->setScale(Vector3(-2.0f, 2.0f, 2.0f));
 
     //A still object, but since it will inherit rotation from triangle mesh, it should rotate accordingly
     Triangle* triangleMesh = new Triangle (Vector3(0.0f, 1.0f, 0.0f), 0.1f, renderer.GetShader());
@@ -23,11 +26,10 @@ void Scene::assignObjects()
     stationaryObject->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
     stationaryObject->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
-    rotatingObject->addChild(stationaryObject);
+    character1->addChild(stationaryObject);
 
     animatedSquare.push_back(ryu);
-    addObject(rotatingObject);
-
+    addObject(character1);
 }
 
 // Add objects to the scene
@@ -38,7 +40,15 @@ void Scene::addObject(Node* obj)
 
 // Update objects in the scene (animations, physics, etc.)
 void Scene::update(float deltaTime) {
-    //angle += 0.05f * 0.05f;
+    if (player1Controller) {
+        player1Controller->Update();
+        character1->updateInput(player1Controller);
+
+    }
+    if (player2Controller) {
+        player2Controller->Update();
+    }
+
     for (AnimatedSquare* obj : animatedSquare)
     {
         //obj->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
@@ -73,6 +83,7 @@ void Scene::draw() {
 
 // Destructor to clean up dynamically allocated memory
 Scene::~Scene() {
+
     for (AnimatedSquare* obj : animatedSquare)
     {
         obj->cleanup();
@@ -83,4 +94,7 @@ Scene::~Scene() {
     {
         delete obj;
     }
+
+    delete player1Controller;
+    delete player2Controller;
 }

@@ -4,6 +4,9 @@
 #include "Renderer.h"
 #include "Node.h" // A class representing individual 3D objects
 #include "AnimatedSquare.h"
+#include "PlayerInput.h"
+#include "Character.h"
+#include "GameWindow.h"
 
 class Scene {
 private:
@@ -11,9 +14,13 @@ private:
     std::vector<AnimatedSquare*> animatedSquare;  // List of objects in the scene
     Camera* camera;                // Pointer to the camera
     Renderer& renderer;            // Pointer to the renderer
+    GameWindow& window;
+    PlayerInput* player1Controller;
+    PlayerInput* player2Controller;
+    Character* character1;
 public:
     // Constructor
-    Scene(Camera* cam, Renderer& rend);
+    Scene(Camera* cam, Renderer& rend, GameWindow& wind);
 
     void assignObjects();
 

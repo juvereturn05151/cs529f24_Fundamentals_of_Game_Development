@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -154,6 +154,7 @@
     <ClCompile Include="AnimatedSquare.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FALL2024.cpp" />
     <ClCompile Include="FrameController.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="ObjectMesh.cpp" />
+    <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RotatingObject.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -178,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSquare.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="FrameController.h" />
     <ClInclude Include="GameWindow.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="ObjectMesh.h" />
+    <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RotatingObject.h" />
     <ClInclude Include="Scene.h" />

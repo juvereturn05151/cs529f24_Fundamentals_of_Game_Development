@@ -11,7 +11,7 @@ int main()
         GameWindow window(800, 600, "OpenGL Window");
         Renderer renderer(window);
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
-        Scene * scene = new Scene(camera,renderer);
+        Scene * scene = new Scene(camera,renderer, window);
 
         scene->assignObjects();
 
