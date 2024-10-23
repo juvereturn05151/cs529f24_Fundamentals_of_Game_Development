@@ -6,6 +6,7 @@ AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram
     animations[AnimationState::Idle] = {0, 5, 0.2f };
     animations[AnimationState::WalkFront] = {1, 6, 0.2f };
     animations[AnimationState::WalkBack] = {2, 6, 0.2f };
+    animations[AnimationState::cMK] = { 3, 4, 0.125f };
 
     set_animation(AnimationState::Idle);
 
@@ -55,6 +56,12 @@ void AnimatedSquare::update_animation(float deltaTime)
     };
 
     editBUffers();
+}
+
+bool AnimatedSquare::isAnimationFinished() const
+{
+    // If the current frame is the last frame of the animation, return true
+    return currentFrame == (frameCount - 1);
 }
 
 void AnimatedSquare::draw()

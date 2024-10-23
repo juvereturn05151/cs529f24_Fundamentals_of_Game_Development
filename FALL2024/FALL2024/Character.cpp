@@ -37,53 +37,81 @@ void Character::update(float deltaTime)
 void Character::updateInput(PlayerInput* input) {
     float deltaX = 0.0f, deltaY = 0.0f;
 
-    // Handle left/right movement
-    if (InputManager::IsKeyPressed(input->GetMoveRight())) {
-        deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
-        if (animatedSquare != NULL) 
-        {
-            if (faceRight) 
-            {
-                animatedSquare->set_animation(AnimationState::WalkFront);
-            }
-            else
-            {
-                animatedSquare->set_animation(AnimationState::WalkBack);
-            }
-
-        }
-    }
-    if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
-        deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
-        if (animatedSquare != NULL)
-        {
-            if (faceRight)
-            {
-                animatedSquare->set_animation(AnimationState::WalkBack);
-            }
-            else
-            {
-                animatedSquare->set_animation(AnimationState::WalkFront);
-            }
-            
-        }
-    }
-
-    if (deltaX == 0.0f && deltaY == 0.0f)
+    // Check if the character is attacking
+    if (isAttacking)
     {
         if (animatedSquare != NULL)
         {
-            animatedSquare->set_animation(AnimationState::Idle);
+            animatedSquare->set_animation(AnimationState::cMK); // Set cMK animation
         }
+
+        // Optionally, handle timing to reset the attack state
+        if (AttackAnimationFinished()) // You need a way to check this
+        {
+            isAttacking = false; // Reset attack state
+        }
+
+        // While attacking, skip movement updates
+        return;
+    }
+    else
+    {
+        // Handle crouching medium kick input (cMK)
+        if (InputManager::IsKeyPressed(input->GetcMK()))
+        {
+            isAttacking = true; // Set attacking state
+            if (animatedSquare != NULL)
+            {
+                animatedSquare->set_animation(AnimationState::cMK); // Set cMK animation
+            }
+
+            // Prevent movement during the attack
+            return;
+        }
+
+        // Handle left/right movement
+        if (InputManager::IsKeyPressed(input->GetMoveRight())) {
+            deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
+            if (animatedSquare != NULL)
+            {
+                if (faceRight)
+                {
+                    animatedSquare->set_animation(AnimationState::WalkFront);
+                }
+                else
+                {
+                    animatedSquare->set_animation(AnimationState::WalkBack);
+                }
+            }
+        }
+        if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
+            deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
+            if (animatedSquare != NULL)
+            {
+                if (faceRight)
+                {
+                    animatedSquare->set_animation(AnimationState::WalkBack);
+                }
+                else
+                {
+                    animatedSquare->set_animation(AnimationState::WalkFront);
+                }
+            }
+        }
+
+        if (deltaX == 0.0f && deltaY == 0.0f)
+        {
+            if (animatedSquare != NULL)
+            {
+                animatedSquare->set_animation(AnimationState::Idle);
+            }
+        }
+
+        // Apply the movement
+        Move(deltaX, 0.0f);
     }
 
-    // Handle jumping (only if the character is on the ground)
-    /*if (input.IsKeyPressed(GLFW_KEY_SPACE) && isOnGround) {
-        Jump();
-    }*/
 
-    // Apply the movement
-    Move(deltaX, 0.0f);
 
     // Example for gamepad input
     /*float leftX, leftY;
@@ -114,4 +142,14 @@ void Character::Attack() {
 void Character::SetFaceRight(bool isRight)
 {
     faceRight = isRight;
+}
+
+bool Character::AttackAnimationFinished()
+{
+    if (animatedSquare != NULL) 
+    {
+        return animatedSquare->isAnimationFinished();
+    }
+
+    return false;
 }

@@ -28,6 +28,7 @@ public:
 
     int GetMoveLeft();
     int GetMoveRight();
+    int GetcMK();
 
 private:
     GameWindow& window;
@@ -53,6 +54,7 @@ private:
 
     int moveLeft = -1;
     int moveRight = -1;
+    int cMK = -1;
 };
 
 #endif

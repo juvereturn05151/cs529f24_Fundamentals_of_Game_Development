@@ -2,7 +2,7 @@
 #include "Square.h"
 #include <map>
 
-enum class AnimationState { Idle, WalkFront, WalkBack };
+enum class AnimationState { Idle, WalkFront, WalkBack,cMK };
 
 class AnimatedSquare : public Square
 {
@@ -29,6 +29,7 @@ public:
 	AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram);
 	void set_animation(AnimationState newState);
 	void update_animation(float deltaTime);
+	bool isAnimationFinished() const;
 	void draw() override;
 };
 

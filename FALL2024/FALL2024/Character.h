@@ -16,6 +16,8 @@ public:
     void Move(float deltaX, float deltaY);
     void Jump();
     void Attack();
+    void SetAttackAnimFinished(bool attack);
+    bool AttackAnimationFinished();
 
 private:
     
@@ -25,5 +27,8 @@ private:
     float jumpForce;
     bool isOnGround;
     bool faceRight;
+    bool isAttacking;
+    bool isAttackAnimFinished;
+
 };
 

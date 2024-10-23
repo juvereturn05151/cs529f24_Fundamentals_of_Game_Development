@@ -12,8 +12,10 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
         keys.insert({ GLFW_KEY_D, false });*/
         InputManager::AddKey(GLFW_KEY_A);
         InputManager::AddKey(GLFW_KEY_D);
+        InputManager::AddKey(GLFW_KEY_SPACE);
         moveLeft = GLFW_KEY_A;
         moveRight = GLFW_KEY_D;
+        cMK = GLFW_KEY_SPACE;
     }
     else if (playerId == 1)
     {
@@ -21,14 +23,12 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
         keys.insert({ GLFW_KEY_RIGHT, false });*/
         InputManager::AddKey(GLFW_KEY_LEFT);
         InputManager::AddKey(GLFW_KEY_RIGHT);
+        InputManager::AddKey(GLFW_KEY_KP_0);
         moveLeft = GLFW_KEY_LEFT;
         moveRight = GLFW_KEY_RIGHT;
+        cMK = GLFW_KEY_KP_0;
     }
-
-
     // Set GLFW callbacks for input
-
-
 }
 
 void PlayerInput::Update() {
@@ -96,4 +96,9 @@ int PlayerInput::GetMoveLeft()
 int PlayerInput::GetMoveRight()
 {
     return moveRight;
+}
+
+int PlayerInput::GetcMK()
+{
+    return cMK;
 }
