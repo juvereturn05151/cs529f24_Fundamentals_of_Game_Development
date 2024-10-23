@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "FrameController.h"
+#include "InputManager.h"
 
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelMatrixLoc)
@@ -32,10 +33,10 @@ void Character::updateInput(PlayerInput* input) {
     float deltaX = 0.0f, deltaY = 0.0f;
 
     // Handle left/right movement
-    if (input->IsKeyPressed(input->GetMoveRight())) {
+    if (InputManager::IsKeyPressed(input->GetMoveRight())) {
         deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
     }
-    if (input->IsKeyPressed(input->GetMoveLeft())) {
+    if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
         deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
     }
 
@@ -55,9 +56,6 @@ void Character::updateInput(PlayerInput* input) {
     //Move(leftX * movementSpeed, 0.0f);
 
     // Update the position with velocity (e.g., gravity)
-
-
-
 }
 
 void Character::Move(float deltaX, float deltaY) {

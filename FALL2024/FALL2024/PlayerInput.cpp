@@ -1,4 +1,5 @@
 #include "PlayerInput.h"
+#include "InputManager.h"
 
 PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
     : playerId(playerId), device(device), window(wind), lastMouseX(0.0), lastMouseY(0.0), deltaX(0.0), deltaY(0.0), firstMouseMove(true) 
@@ -7,23 +8,25 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
 
     if (playerId == 0) 
     {
-        keys.insert({ GLFW_KEY_A, false });
-        keys.insert({ GLFW_KEY_D, false });
+       /* keys.insert({GLFW_KEY_A, false});
+        keys.insert({ GLFW_KEY_D, false });*/
+        InputManager::AddKey(GLFW_KEY_A);
+        InputManager::AddKey(GLFW_KEY_D);
         moveLeft = GLFW_KEY_A;
         moveRight = GLFW_KEY_D;
     }
     else if (playerId == 1)
     {
-        keys.insert({ GLFW_KEY_LEFT, false });
-        keys.insert({ GLFW_KEY_RIGHT, false });
+        /*keys.insert({GLFW_KEY_LEFT, false});
+        keys.insert({ GLFW_KEY_RIGHT, false });*/
+        InputManager::AddKey(GLFW_KEY_LEFT);
+        InputManager::AddKey(GLFW_KEY_RIGHT);
         moveLeft = GLFW_KEY_LEFT;
         moveRight = GLFW_KEY_RIGHT;
     }
 
 
     // Set GLFW callbacks for input
-    glfwSetKeyCallback(window.getWindow(), KeyCallback);
-    glfwSetMouseButtonCallback(window.getWindow(), MouseButtonCallback);
 
 
 }
@@ -35,25 +38,6 @@ void PlayerInput::Update() {
     else if (device == Gamepad) {
         UpdateGamepad();
     }
-}
-
-void PlayerInput::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    // Update key state
-    PlayerInput* input = reinterpret_cast<PlayerInput*>(glfwGetWindowUserPointer(window));
-
-    if (action == GLFW_PRESS) {
-
-        input->keys[key] = true;
-    }
-    else if (action == GLFW_RELEASE) {
-        input->keys[key] = false;
-    }
-}
-
-// Static mouse button callback function for GLFW
-void PlayerInput::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) 
-{
-    
 }
 
 void PlayerInput::UpdateKeyboardMouse() {

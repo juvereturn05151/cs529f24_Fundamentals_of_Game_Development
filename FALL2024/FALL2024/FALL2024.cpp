@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "FrameController.h"
+#include "InputManager.h"
 
 int main() 
 {
@@ -11,13 +12,14 @@ int main()
         GameWindow window(1600, 900, "OpenGL Window");
         Renderer renderer(window);
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
+        InputManager::Initialize(window.getWindow());
         Scene * scene = new Scene(camera,renderer, window);
 
         scene->assignObjects();
 
         while (!window.shouldClose()) {
             window.pollEvents();
-
+            InputManager::Update();
             FrameController::getInstance().update();
 
             scene->update(FrameController::getInstance().getDeltaTime());

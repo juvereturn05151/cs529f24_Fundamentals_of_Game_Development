@@ -159,6 +159,7 @@
     <ClCompile Include="FALL2024.cpp" />
     <ClCompile Include="FrameController.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="EBO.h" />
     <ClInclude Include="FrameController.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Matrix4_impl.h" />
