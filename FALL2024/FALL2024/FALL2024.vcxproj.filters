@@ -123,9 +123,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="stb.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="AnimatedSquare.cpp">
       <Filter>Source Files\Engine\GameObject</Filter>
     </ClCompile>
@@ -137,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="stb.cpp">
+      <Filter>Source Files\TemplatedExample</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,10 @@ ObjectMesh::ObjectMesh(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatr
 ObjectMesh::~ObjectMesh() {
     // Delete the mesh object to free memory
     cleanup();
-    delete mesh;
+    if (mesh != NULL)
+    {
+        delete mesh;
+    }
 }
 
 void ObjectMesh::draw()
