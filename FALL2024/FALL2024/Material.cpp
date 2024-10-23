@@ -35,6 +35,6 @@ void Material::SetShader(Shader* shaderProgram)
 void Material::AddTexture()
 {
     hasTexture = true;
-    texture = new Texture("Ryu.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texture = new Texture("Ryu2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     texture->texUnit(*shader, "tex0", 0);
 }

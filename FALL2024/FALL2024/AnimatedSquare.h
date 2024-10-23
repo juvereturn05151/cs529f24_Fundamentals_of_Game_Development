@@ -8,6 +8,8 @@ protected:
 	int currentFrame = 0;
 	float elapsedTime = 0.0f;
 	float frameWidth;
+	float frameHeight;
+
 
 public:
 	AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram);

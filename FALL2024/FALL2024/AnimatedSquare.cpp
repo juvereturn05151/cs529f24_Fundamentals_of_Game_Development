@@ -3,7 +3,7 @@
 
 AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram) : Square(color, alpha, shaderProgram)
 {
-    frameWidth = 0.25f;
+    frameWidth = 0.1f;
 }
 
 void AnimatedSquare::update_animation(float deltaTime)
@@ -22,10 +22,10 @@ void AnimatedSquare::update_animation(float deltaTime)
 
     vertices =
     {
-        squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, 0.0f,
+        squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, 0.9f,
         squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, left, 1.0f,
         squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, right, 1.0f,
-        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, right, 0.0f
+        squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, right, 0.9f
     };
 
     indices =
