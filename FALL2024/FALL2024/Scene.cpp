@@ -16,18 +16,24 @@ void Scene::assignObjects()
     //Player 1
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture();
-    character1 = new Character(ryu, renderer.GetModelMatrixLoc());
-    character1->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
-    character1->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
+    Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
+    visualHolder->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
+    visualHolder->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
+    
+    character1 = new Character(NULL, renderer.GetModelMatrixLoc());
+    character1->addChild(visualHolder);
 
     animatedSquares.push_back(ryu);
     addObject(character1);
 
     AnimatedSquare* ryu2 = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu2->AddTexture();
-    character2 = new Character(ryu2, renderer.GetModelMatrixLoc());
-    character2->getTransform()->setScale(Vector3(2.0f, 2.0f, 2.0f));
-    character2->getTransform()->setPosition(Vector3(2.0f, 0.0f, 0.0f));
+    Node* visualHolder2 = new ObjectMesh(ryu2, renderer.GetModelMatrixLoc());
+    visualHolder2->getTransform()->setScale(Vector3(-2.0f, 2.0f, 2.0f));
+    visualHolder2->getTransform()->setPosition(Vector3(-2.0f, 0.0f, 0.0f));
+    
+    character2 = new Character(NULL, renderer.GetModelMatrixLoc());
+    character2->addChild(visualHolder2);
 
     animatedSquares.push_back(ryu2);
     addObject(character2);
