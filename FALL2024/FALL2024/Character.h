@@ -24,7 +24,7 @@ public:
     BoxCollider2D* getHurtBox();
 
 private:
-    
+    float deltaX = 0.0f, deltaY = 0.0f;
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
     float movementSpeed;

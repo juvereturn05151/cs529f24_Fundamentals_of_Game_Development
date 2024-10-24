@@ -63,27 +63,50 @@ void Character::updateInput(PlayerInput* input) {
         }
 
         // Handle left/right movement
-        if (InputManager::IsKeyPressed(input->GetMoveRight())) 
-        {
-            MoveRight();
+        if (InputManager::IsKeyPressed(input->GetMoveRight())) {
+            deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
+            if (animatedSquare != NULL)
+            {
+                if (faceRight)
+                {
+                    animatedSquare->set_animation(AnimationState::WalkFront);
+                }
+                else
+                {
+                    animatedSquare->set_animation(AnimationState::WalkBack);
+                }
+            }
         }
-        if (InputManager::IsKeyPressed(input->GetMoveLeft())) 
-        {
-            MoveLeft();
+        if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
+            deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
+            if (animatedSquare != NULL)
+            {
+                if (faceRight)
+                {
+                    animatedSquare->set_animation(AnimationState::WalkBack);
+                }
+                else
+                {
+                    animatedSquare->set_animation(AnimationState::WalkFront);
+                }
+            }
         }
+
+        if (deltaX == 0.0f && deltaY == 0.0f)
+        {
+            if (animatedSquare != NULL)
+            {
+                animatedSquare->set_animation(AnimationState::Idle);
+            }
+        }
+
+        // Apply the movement
+        UpdateMovement(deltaX, 0.0f);
     }
 }
 
 void Character::UpdateMovement(float deltaX, float deltaY) 
 {
-    if (deltaX == 0.0f && deltaY == 0.0f)
-    {
-        if (animatedSquare != NULL)
-        {
-            animatedSquare->set_animation(AnimationState::Idle);
-        }
-    }
-
     getTransform()->setPosition(getTransform()->getPosition() + Vector3(deltaX, deltaY, 0));
 }
 
@@ -102,8 +125,6 @@ void Character::MoveRight()
             animatedSquare->set_animation(AnimationState::WalkBack);
         }
     }
-
-    UpdateMovement(deltaX, 0);
 }
 
 void Character::MoveLeft()
@@ -121,8 +142,6 @@ void Character::MoveLeft()
             animatedSquare->set_animation(AnimationState::WalkFront);
         }
     }
-
-    UpdateMovement(deltaX, 0);
 }
 
 void Character::Attack() 

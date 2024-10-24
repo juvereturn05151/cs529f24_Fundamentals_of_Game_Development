@@ -7,6 +7,7 @@ private:
     GLint modelMatrixLoc;
 
 public:
+    ObjectMesh();
     ObjectMesh(Mesh* mesh);
     ObjectMesh(Mesh* mesh, GLint modelMatrixLoc);
     ~ObjectMesh();

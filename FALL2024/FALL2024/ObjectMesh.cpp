@@ -1,5 +1,10 @@
 #include "ObjectMesh.h"
 
+ObjectMesh::ObjectMesh()
+{
+
+}
+
 ObjectMesh::ObjectMesh(Mesh* mesh) : mesh(mesh)
 {
 
