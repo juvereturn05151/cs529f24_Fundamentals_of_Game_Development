@@ -15,8 +15,9 @@ public:
     void cleanup() override;
 
     // Character actions (movement, etc.)
-    void Move(float deltaX, float deltaY);
-    void Jump();
+
+    void MoveRight();
+    void MoveLeft();
     void Attack();
     bool AttackAnimationFinished();
     void setHurtBox(BoxCollider2D* newHurtBox);
@@ -24,15 +25,14 @@ public:
 
 private:
     
-    Vector3 velocity;  // Character's current velocity
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
     float movementSpeed;
-    float jumpForce;
-    bool isOnGround;
     bool faceRight;
     bool isAttacking;
     bool isAttackAnimFinished;
+
+    void UpdateMovement(float deltaX, float deltaY);
 
 };
 
