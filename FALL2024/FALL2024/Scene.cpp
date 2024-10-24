@@ -23,7 +23,14 @@ void Scene::assignObjects()
     character1 = new Character(NULL, renderer.GetModelMatrixLoc());
     character1->SetAnimatedSquare(ryu);
     character1->SetFaceRight(true);
+
+    Node* hurtBoxHolder = character1->getHurtBox();
+    hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
+
+    character1->getHurtBox()->createRenderableSquare(renderer.GetShader());
+
     character1->addChild(visualHolder);
+    character1->addChild(hurtBoxHolder);
 
     animatedSquares.push_back(ryu);
     addObject(character1);
@@ -87,6 +94,8 @@ void Scene::draw() {
     {
         obj->draw();
     }
+
+    character1->RenderHitbox();
 
     // Swap buffers after rendering
     renderer.swapBuffers();

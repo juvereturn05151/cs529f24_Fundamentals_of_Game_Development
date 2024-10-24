@@ -2,6 +2,7 @@
 #include "ObjectMesh.h"
 #include "PlayerInput.h"
 #include "AnimatedSquare.h"
+#include "BoxCollider2D.h"
 class Character : public ObjectMesh
 {
 public:
@@ -11,18 +12,21 @@ public:
 
     void updateInput(PlayerInput* input);
     void update(float deltaTime) override;
+    void cleanup() override;
 
     // Character actions (movement, etc.)
     void Move(float deltaX, float deltaY);
     void Jump();
     void Attack();
-    void SetAttackAnimFinished(bool attack);
     bool AttackAnimationFinished();
+    BoxCollider2D* getHurtBox();
+    void RenderHitbox();
 
 private:
     
     Vector3 velocity;  // Character's current velocity
     AnimatedSquare* animatedSquare;
+    BoxCollider2D* hurtBox;
     float movementSpeed;
     float jumpForce;
     bool isOnGround;

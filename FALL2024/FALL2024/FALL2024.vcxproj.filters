@@ -67,6 +67,12 @@
     <Filter Include="Source Files\Engine\Input">
       <UniqueIdentifier>{631b61af-5dad-4d7f-b730-a6ffa38e7844}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Collision">
+      <UniqueIdentifier>{430661db-49dd-49bc-8720-93e8dce2c71e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Collision">
+      <UniqueIdentifier>{2f79a151-cb47-4a69-988d-4fd550a7aa34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -150,6 +156,9 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VectorTemplated.h">
@@ -229,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

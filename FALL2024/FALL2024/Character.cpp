@@ -5,10 +5,21 @@
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelMatrixLoc)
 {
-	velocity = Vector3(0.0f, 0.0f, 0.0f);
-	movementSpeed = 5.0f;
-	jumpForce = 10.0f;
-	isOnGround = true;
+    velocity = Vector3(0.0f, 0.0f, 0.0f);
+    movementSpeed = 5.0f;
+    jumpForce = 10.0f;
+    isOnGround = true;
+    Vector3 pos = getTransform()->getPosition();
+    Vector3 scale = getTransform()->getScale();
+
+    hurtBox = new BoxCollider2D(pos.x, pos.y, scale.x, scale.y);
+
+
+}
+
+void Character::RenderHitbox()
+{
+    
 }
 
 void Character::SetAnimatedSquare(AnimatedSquare* animated)
@@ -16,8 +27,19 @@ void Character::SetAnimatedSquare(AnimatedSquare* animated)
     animatedSquare = animated;
 }
 
+void Character::cleanup()
+{
+    if (hurtBox != NULL) 
+    {
+        delete hurtBox;
+    }
+
+    ObjectMesh::cleanup();
+}
+
 void Character::update(float deltaTime)
 {
+
     //position = position + velocity;
 
     // Apply some basic gravity simulation for jumping
@@ -152,4 +174,9 @@ bool Character::AttackAnimationFinished()
     }
 
     return false;
+}
+
+BoxCollider2D* Character::getHurtBox()
+{
+    return hurtBox;
 }
