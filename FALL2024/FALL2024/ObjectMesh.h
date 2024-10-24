@@ -4,7 +4,7 @@
 class ObjectMesh : public Node {
 private:
     Mesh* mesh;  // Pointer to a Mesh instance
-
+    GLint modelMatrixLoc;
 
 public:
     ObjectMesh(Mesh* mesh);

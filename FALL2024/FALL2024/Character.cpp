@@ -9,17 +9,17 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelM
     movementSpeed = 5.0f;
     jumpForce = 10.0f;
     isOnGround = true;
-    Vector3 pos = getTransform()->getPosition();
+    /*Vector3 pos = getTransform()->getPosition();
     Vector3 scale = getTransform()->getScale();
 
-    hurtBox = new BoxCollider2D(pos.x, pos.y, scale.x, scale.y);
+    hurtBox = new BoxCollider2D(pos.x, pos.y, scale.x, scale.y);*/
 
 
 }
 
-void Character::RenderHitbox()
+void Character::setHurtBox(BoxCollider2D* newHurtBox)
 {
-    
+    hurtBox = newHurtBox;
 }
 
 void Character::SetAnimatedSquare(AnimatedSquare* animated)

@@ -2,8 +2,8 @@
 #include<iostream>
 #include <glew/glew.h>
 #include"Square.h"
-#include"Node.h"
-class BoxCollider2D : public Node
+#include"ObjectMesh.h"
+class BoxCollider2D : public ObjectMesh
 {
 private:
     float x, y;         // Position (top-left corner)
@@ -12,7 +12,7 @@ private:
 
 public:
     // Constructor
-    BoxCollider2D(float xPos, float yPos, float w, float h);
+    BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position, Vector3 scale);
 
     // Getters for position and size
     float getX() const;
@@ -26,9 +26,5 @@ public:
 
     // Method to check if this box is colliding with another box
     bool isColliding(const BoxCollider2D& other) const;
-
-    void createRenderableSquare(Shader* shaderProgram);
-
-    void draw()override;
 };
 

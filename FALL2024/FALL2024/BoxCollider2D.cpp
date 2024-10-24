@@ -1,16 +1,16 @@
 #include "BoxCollider2D.h"
 
-BoxCollider2D::BoxCollider2D(float xPos, float yPos, float w, float h)
-    : x(xPos), y(yPos), width(w), height(h)
+BoxCollider2D::BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position, Vector3 scale)
+    : ObjectMesh(mesh, modelMatrixLoc), x(position.x), y(position.y), width(scale.x), height(scale.y)
 {
 
 }
 
-void BoxCollider2D::createRenderableSquare(Shader* shaderProgram)
+/*void BoxCollider2D::createRenderableSquare(Shader* shaderProgram)
 {
     square = new Square(Vector3(x - width, y - height, 0), Vector3(x - width, y + height, 0),
         Vector3(x + width, y + height, 0), Vector3(x + width, y - height, 0), Vector3(0,1,0), 0.5f, shaderProgram);
-}
+}*/
 
 // Getters for position and size
 float BoxCollider2D::getX() const { return x; }
@@ -34,16 +34,5 @@ bool BoxCollider2D::isColliding(const BoxCollider2D& other) const {
 
     // If both axes overlap, there's a collision
     return collisionX && collisionY;
-}
-
-void BoxCollider2D::draw() 
-{
-    Matrix4<float> modelMatrix = getGlobalModelMatrix();
-    glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
-
-    if (square != NULL)
-    {
-        square->draw();
-    }
 }
 

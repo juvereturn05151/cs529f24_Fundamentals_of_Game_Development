@@ -19,8 +19,8 @@ public:
     void Jump();
     void Attack();
     bool AttackAnimationFinished();
+    void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
-    void RenderHitbox();
 
 private:
     

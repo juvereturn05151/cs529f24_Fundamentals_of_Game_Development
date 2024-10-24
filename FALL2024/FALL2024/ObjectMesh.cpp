@@ -5,9 +5,9 @@ ObjectMesh::ObjectMesh(Mesh* mesh) : mesh(mesh)
 
 }
 
-ObjectMesh::ObjectMesh(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh)
+ObjectMesh::ObjectMesh(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatrixLoc(modelMatrixLoc)
 {
-    this->modelMatrixLoc = modelMatrixLoc;
+
 }
 
 // Destructor
