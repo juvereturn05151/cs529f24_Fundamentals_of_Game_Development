@@ -34,7 +34,6 @@ void Character::update(float deltaTime)
 }
 
 void Character::updateInput(PlayerInput* input) {
-    float deltaX = 0.0f, deltaY = 0.0f;
 
     // Check if the character is attacking
     if (isAttacking)
@@ -62,57 +61,35 @@ void Character::updateInput(PlayerInput* input) {
             return;
         }
 
-        // Handle left/right movement
-        if (InputManager::IsKeyPressed(input->GetMoveRight())) {
-            deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
-            if (animatedSquare != NULL)
-            {
-                if (faceRight)
-                {
-                    animatedSquare->set_animation(AnimationState::WalkFront);
-                }
-                else
-                {
-                    animatedSquare->set_animation(AnimationState::WalkBack);
-                }
-            }
-        }
-        if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
-            deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
-            if (animatedSquare != NULL)
-            {
-                if (faceRight)
-                {
-                    animatedSquare->set_animation(AnimationState::WalkBack);
-                }
-                else
-                {
-                    animatedSquare->set_animation(AnimationState::WalkFront);
-                }
-            }
-        }
-
-        if (deltaX == 0.0f && deltaY == 0.0f)
-        {
-            if (animatedSquare != NULL)
-            {
-                animatedSquare->set_animation(AnimationState::Idle);
-            }
-        }
-
         // Apply the movement
-        UpdateMovement(deltaX, 0.0f);
+        UpdateMovement(input);
     }
 }
 
-void Character::UpdateMovement(float deltaX, float deltaY) 
+void Character::UpdateMovement(PlayerInput* input)
 {
+    deltaX = 0.0f, deltaY = 0.0f;
+    // Handle left/right movement
+    if (InputManager::IsKeyPressed(input->GetMoveRight())) {
+        MoveRight();
+    }
+    if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
+        MoveLeft();
+    }
+
+    if (deltaX == 0.0f && deltaY == 0.0f)
+    {
+        if (animatedSquare != NULL)
+        {
+            animatedSquare->set_animation(AnimationState::Idle);
+        }
+    }
+
     getTransform()->setPosition(getTransform()->getPosition() + Vector3(deltaX, deltaY, 0));
 }
 
 void Character::MoveRight()
 {
-    float deltaX = 0.0f;
     deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
     if (animatedSquare != NULL)
     {
@@ -129,7 +106,6 @@ void Character::MoveRight()
 
 void Character::MoveLeft()
 {
-    float deltaX = 0.0f;
     deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
     if (animatedSquare != NULL)
     {

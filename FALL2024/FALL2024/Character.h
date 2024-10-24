@@ -32,7 +32,7 @@ private:
     bool isAttacking;
     bool isAttackAnimFinished;
 
-    void UpdateMovement(float deltaX, float deltaY);
+    void UpdateMovement(PlayerInput* input);
 
 };
 
