@@ -54,8 +54,9 @@ void Character::updateInput(PlayerInput* input) {
     else
     {
         // Handle crouching medium kick input (cMK)
-        if (InputManager::IsKeyPressed(input->GetcMK()))
+        if (InputManager::IsKeyJustPressed(input->GetcMK()))
         {
+            
             Attack();
             // Prevent movement during the attack
             return;
@@ -122,6 +123,7 @@ void Character::MoveLeft()
 
 void Character::Attack() 
 {
+    printf("attack");
     isAttacking = true; // Set attacking state
     if (animatedSquare != NULL)
     {

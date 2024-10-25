@@ -19,11 +19,13 @@ int main()
 
         while (!window.shouldClose()) {
             window.pollEvents();
-            InputManager::Update();
+
             FrameController::getInstance().update();
 
             scene->update(FrameController::getInstance().getDeltaTime());
             scene->draw();
+
+            InputManager::Update();
         }
 
         delete camera;

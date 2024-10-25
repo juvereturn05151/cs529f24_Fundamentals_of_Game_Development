@@ -20,41 +20,56 @@ void InputManager::Initialize(GLFWwindow* windowContext) {
 }
 
 void InputManager::Update() {
-    // Poll for any GLFW events, such as keyboard and mouse inputs
+    // Iterate over all key states
     for (auto& [key, state] : keys) {
-        state.previousState = state.currentState;
+        // Reset the pressed and released states for the new frame
+        state.pressed = false;
+        state.released = false;
+
+        // Get the current GLFW key state (pressed or released)
+        int glfwState = glfwGetKey(window, key);
+
+        // If the key is pressed in GLFW
+        if (glfwState == GLFW_PRESS) {
+            if (!state.held) {
+                state.pressed = true;   // Key was just pressed
+            }
+            state.held = true;  // Key is being held
+        }
+        // If the key is released in GLFW
+        else if (glfwState == GLFW_RELEASE) {
+            if (state.held) {
+                state.released = true;  // Key was just released
+            }
+            state.held = false;  // Key is no longer held
+        }
     }
 
+    // Process other GLFW events
     glfwPollEvents();
 }
 
-void InputManager::AddKey(int key)
-{
+void InputManager::AddKey(int key) {
     keys.insert({ key, KeyState() });
 }
 
 bool InputManager::IsKeyPressed(int key) {
-    // Check if key is being held down
-    return keys[key].currentState;
+    return keys[key].held;
 }
 
 bool InputManager::IsKeyJustPressed(int key) {
-    // Key was pressed this frame but wasn't in the previous frame
-    return keys[key].currentState && !keys[key].previousState;
+    return keys[key].pressed;
 }
 
 bool InputManager::IsKeyJustReleased(int key) {
-    // Key was released this frame but was pressed in the previous frame
-    return !keys[key].currentState && keys[key].previousState;
+    return keys[key].released;
 }
 
 bool InputManager::IsMouseButtonPressed(int button) {
-    // Return the state of the specified mouse button
     return mouseButtons[button];
 }
 
 void InputManager::GetMousePosition(double& xpos, double& ypos) {
-    // Get the current mouse position
     glfwGetCursorPos(window, &xpos, &ypos);
 }
 
@@ -69,20 +84,18 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scancode, int ac
     }
 
     if (action == GLFW_PRESS) {
-        keys[key].currentState = true;
+        printf("press");
+        keys[key].pressed = true;
+        keys[key].held = true;
     }
     else if (action == GLFW_RELEASE) {
-        keys[key].currentState = false;
+        keys[key].released = true;
+        keys[key].held = false;
     }
 }
 
 void InputManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-    if (action == GLFW_PRESS) {
-        mouseButtons[button] = true;
-    }
-    else if (action == GLFW_RELEASE) {
-        mouseButtons[button] = false;
-    }
+    mouseButtons[button] = (action == GLFW_PRESS);
 }
 
 void InputManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
