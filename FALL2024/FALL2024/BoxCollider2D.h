@@ -15,16 +15,16 @@ public:
     BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position, Vector3 scale);
 
     // Getters for position and size
-    float getX() const;
-    float getY() const;
-    float getWidth() const;
-    float getHeight() const;
+    float getX();
+    float getY();
+    float getWidth();
+    float getHeight();
 
     // Setters for position and size
     void setPosition(float xPos, float yPos);
     void setSize(float w, float h);
 
     // Method to check if this box is colliding with another box
-    bool isColliding(const BoxCollider2D& other) const;
+    bool isColliding(BoxCollider2D& other);
 };
 

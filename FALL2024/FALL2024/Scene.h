@@ -24,6 +24,8 @@ public:
 
     void assignObjects();
 
+    void handleCollision();
+
     // Add objects to the scene
     void addObject(Node* obj);
 

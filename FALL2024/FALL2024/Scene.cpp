@@ -29,19 +29,31 @@ void Scene::addObject(Node* obj)
 
 // Update objects in the scene (animations, physics, etc.)
 void Scene::update(float deltaTime) {
-    if (player1Controller) {
+    if (player1Controller) 
+    {
         player1Controller->Update();
         character1->updateInput(player1Controller);
 
     }
-    if (player2Controller) {
+    if (player2Controller) 
+    {
         player2Controller->Update();
         character2->updateInput(player2Controller);
     }
 
+    handleCollision();
+
     for (Node* obj : objects) 
     {
         obj->update(deltaTime);  // Assuming objects have an update method
+    }
+}
+
+void Scene::handleCollision()
+{
+    if (character1->getHurtBox()->isColliding(*character2->getHurtBox())) 
+    {
+        printf("collide\n");
     }
 }
 
