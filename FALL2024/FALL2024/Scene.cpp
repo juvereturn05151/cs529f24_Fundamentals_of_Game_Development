@@ -54,6 +54,27 @@ void Scene::handleCollision()
     if (character1->getHurtBox()->isColliding(*character2->getHurtBox())) 
     {
         printf("collide\n");
+
+        // Define a pushback distance
+        float pushbackDistance = 0.1f; // Adjust this value to control the pushback strength
+
+        // Get current positions
+        Vector3 position1 = character1->getTransform()->getPosition();
+        Vector3 position2 = character2->getTransform()->getPosition();
+
+        // Determine direction of pushback
+        if (position1.x < position2.x)
+        {
+            // character1 is to the left, so push it left and character2 right
+            character1->getTransform()->setPosition(Vector3(position1.x + pushbackDistance, position1.y, position1.z));
+            character2->getTransform()->setPosition(Vector3(position2.x - pushbackDistance, position2.y, position2.z));
+        }
+        else
+        {
+            // character1 is to the right, so push it right and character2 left
+            character1->getTransform()->setPosition(Vector3(position1.x - pushbackDistance, position1.y, position1.z));
+            character2->getTransform()->setPosition(Vector3(position2.x + pushbackDistance, position2.y, position2.z));
+        }
     }
 }
 
