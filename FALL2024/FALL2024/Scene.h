@@ -11,7 +11,6 @@
 class Scene {
 private:
     std::vector<Node*> objects;  // List of objects in the scene
-    std::vector<AnimatedSquare*> animatedSquares;  // List of objects in the scene
     Camera* camera;                // Pointer to the camera
     Renderer& renderer;            // Pointer to the renderer
     GameWindow& window;

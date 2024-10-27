@@ -3,17 +3,19 @@
 #include "PlayerInput.h"
 #include "AnimatedSquare.h"
 #include "BoxCollider2D.h"
+#include "Renderer.h"
 class Character : public ObjectMesh
 {
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc);
+    Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);
     void SetAnimatedSquare(AnimatedSquare* animated);
     void SetFaceRight(bool isRight);
 
     void updateInput(PlayerInput* input);
     void update(float deltaTime) override;
     void cleanup() override;
-
+    void draw() override;
     // Character actions (movement, etc.)
 
     void MoveRight();

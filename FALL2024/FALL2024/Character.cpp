@@ -2,10 +2,54 @@
 #include "FrameController.h"
 #include "InputManager.h"
 
-
 Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelMatrixLoc)
 {
     movementSpeed = 5.0f;
+}
+
+Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : ObjectMesh(mesh, modelMatrixLoc)
+{
+    movementSpeed = 5.0f;
+
+    AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    ryu->AddTexture();
+    Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
+    
+    if (playerSide == 0)
+    {
+        visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
+    }
+    else 
+    {
+        visualHolder->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
+    }
+
+    visualHolder->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
+
+    SetAnimatedSquare(ryu);
+
+    Vector3 pos = getTransform()->getPosition();
+    Vector3 scale = getTransform()->getScale();
+
+    Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
+        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
+
+    BoxCollider2D* boxCollider = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
+
+    setHurtBox(boxCollider);
+    Node* hurtBoxHolder = getHurtBox();
+
+    if (playerSide == 0)
+    {
+        hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
+    }
+    else
+    {
+        hurtBoxHolder->getTransform()->setPosition(Vector3(3.0f, 0.0f, 0.0f));
+    }
+
+    addChild(visualHolder);
+    addChild(hurtBoxHolder);
 }
 
 void Character::setHurtBox(BoxCollider2D* newHurtBox)
@@ -30,7 +74,17 @@ void Character::cleanup()
 
 void Character::update(float deltaTime)
 {
+    if (animatedSquare != NULL)
+    {
+        animatedSquare->update_animation(deltaTime);
+    }
+
     ObjectMesh::update(deltaTime);
+}
+
+void Character::draw()
+{
+    ObjectMesh::draw();
 }
 
 void Character::updateInput(PlayerInput* input) {
@@ -123,7 +177,6 @@ void Character::MoveLeft()
 
 void Character::Attack() 
 {
-    printf("attack");
     isAttacking = true; // Set attacking state
     if (animatedSquare != NULL)
     {

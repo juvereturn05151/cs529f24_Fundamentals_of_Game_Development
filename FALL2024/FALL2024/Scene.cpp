@@ -13,47 +13,11 @@ void Scene::assignObjects()
     player1Controller = new PlayerInput(0, KeyboardMouse, window);
     player2Controller = new PlayerInput(1, KeyboardMouse, window);
 
-    //Player 1
-    AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    ryu->AddTexture();
-    Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
-    visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
-    visualHolder->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
-
-    character1 = new Character(NULL, renderer.GetModelMatrixLoc());
-    character1->SetAnimatedSquare(ryu);
+    character1 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 0);
     character1->SetFaceRight(true);
-
-    Vector3 pos = character1->getTransform()->getPosition();
-    Vector3 scale = character1->getTransform()->getScale();
-
-    Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
-
-    BoxCollider2D* boxCollider = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
-    
-    character1->setHurtBox(boxCollider);
-    Node* hurtBoxHolder = character1->getHurtBox();
-    hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
-
-    character1->addChild(visualHolder);
-    character1->addChild(hurtBoxHolder);
-
-    animatedSquares.push_back(ryu);
     addObject(character1);
 
-
-    AnimatedSquare* ryu2 = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    ryu2->AddTexture();
-    Node* visualHolder2 = new ObjectMesh(ryu2, renderer.GetModelMatrixLoc());
-    visualHolder2->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
-    visualHolder2->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
-    
-    character2 = new Character(NULL, renderer.GetModelMatrixLoc());
-    character2->SetAnimatedSquare(ryu2);
-    character2->addChild(visualHolder2);
-
-    animatedSquares.push_back(ryu2);
+    character2 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 1);
     addObject(character2);
 }
 
@@ -75,16 +39,8 @@ void Scene::update(float deltaTime) {
         character2->updateInput(player2Controller);
     }
 
-    for (AnimatedSquare* obj : animatedSquares)
-    {
-        //obj->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
-        obj->update_animation(deltaTime);  // Assuming objects have an update method
-    }
-    
-
     for (Node* obj : objects) 
     {
-        //obj->getTransform()->setRotation(Vector3(0.0f, angle, 0.0f));
         obj->update(deltaTime);  // Assuming objects have an update method
     }
 }
@@ -108,19 +64,20 @@ void Scene::draw() {
 }
 
 // Destructor to clean up dynamically allocated memory
-Scene::~Scene() {
-
-    for (AnimatedSquare* obj : animatedSquares)
-    {
-        obj->cleanup();
-        delete obj;
-    }
-
+Scene::~Scene() 
+{
     for (Node* obj : objects) 
     {
         delete obj;
     }
 
-    delete player1Controller;
-    delete player2Controller;
+    if (player1Controller != NULL)
+    {
+        delete player1Controller;
+    }
+
+    if (player2Controller != NULL)
+    {
+        delete player2Controller;
+    }
 }
