@@ -76,14 +76,14 @@
     <Filter Include="Header Files\GameComponent">
       <UniqueIdentifier>{df8c178d-363f-4fa0-a628-06cd7673c67f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\GameComponent">
-      <UniqueIdentifier>{3eb5c759-f542-4143-98fd-f17cced73b63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Physics">
       <UniqueIdentifier>{b385abb6-10e0-4d3e-9513-9c49db32ea52}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Physics">
       <UniqueIdentifier>{34391895-402f-43a1-890a-8341a16471a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponent">
+      <UniqueIdentifier>{3eb5c759-f542-4143-98fd-f17cced73b63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +169,7 @@
       <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>Source Files\Engine\GameComponent</Filter>
+      <Filter>Source Files\GameComponent</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\Engine\Physics</Filter>

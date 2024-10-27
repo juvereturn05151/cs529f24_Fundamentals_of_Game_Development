@@ -50,6 +50,8 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 
     addChild(visualHolder);
     addChild(hurtBoxHolder);
+
+    addPhysicsComponent(1.0f);
 }
 
 void Character::setHurtBox(BoxCollider2D* newHurtBox)

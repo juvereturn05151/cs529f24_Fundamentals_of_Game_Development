@@ -3,10 +3,12 @@
 #include <iostream>
 #include <iomanip>
 
-Vector3& Vector3::operator+=(const Vector3& other) const
+Vector3& Vector3::operator+=(const Vector3& other)
 {
-    Vector3 resultVector = Vector3(x + other.x, y + other.y, z + other.z);
-    return resultVector;
+    x += other.x;
+    y += other.y;
+    z += other.z;
+    return *this;
 }
 
 Vector3 Vector3::operator+(const Vector3& other) const

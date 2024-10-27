@@ -19,10 +19,26 @@ ObjectMesh::ObjectMesh(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatr
 ObjectMesh::~ObjectMesh() {
     // Delete the mesh object to free memory
     cleanup();
+
     if (mesh != NULL)
     {
         delete mesh;
     }
+
+    if (physicsComp != NULL)
+    {
+        delete physicsComp;
+    }
+}
+
+void ObjectMesh::update(float deltaTime)
+{
+    if (physicsComp != NULL)
+    {
+        physicsComp->update(getTransform(), deltaTime);
+    }
+
+    Node::update(deltaTime);
 }
 
 void ObjectMesh::draw()
@@ -44,4 +60,19 @@ void ObjectMesh::cleanup()
     {
         mesh->cleanup();
     }
+}
+
+void ObjectMesh::addPhysicsComponent(float mass)
+{
+    if (physicsComp != NULL)
+    {
+        return;
+    }
+
+    physicsComp = new PhysicsComponent(mass);
+}
+
+PhysicsComponent* ObjectMesh::GetPhysicsComp()
+{
+    return physicsComp;
 }
