@@ -6,12 +6,6 @@ BoxCollider2D::BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position,
 
 }
 
-/*void BoxCollider2D::createRenderableSquare(Shader* shaderProgram)
-{
-    square = new Square(Vector3(x - width, y - height, 0), Vector3(x - width, y + height, 0),
-        Vector3(x + width, y + height, 0), Vector3(x + width, y - height, 0), Vector3(0,1,0), 0.5f, shaderProgram);
-}*/
-
 // Getters for position and size
 float BoxCollider2D::getX() const { return x; }
 float BoxCollider2D::getY() const { return y; }
