@@ -14,9 +14,11 @@ public:
     Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
     // Operator overloads
+    Vector3& operator+=(const Vector3& other) const;
     Vector3 operator+(const Vector3& other) const;
     Vector3 operator-(const Vector3& other) const;
     Vector3 operator*(float scalar) const;
+    Vector3 operator/(float scalar) const;
 
     // Main mathematical operations
     float dot(const Vector3& other) const;
