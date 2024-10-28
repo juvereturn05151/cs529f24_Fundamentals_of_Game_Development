@@ -7,7 +7,7 @@ AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram
     animations[AnimationState::WalkFront] = {1, 6, 0.2f };
     animations[AnimationState::WalkBack] = {2, 6, 0.2f };
     animations[AnimationState::cMK] = { 3, 6, 0.150f };
-    animations[AnimationState::Hurt] = { 4, 3, 0.125f };
+    animations[AnimationState::Hurt] = { 4, 3, 0.150f };
 
     set_animation(AnimationState::Idle);
 

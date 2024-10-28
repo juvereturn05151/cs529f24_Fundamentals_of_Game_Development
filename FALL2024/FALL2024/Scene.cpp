@@ -74,12 +74,14 @@ void Scene::handleCollision()
         }
     }
 
-    if (character1->getHitBox()->isColliding(*character2->getHurtBox()))
+    if (character1->getHitBox()->isColliding(*character2->getHurtBox())
+        || character1->getHitBox()->isColliding(*character2->getLegHurtBox()))
     {
         character2->TriggerHurt();
     }
 
-    if (character2->getHitBox()->isColliding(*character1->getHurtBox()))
+    if (character2->getHitBox()->isColliding(*character1->getHurtBox())
+        || character2->getHitBox()->isColliding(*character1->getLegHurtBox()))
     {
         character1->TriggerHurt();
     }
