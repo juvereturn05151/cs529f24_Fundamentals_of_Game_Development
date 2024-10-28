@@ -25,12 +25,15 @@ public:
     bool IsAnimationFinished();
     void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
+    BoxCollider2D* getLegHurtBox();
     BoxCollider2D* getHitBox();
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
+    float playerSide;
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
+    BoxCollider2D* legHurtBox;
     BoxCollider2D* hitBox;
     float movementSpeed;
     bool faceRight;
@@ -39,6 +42,6 @@ private:
     bool isHurt = false;
 
     void UpdateMovement(PlayerInput* input);
-
+    void UpdateCMKCollider();
 };
 
