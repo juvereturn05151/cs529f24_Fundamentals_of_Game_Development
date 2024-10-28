@@ -72,6 +72,8 @@ void AnimatedSquare::update_animation(float deltaTime)
 
 bool AnimatedSquare::isAnimationFinished() const
 {
+    printf("currentFrame: %i \n", currentFrame);
+    printf("frameCount - 1: %i \n", frameCount - 1);
     // If the current frame is the last frame of the animation, return true
     return currentFrame == (frameCount - 1);
 }
@@ -84,4 +86,9 @@ bool AnimatedSquare::isAtFrame(int frameNumber) const
 void AnimatedSquare::draw()
 {
 	Square::draw();
+}
+
+AnimationState AnimatedSquare::getCurrentState()
+{
+    return currentState;
 }

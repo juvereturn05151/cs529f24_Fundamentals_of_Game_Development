@@ -32,5 +32,6 @@ public:
 	bool isAnimationFinished() const;
 	bool isAtFrame(int frameNumber) const;
 	void draw() override;
+	AnimationState getCurrentState();
 };
 
