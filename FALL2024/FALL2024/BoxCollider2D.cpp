@@ -37,7 +37,12 @@ void BoxCollider2D::setSize(float w, float h) { width = w; height = h; }
 // Method to check if this box is colliding with another box
 bool BoxCollider2D::isColliding(BoxCollider2D& other) 
 {
-    if (!isActive) 
+    if (!other.getIsActive())
+    {
+        return false;
+    }
+
+    if (!isActive)
     {
         return false;
     }

@@ -30,6 +30,9 @@ public:
     void setCanHitConfirm(bool isEnemyHurt);
     bool getCanHitConfirm();
     bool getIsHurt();
+    void setYouWin(bool win);
+    bool getYouWin();
+    void setLose(bool lose);
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
@@ -45,6 +48,8 @@ private:
     bool isHurt = false;
     bool canHitConfirm;
     bool hitConfirmSuccess;
+    bool youWin;
+    bool youLose;
 
     void UpdateMovement(PlayerInput* input);
     void UpdateCMKCollider();

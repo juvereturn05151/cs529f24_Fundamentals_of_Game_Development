@@ -2,7 +2,7 @@
 #include "Square.h"
 #include <map>
 
-enum class AnimationState { Idle, WalkFront, WalkBack, cMK, Hurt, Hadoken};
+enum class AnimationState { Idle, WalkFront, WalkBack, cMK, Hurt, Hadoken, YouWin};
 
 class AnimatedSquare : public Square
 {
@@ -23,7 +23,7 @@ protected:
 	float frameWidth;
 	float frameHeight;
 	int animIndex = 0;
-	bool isLoop;
+	bool isLoop = true;
 
 public:
 	AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram);

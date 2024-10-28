@@ -167,19 +167,23 @@ void Character::updateInput(PlayerInput* input)
 {
     if (hitConfirmSuccess) 
     {
+        if (IsAnimationFinished() && !youWin) 
+        {
+            youWin = true;
+            animatedSquare->set_animation(AnimationState::YouWin, false);
+        }
+
         return;
     }
 
     if (canHitConfirm) 
     {
-        //printf("canhitcomfirm;");
         if (!hitConfirmSuccess) 
         {
             if (InputManager::IsKeyJustPressed(input->GetcMK()))
             {
-                printf("hadoken;");
                 hitConfirmSuccess = true;
-                animatedSquare->set_animation(AnimationState::Hadoken, false);
+                animatedSquare->set_animation(AnimationState::Hadoken);
                 return;
             }
         }
@@ -355,4 +359,19 @@ bool Character::getCanHitConfirm()
 bool Character::getIsHurt()
 {
     return isHurt;
+}
+
+void Character::setYouWin(bool win)
+{
+    youWin = win;
+}
+
+bool  Character::getYouWin()
+{
+    return youWin;
+}
+
+void Character::setLose(bool lose)
+{
+    youLose = lose;
 }
