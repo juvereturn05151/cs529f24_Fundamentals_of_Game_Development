@@ -165,6 +165,12 @@ void Character::UpdateCMKCollider()
 
 void Character::updateInput(PlayerInput* input) 
 {
+    if (youLose) 
+    {
+        animatedSquare->set_animation(AnimationState::YouLose, false);
+        return;
+    }
+
     if (hitConfirmSuccess) 
     {
         if (IsAnimationFinished() && !youWin) 
@@ -187,10 +193,10 @@ void Character::updateInput(PlayerInput* input)
                 return;
             }
         }
-
     }
 
-    if (isHurt) {
+    if (isHurt) 
+    {
         if (animatedSquare != NULL) 
         {
             animatedSquare->set_animation(AnimationState::Hurt);

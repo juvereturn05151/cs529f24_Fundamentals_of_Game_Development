@@ -2,7 +2,7 @@
 #include "Square.h"
 #include <map>
 
-enum class AnimationState { Idle, WalkFront, WalkBack, cMK, Hurt, Hadoken, YouWin};
+enum class AnimationState { Idle, WalkFront, WalkBack, cMK, Hurt, Hadoken, YouWin, YouLose};
 
 class AnimatedSquare : public Square
 {
