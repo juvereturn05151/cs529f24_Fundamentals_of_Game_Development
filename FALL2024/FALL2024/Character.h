@@ -24,11 +24,13 @@ public:
     bool AttackAnimationFinished();
     void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
+    BoxCollider2D* getHitBox();
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
+    BoxCollider2D* hitBox;
     float movementSpeed;
     bool faceRight;
     bool isAttacking;

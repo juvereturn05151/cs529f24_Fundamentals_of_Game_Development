@@ -11,6 +11,7 @@ protected:
     std::vector<Node*> children;
     void setParent(Node* parent);
     Matrix4<float> getGlobalModelMatrix() const;
+    bool isActive = true;
 
 public:
     Node();
@@ -18,10 +19,11 @@ public:
 
     // Get access to the Transform object
     Transform *getTransform();
+    void setIsActive(bool active);
+    bool getIsActive();
 
     virtual void update(float deltaTime);
     virtual void draw();
 
     void addChild(Node* child);
-
 };

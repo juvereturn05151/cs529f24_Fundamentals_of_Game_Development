@@ -30,6 +30,7 @@ public:
 	void set_animation(AnimationState newState);
 	void update_animation(float deltaTime);
 	bool isAnimationFinished() const;
+	bool isAtFrame(int frameNumber) const;
 	void draw() override;
 };
 

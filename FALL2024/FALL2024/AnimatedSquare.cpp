@@ -64,6 +64,11 @@ bool AnimatedSquare::isAnimationFinished() const
     return currentFrame == (frameCount - 1);
 }
 
+bool AnimatedSquare::isAtFrame(int frameNumber) const
+{
+    return currentFrame == (frameNumber - 1);
+}
+
 void AnimatedSquare::draw()
 {
 	Square::draw();

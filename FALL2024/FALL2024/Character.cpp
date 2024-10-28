@@ -39,17 +39,29 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     setHurtBox(boxCollider);
     Node* hurtBoxHolder = getHurtBox();
 
+    Square* squareMesh2 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
+        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(1, 0, 0), 0.5f, renderer.GetShader());
+
+    hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
+
     if (playerSide == 0)
     {
         hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
+        hitBox->getTransform()->setScale(Vector3(1.0f ,0.5f,1.0f));
+        hitBox->getTransform()->setPosition(Vector3(-3.0f + 1.5f, -2.0f, 0.0f));
     }
     else
     {
         hurtBoxHolder->getTransform()->setPosition(Vector3(3.0f, 0.0f, 0.0f));
+        hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
+        hitBox->getTransform()->setPosition(Vector3(3.0f - 1.0f, -2.0f, 0.0f));
     }
+
+    hitBox->setIsActive(false);
 
     addChild(visualHolder);
     addChild(hurtBoxHolder);
+    addChild(hitBox);
 
     addPhysicsComponent(1.0f);
 }
@@ -97,10 +109,13 @@ void Character::updateInput(PlayerInput* input) {
         if (animatedSquare != NULL)
         {
             animatedSquare->set_animation(AnimationState::cMK); 
+
+            hitBox->setIsActive(animatedSquare->isAtFrame(3));
         }
 
         if (AttackAnimationFinished()) 
         {
+
             isAttacking = false; // Reset attack state
         }
 
@@ -204,4 +219,9 @@ bool Character::AttackAnimationFinished()
 BoxCollider2D* Character::getHurtBox()
 {
     return hurtBox;
+}
+
+BoxCollider2D* Character::getHitBox()
+{
+    return hitBox;
 }

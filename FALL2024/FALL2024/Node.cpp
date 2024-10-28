@@ -20,9 +20,12 @@ void Node::update(float deltaTime)
 
 void Node::draw()
 {
-    for (Node* child : children)
+    if (isActive) 
     {
-        child->draw();
+        for (Node* child : children)
+        {
+            child->draw();
+        }
     }
 }
 
@@ -54,4 +57,14 @@ void Node::addChild(Node* child)
 {
     child->setParent(this);
     children.push_back(child);
+}
+
+void Node::setIsActive(bool active) 
+{
+    isActive = active;
+}
+
+bool Node::getIsActive() 
+{
+    return isActive;
 }

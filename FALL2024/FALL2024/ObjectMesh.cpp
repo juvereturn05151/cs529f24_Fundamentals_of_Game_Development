@@ -43,15 +43,18 @@ void ObjectMesh::update(float deltaTime)
 
 void ObjectMesh::draw()
 {
-    Matrix4<float> modelMatrix = getGlobalModelMatrix();
-    glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
-    
-    if (mesh != NULL) 
+    if (isActive) 
     {
-        mesh->draw();
-    }
+        Matrix4<float> modelMatrix = getGlobalModelMatrix();
+        glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
 
-    Node::draw();
+        if (mesh != NULL)
+        {
+            mesh->draw();
+        }
+
+        Node::draw();
+    }
 }
 
 void ObjectMesh::cleanup()
