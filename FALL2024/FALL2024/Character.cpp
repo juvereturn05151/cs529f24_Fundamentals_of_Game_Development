@@ -185,7 +185,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare != NULL)
         {
-            animatedSquare->set_animation(AnimationState::cMK); 
+            animatedSquare->set_animation(AnimationState::cMK);
 
             hitBox->setIsActive(animatedSquare->isAtFrame(3));
 
@@ -319,4 +319,14 @@ BoxCollider2D* Character::getHitBox()
 BoxCollider2D* Character::getLegHurtBox()
 {
     return legHurtBox;
+}
+
+void Character::setCanHitConfirm(bool isEnemyHurt)
+{
+    canHitConfirm = isEnemyHurt;
+}
+
+bool Character::getCanHitConfirm()
+{
+    return canHitConfirm;
 }
