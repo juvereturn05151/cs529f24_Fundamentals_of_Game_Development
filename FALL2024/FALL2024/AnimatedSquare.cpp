@@ -16,7 +16,7 @@ AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram
     frameHeight = 0.1f;
 }
 
-void AnimatedSquare::set_animation(AnimationState newState)
+void AnimatedSquare::set_animation(AnimationState newState, bool isLoop)
 {
     if (currentState != newState) 
     {
@@ -26,6 +26,7 @@ void AnimatedSquare::set_animation(AnimationState newState)
         animIndex = animations[currentState].animIndex;
         frameCount = animations[currentState].frameCount;
         frameDuration = animations[currentState].frameDuration;
+        this->isLoop = isLoop;
     }
 }
 
@@ -34,7 +35,14 @@ void AnimatedSquare::update_animation(float deltaTime)
     elapsedTime += deltaTime;
     if (elapsedTime >= frameDuration) 
     {
-        currentFrame = (currentFrame + 1) % frameCount; // Cycle through frames
+        if (isLoop)
+        {
+            currentFrame = (currentFrame + 1) % frameCount; // Cycle through frames in loop mode
+        }
+        else if (currentFrame < frameCount - 2)
+        {
+            currentFrame++; // Advance frame without looping
+        }
         elapsedTime -= frameDuration; // Reset elapsed time
     }
 

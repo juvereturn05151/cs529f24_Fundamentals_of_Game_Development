@@ -165,6 +165,27 @@ void Character::UpdateCMKCollider()
 
 void Character::updateInput(PlayerInput* input) 
 {
+    if (hitConfirmSuccess) 
+    {
+        return;
+    }
+
+    if (canHitConfirm) 
+    {
+        //printf("canhitcomfirm;");
+        if (!hitConfirmSuccess) 
+        {
+            if (InputManager::IsKeyJustPressed(input->GetcMK()))
+            {
+                printf("hadoken;");
+                hitConfirmSuccess = true;
+                animatedSquare->set_animation(AnimationState::Hadoken, false);
+                return;
+            }
+        }
+
+    }
+
     if (isHurt) {
         if (animatedSquare != NULL) 
         {
@@ -329,4 +350,9 @@ void Character::setCanHitConfirm(bool isEnemyHurt)
 bool Character::getCanHitConfirm()
 {
     return canHitConfirm;
+}
+
+bool Character::getIsHurt()
+{
+    return isHurt;
 }

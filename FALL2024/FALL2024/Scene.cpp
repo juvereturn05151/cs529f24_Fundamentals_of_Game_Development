@@ -43,6 +43,9 @@ void Scene::update(float deltaTime) {
 
     handleCollision();
 
+    character1->setCanHitConfirm(character2->getIsHurt());
+    character2->setCanHitConfirm(character1->getIsHurt());
+
     for (Node* obj : objects) 
     {
         obj->update(deltaTime);  // Assuming objects have an update method

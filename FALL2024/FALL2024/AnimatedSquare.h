@@ -23,11 +23,11 @@ protected:
 	float frameWidth;
 	float frameHeight;
 	int animIndex = 0;
-
+	bool isLoop;
 
 public:
 	AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram);
-	void set_animation(AnimationState newState);
+	void set_animation(AnimationState newState, bool isLoop = true);
 	void update_animation(float deltaTime);
 	bool isAnimationFinished() const;
 	bool isAtFrame(int frameNumber) const;

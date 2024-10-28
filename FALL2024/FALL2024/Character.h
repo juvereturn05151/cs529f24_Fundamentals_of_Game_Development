@@ -29,6 +29,7 @@ public:
     BoxCollider2D* getHitBox();
     void setCanHitConfirm(bool isEnemyHurt);
     bool getCanHitConfirm();
+    bool getIsHurt();
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
@@ -43,6 +44,7 @@ private:
     bool isAttackAnimFinished;
     bool isHurt = false;
     bool canHitConfirm;
+    bool hitConfirmSuccess;
 
     void UpdateMovement(PlayerInput* input);
     void UpdateCMKCollider();
