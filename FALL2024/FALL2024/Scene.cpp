@@ -51,7 +51,7 @@ void Scene::update(float deltaTime) {
 
 void Scene::handleCollision()
 {
-    if (character1->getHurtBox()->isColliding(*character2->getHurtBox())) 
+    if (character1->getHurtBox()->isColliding(*character2->getHurtBox()))
     {
         float pushbackDistance = 0.1f; // Adjust this value to control the pushback strength 
 
@@ -72,7 +72,16 @@ void Scene::handleCollision()
             character1->getTransform()->setPosition(Vector3(position1.x - pushbackDistance, position1.y, position1.z));
             character2->getTransform()->setPosition(Vector3(position2.x + pushbackDistance, position2.y, position2.z));
         }
+    }
 
+    if (character1->getHitBox()->isColliding(*character2->getHurtBox()))
+    {
+        character2->TriggerHurt();
+    }
+
+    if (character2->getHitBox()->isColliding(*character1->getHurtBox()))
+    {
+        character1->TriggerHurt();
     }
 }
 

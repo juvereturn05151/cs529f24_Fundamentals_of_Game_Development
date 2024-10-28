@@ -29,32 +29,35 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     SetAnimatedSquare(ryu);
 
     Vector3 pos = getTransform()->getPosition();
-    Vector3 scale = getTransform()->getScale();
+    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));// getTransform()->getScale();
 
-    Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
 
-    BoxCollider2D* boxCollider = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
+    //Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
+     //   Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
+
+    BoxCollider2D* boxCollider = new BoxCollider2D(NULL, renderer.GetModelMatrixLoc(), pos, scale);
 
     setHurtBox(boxCollider);
     Node* hurtBoxHolder = getHurtBox();
 
-    Square* squareMesh2 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(1, 0, 0), 0.5f, renderer.GetShader());
+    //Square* squareMesh2 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
+       // Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(1, 0, 0), 0.5f, renderer.GetShader());
 
-    hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
+    hitBox = new BoxCollider2D(NULL, renderer.GetModelMatrixLoc(), pos, scale);
 
     if (playerSide == 0)
     {
         hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
+        hurtBoxHolder->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f ,0.5f,1.0f));
-        hitBox->getTransform()->setPosition(Vector3(-3.0f + 1.5f, -2.0f, 0.0f));
+        hitBox->getTransform()->setPosition(Vector3(-3.0f + 1.75f, -2.0f, 0.0f));
     }
     else
     {
         hurtBoxHolder->getTransform()->setPosition(Vector3(3.0f, 0.0f, 0.0f));
+        hurtBoxHolder->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
-        hitBox->getTransform()->setPosition(Vector3(3.0f - 1.0f, -2.0f, 0.0f));
+        hitBox->getTransform()->setPosition(Vector3(3.0f - 1.75f, -2.0f, 0.0f));
     }
 
     hitBox->setIsActive(false);
@@ -101,7 +104,22 @@ void Character::draw()
     ObjectMesh::draw();
 }
 
-void Character::updateInput(PlayerInput* input) {
+void Character::updateInput(PlayerInput* input) 
+{
+    if (isHurt) {
+        if (animatedSquare != NULL) 
+        {
+            animatedSquare->set_animation(AnimationState::Hurt);
+        }
+
+        // Skip other updates while hurt
+        if (IsAnimationFinished()) 
+        {
+            isHurt = false; // End hurt state once animation is done
+        }
+        return;
+    }
+
 
     // Check if the character is attacking
     if (isAttacking)
@@ -113,7 +131,7 @@ void Character::updateInput(PlayerInput* input) {
             hitBox->setIsActive(animatedSquare->isAtFrame(3));
         }
 
-        if (AttackAnimationFinished()) 
+        if (IsAnimationFinished()) 
         {
 
             isAttacking = false; // Reset attack state
@@ -137,6 +155,19 @@ void Character::updateInput(PlayerInput* input) {
         UpdateMovement(input);
     }
 }
+
+void Character::TriggerHurt() 
+{
+    
+
+    isHurt = true;  // Set hurt state
+    if (animatedSquare != NULL) 
+    {
+        animatedSquare->set_animation(AnimationState::Hurt);
+    }
+    hitBox->setIsActive(false); // Disable hitbox while in hurt state
+}
+
 
 void Character::UpdateMovement(PlayerInput* input)
 {
@@ -206,7 +237,7 @@ void Character::SetFaceRight(bool isRight)
     faceRight = isRight;
 }
 
-bool Character::AttackAnimationFinished()
+bool Character::IsAnimationFinished()
 {
     if (animatedSquare != NULL) 
     {

@@ -8,6 +8,8 @@ class BoxCollider2D : public ObjectMesh
 private:
     float x, y;         // Position (top-left corner)
     float width, height; // Dimensions
+    float widthJitterScale = 2.0f;
+    float heightJitterScale = 2.0f;
     Square* square;
 
 public:

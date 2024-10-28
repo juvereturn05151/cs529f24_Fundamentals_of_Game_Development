@@ -8,7 +8,6 @@ PhysicsComponent::PhysicsComponent(float mass)
 
 void PhysicsComponent::update(Transform* transform, float deltaTime)
 {
-	
 	Vector3 acceleration = accumulatedForce / mass;
 	/*printf("accelerationX %f \n", acceleration.x);
 	printf("deltaTime %f \n", deltaTime);*/
@@ -23,7 +22,6 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 
 void PhysicsComponent::applyForce(const Vector3& force) 
 {
-
 	accumulatedForce = accumulatedForce + force;
 	//printf("apply force %i \n", accumulatedForce.x);
 }

@@ -21,7 +21,8 @@ public:
     void MoveRight();
     void MoveLeft();
     void Attack();
-    bool AttackAnimationFinished();
+    void TriggerHurt();
+    bool IsAnimationFinished();
     void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
     BoxCollider2D* getHitBox();
@@ -35,6 +36,7 @@ private:
     bool faceRight;
     bool isAttacking;
     bool isAttackAnimFinished;
+    bool isHurt = false;
 
     void UpdateMovement(PlayerInput* input);
 
