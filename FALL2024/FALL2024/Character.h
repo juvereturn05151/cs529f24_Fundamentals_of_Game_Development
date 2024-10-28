@@ -29,6 +29,7 @@ public:
     BoxCollider2D* getHitBox();
     void setCanHitConfirm(bool isEnemyHurt);
     bool getCanHitConfirm();
+    bool getHitConfirmSuccess();
     bool getIsHurt();
     void setYouWin(bool win);
     bool getYouWin();

@@ -162,12 +162,21 @@ void Character::UpdateCMKCollider()
 
 }
 
+bool Character::getHitConfirmSuccess()
+{
+    return hitConfirmSuccess;
+}
 
 void Character::updateInput(PlayerInput* input) 
 {
-    if (youLose) 
+    if (youLose)
     {
-        animatedSquare->set_animation(AnimationState::YouLose, false);
+        if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
+        {
+            printf("get anim state: %i\n", animatedSquare->getCurrentState());
+            animatedSquare->set_animation(AnimationState::YouLose, false);
+
+        }
         return;
     }
 
@@ -207,6 +216,9 @@ void Character::updateInput(PlayerInput* input)
         {
             isHurt = false; // End hurt state once animation is done
         }
+
+
+
         return;
     }
 

@@ -45,8 +45,8 @@ void Scene::update(float deltaTime) {
 
     character1->setCanHitConfirm(character2->getIsHurt());
     character2->setCanHitConfirm(character1->getIsHurt());
-    character1->setLose(character2->getYouWin());
-    character2->setLose(character1->getYouWin());
+    character1->setLose(character2->getHitConfirmSuccess());
+    character2->setLose(character1->getHitConfirmSuccess());
 
     for (Node* obj : objects) 
     {
