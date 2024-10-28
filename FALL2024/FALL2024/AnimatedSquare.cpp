@@ -6,7 +6,7 @@ AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram
     animations[AnimationState::Idle] = {0, 5, 0.2f };
     animations[AnimationState::WalkFront] = {1, 6, 0.2f };
     animations[AnimationState::WalkBack] = {2, 6, 0.2f };
-    animations[AnimationState::cMK] = { 3, 6, 0.150f };
+    animations[AnimationState::cMK] = { 3, 7, 0.150f };
     animations[AnimationState::Hurt] = { 4, 4, 0.150f };
     animations[AnimationState::Hadoken] = { 6, 6, 0.20f };
     animations[AnimationState::YouWin] = { 7, 6, 0.20f };

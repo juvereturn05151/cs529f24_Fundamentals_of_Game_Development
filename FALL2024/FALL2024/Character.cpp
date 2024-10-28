@@ -143,12 +143,12 @@ void Character::UpdateCMKCollider()
 
     if (animatedSquare != NULL) 
     {
-        if (animatedSquare->isAtFrame(2) || animatedSquare->isAtFrame(4))
+        if (animatedSquare->isAtFrame(2) || animatedSquare->isAtFrame(5))
         {
             legHurtBox->getTransform()->setScale(Vector3(0.5f, 0.5f, 1.0f));
             legHurtBox->getTransform()->setPosition(Vector3(sign * 3.0f - (-1.0f * sign) * 1.0f, -2.0f, 0.0f));
         }
-        else if (animatedSquare->isAtFrame(3))
+        else if (animatedSquare->isAtFrame(3) || animatedSquare->isAtFrame(4) )
         {
             legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
             legHurtBox->getTransform()->setPosition(Vector3(sign * 3.0f + (-1.0f * sign) * 1.25f, -2.0f, 0.0f));
@@ -173,9 +173,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
-            printf("get anim state: %i\n", animatedSquare->getCurrentState());
             animatedSquare->set_animation(AnimationState::YouLose, false);
-
         }
         return;
     }
