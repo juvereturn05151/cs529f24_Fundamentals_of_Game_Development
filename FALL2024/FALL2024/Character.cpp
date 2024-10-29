@@ -173,6 +173,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
+            printf("animatedSquare->getCurrentState(): %i", animatedSquare->getCurrentState());
             animatedSquare->set_animation(AnimationState::YouLose, false);
         }
         return;
@@ -260,6 +261,11 @@ void Character::updateInput(PlayerInput* input)
 
 void Character::TriggerHurt() 
 {
+    if (youLose) 
+    {
+        return;
+    }
+
     isHurt = true;  // Set hurt state
     if (animatedSquare != NULL) 
     {
