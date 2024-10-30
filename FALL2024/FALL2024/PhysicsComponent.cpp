@@ -12,6 +12,11 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 	/*printf("accelerationX %f \n", acceleration.x);
 	printf("deltaTime %f \n", deltaTime);*/
 	velocity += acceleration * deltaTime;
+
+	// Apply damping to simulate friction, reducing velocity over time
+	float dampingFactor = 0.98f; // Adjust based on desired friction level
+	velocity *= dampingFactor;
+
 	//printf("velocity %f \n", velocity.x);
 	Vector3 pos = transform->getPosition();
 	transform->setPosition(Vector3(pos.x + (velocity.x * deltaTime), pos.y + (velocity.y * deltaTime),0));

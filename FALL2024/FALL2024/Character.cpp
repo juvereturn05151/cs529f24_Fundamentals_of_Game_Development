@@ -173,9 +173,21 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
-            printf("animatedSquare->getCurrentState(): %i", animatedSquare->getCurrentState());
             animatedSquare->set_animation(AnimationState::YouLose, false);
         }
+
+        if (animatedSquare->isAtFrame(5)) 
+        {
+            if (playerSide == 0)
+            {
+                GetPhysicsComp()->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
+            }
+            else
+            {
+                GetPhysicsComp()->applyForce(Vector3(250.0f, 0.0f, 0.0f));
+            }
+        }
+
         return;
     }
 
@@ -279,11 +291,23 @@ void Character::UpdateMovement(PlayerInput* input)
 {
     deltaX = 0.0f, deltaY = 0.0f;
     // Handle left/right movement
-    if (InputManager::IsKeyPressed(input->GetMoveRight())) {
+    if (InputManager::IsKeyPressed(input->GetMoveRight())) 
+    {
         MoveRight();
+
+        if (playerSide == 1)
+        {
+            block = true;
+        }
     }
-    if (InputManager::IsKeyPressed(input->GetMoveLeft())) {
+    if (InputManager::IsKeyPressed(input->GetMoveLeft())) 
+    {
         MoveLeft();
+
+        if (playerSide == 0) 
+        {
+            block = true;
+        }
     }
 
     if (deltaX == 0.0f && deltaY == 0.0f)

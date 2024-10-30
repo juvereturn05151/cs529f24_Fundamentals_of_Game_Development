@@ -11,6 +11,14 @@ Vector3& Vector3::operator+=(const Vector3& other)
     return *this;
 }
 
+Vector3& Vector3::operator*=(float scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+    return *this;
+}
+
 Vector3 Vector3::operator+(const Vector3& other) const
 {
     // Write implementation here

@@ -11,7 +11,7 @@ AnimatedSquare::AnimatedSquare(Vector3 color, float alpha, Shader* shaderProgram
     animations[AnimationState::Hadoken] = { 6, 6, 0.20f };
     animations[AnimationState::YouWin] = { 7, 6, 0.20f };
     animations[AnimationState::YouLose] = { 5, 11, 0.20f };
-    
+    animations[AnimationState::Block] = { 9, 1, 0.20f };
     set_animation(AnimationState::Idle, true);
 
     frameWidth = 0.1f;
