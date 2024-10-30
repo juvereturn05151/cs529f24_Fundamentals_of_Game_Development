@@ -169,6 +169,8 @@ bool Character::getHitConfirmSuccess()
 
 void Character::updateInput(PlayerInput* input) 
 {
+    block = false;
+
     if (youLose)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
@@ -228,8 +230,6 @@ void Character::updateInput(PlayerInput* input)
             isHurt = false; // End hurt state once animation is done
         }
 
-
-
         return;
     }
 
@@ -248,7 +248,6 @@ void Character::updateInput(PlayerInput* input)
 
         if (IsAnimationFinished()) 
         {
-
             isAttacking = false; // Reset attack state
         }
 
@@ -257,6 +256,8 @@ void Character::updateInput(PlayerInput* input)
     }
     else
     {
+
+
         // Handle crouching medium kick input (cMK)
         if (InputManager::IsKeyJustPressed(input->GetcMK()))
         {
@@ -268,17 +269,50 @@ void Character::updateInput(PlayerInput* input)
 
         // Apply the movement
         UpdateMovement(input);
+
+        if (isBlocking)
+        {
+            animatedSquare->set_animation(AnimationState::Block); // Set blocking animation
+            hitBox->setIsActive(false); // Disable hitbox while blocking
+
+            if (IsAnimationFinished())
+            {
+                isBlocking = false; // End block state when animation finishes
+            }
+
+            return;
+        }
+    }
+}
+
+void Character::CheckForBlock(PlayerInput* input)
+{
+    bool facingOpponent = (playerSide == 0 && !InputManager::IsKeyPressed(input->GetMoveRight())) ||
+        (playerSide == 1 && !InputManager::IsKeyPressed(input->GetMoveLeft()));
+
+    if (facingOpponent)
+    {
+        isBlocking = true;
+        animatedSquare->set_animation(AnimationState::Block); // Set to blocking animation
+        hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
 
 void Character::TriggerHurt() 
 {
+    if (block) 
+    {
+        isBlocking = true;
+        return;
+    }
+
     if (youLose) 
     {
         return;
     }
 
     isHurt = true;  // Set hurt state
+
     if (animatedSquare != NULL) 
     {
         animatedSquare->set_animation(AnimationState::Hurt);

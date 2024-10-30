@@ -51,9 +51,11 @@ private:
     bool hitConfirmSuccess;
     bool youWin;
     bool youLose;
+    bool isBlocking;
     bool block;
 
     void UpdateMovement(PlayerInput* input);
     void UpdateCMKCollider();
+    void CheckForBlock(PlayerInput* input);
 };
 
