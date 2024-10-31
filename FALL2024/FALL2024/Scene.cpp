@@ -6,7 +6,11 @@
 #include "RotatingObject.h"
 
 // Constructor initializes camera and renderer
-Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) {}
+Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) 
+{
+    leftBoundary = -5.5f;
+    rightBoundary = 5.5f;
+}
 
 void Scene::assignObjects()
 {
@@ -28,7 +32,8 @@ void Scene::addObject(Node* obj)
 }
 
 // Update objects in the scene (animations, physics, etc.)
-void Scene::update(float deltaTime) {
+void Scene::update(float deltaTime) 
+{
     if (player1Controller) 
     {
         player1Controller->Update();
@@ -42,6 +47,33 @@ void Scene::update(float deltaTime) {
     }
 
     handleCollision();
+
+    // Check if characters are within the defined boundaries
+    Vector3 position1 = character1->getGlobalPosition();
+    Vector3 position2 = character2->getGlobalPosition();
+
+    printf("character 1 pos: %f\n", position1.x);
+    printf("character 2 pos: %f\n", position2.x);
+
+    // Clamp character1's position within the boundaries
+    if (position1.x < leftBoundary)
+    {
+        character1->getTransform()->setPosition(Vector3(leftBoundary, position1.y, position1.z));
+    }
+    else if (position1.x > rightBoundary +1.75f)
+    {
+        character1->getTransform()->setPosition(Vector3(rightBoundary + 1.75f, position1.y, position1.z));
+    }
+
+    // Clamp character2's position within the boundaries
+    if (position2.x < leftBoundary - 1.75f)
+    {
+        character2->getTransform()->setPosition(Vector3(leftBoundary - 1.75f, position2.y, position2.z));
+    }
+    else if (position2.x > rightBoundary)
+    {
+        character2->getTransform()->setPosition(Vector3(rightBoundary, position2.y, position2.z));
+    }
 
     character1->setCanHitConfirm(character2->getIsHurt());
     character2->setCanHitConfirm(character1->getIsHurt());

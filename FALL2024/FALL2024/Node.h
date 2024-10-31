@@ -26,4 +26,5 @@ public:
     virtual void draw();
 
     void addChild(Node* child);
+    Vector3 getGlobalPosition() const;
 };

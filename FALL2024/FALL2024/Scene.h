@@ -18,6 +18,8 @@ private:
     PlayerInput* player2Controller;
     Character* character1;
     Character* character2;
+    float leftBoundary;
+    float rightBoundary;
 public:
     // Constructor
     Scene(Camera* cam, Renderer& rend, GameWindow& wind);

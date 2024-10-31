@@ -59,6 +59,19 @@ void Node::addChild(Node* child)
     children.push_back(child);
 }
 
+Vector3 Node::getGlobalPosition() const
+{
+    if (parent)
+    {
+        if (parent->getTransform() != nullptr)
+        {
+            return parent->getGlobalPosition() + transform->getPosition();
+        }
+    }
+
+    return transform->getPosition();
+}
+
 void Node::setIsActive(bool active) 
 {
     isActive = active;

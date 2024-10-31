@@ -16,71 +16,65 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     ryu->AddTexture();
     Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
     
-    if (playerSide == 0)
-    {
-        visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
-    }
-    else 
-    {
-        visualHolder->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
-    }
-
-    visualHolder->getTransform()->setPosition(Vector3(-0.5f, 0.0f, 0.0f));
-
-    SetAnimatedSquare(ryu);
-
     Vector3 pos = getTransform()->getPosition();
-    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));// getTransform()->getScale();
+    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
 
     Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
         Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
 
-    BoxCollider2D* boxCollider = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
-
-    setHurtBox(boxCollider);
-    Node* hurtBoxHolder = getHurtBox();
-
     Square* squareMesh2 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
         Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(1, 0, 0), 0.5f, renderer.GetShader());
-
-    hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
-
-    pos = getTransform()->getPosition();
-    scale = getTransform()->getScale();
 
     Square* squareMesh3 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
         Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
 
+    hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
+    hurtBox = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
     legHurtBox = new BoxCollider2D(squareMesh3, renderer.GetModelMatrixLoc(), pos, scale);
-    
+
+
+
     if (playerSide == 0)
     {
-        hurtBoxHolder->getTransform()->setPosition(Vector3(-3.0f, 0.0f, 0.0f));
-        hurtBoxHolder->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
+        getTransform()->setPosition(Vector3(-0.75f, 0.0f, 0.0f));
+        visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
+    }
+    else 
+    {
+        getTransform()->setPosition(Vector3(0.75f, 0.0f, 0.0f));
+        visualHolder->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
+    }
+
+    if (playerSide == 0)
+    {
+        Vector3 centerPos = pos - Vector3(1.25f, 0.0f, 0.0f);
+
+        hurtBox->getTransform()->setPosition(centerPos);
+        hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
-        hitBox->getTransform()->setPosition(Vector3(-3.0f + 1.75f, -2.0f, 0.0f));
-        legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
-        legHurtBox->getTransform()->setPosition(Vector3(-3.0f - 5.0f, -2.0f, 0.0f));
-        //legHurtBox->getTransform()->setScale(Vector3(0.5f, 0.5f, 1.0f));
-        //legHurtBox->getTransform()->setPosition(Vector3(-3.0f - 0.0f, -2.0f, 0.0f));
-        //legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-        //legHurtBox->getTransform()->setPosition(Vector3(-3.0f + 1.25f, -2.0f, 0.0f));
+        hitBox->getTransform()->setPosition(Vector3(centerPos.x + 1.75f, -2.0f, 0.0f));
+        legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
+        legHurtBox->getTransform()->setPosition(Vector3(centerPos.x + 0.75f, -2.0f, 0.0f));
     }
     else
     {
-        hurtBoxHolder->getTransform()->setPosition(Vector3(3.0f, 0.0f, 0.0f));
-        hurtBoxHolder->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
+        Vector3 centerPos = pos + Vector3(1.25f, 0.0f, 0.0f);
+
+        hurtBox->getTransform()->setPosition(centerPos);
+        hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
-        hitBox->getTransform()->setPosition(Vector3(3.0f - 1.75f, -2.0f, 0.0f));
+        hitBox->getTransform()->setPosition(Vector3(centerPos.x - 1.75f, -2.0f, 0.0f));
         legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-        legHurtBox->getTransform()->setPosition(Vector3(3.0f - 1.25f, -2.0f, 0.0f));
+        legHurtBox->getTransform()->setPosition(Vector3(centerPos.x - 0.75f, -2.0f, 0.0f));
     }
+
+    SetAnimatedSquare(ryu);
 
     hitBox->setIsActive(false);
     legHurtBox->setIsActive(false);
 
     addChild(visualHolder);
-    addChild(hurtBoxHolder);
+    addChild(hurtBox);
     addChild(hitBox);
     addChild(legHurtBox);
 
@@ -141,25 +135,29 @@ void Character::UpdateCMKCollider()
         sign = 1.0f;
     }
 
+    Vector3 centerPos = legHurtBox->getTransform()->getPosition();//+ Vector3(sign * 0.75f, -2.0f, 0.0f);
+
     if (animatedSquare != NULL) 
     {
-        if (animatedSquare->isAtFrame(2) || animatedSquare->isAtFrame(5))
+        if (legHurtBox != NULL)
         {
-            legHurtBox->getTransform()->setScale(Vector3(0.5f, 0.5f, 1.0f));
-            legHurtBox->getTransform()->setPosition(Vector3(sign * 3.0f - (-1.0f * sign) * 1.0f, -2.0f, 0.0f));
-        }
-        else if (animatedSquare->isAtFrame(3) || animatedSquare->isAtFrame(4) )
-        {
-            legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-            legHurtBox->getTransform()->setPosition(Vector3(sign * 3.0f + (-1.0f * sign) * 1.25f, -2.0f, 0.0f));
-        }
-        else
-        {
-            legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
-            legHurtBox->getTransform()->setPosition(Vector3(sign * 3.0f - (-1.0f * sign) * 5.75f, -2.0f, 0.0f));
+            if (animatedSquare->isAtFrame(2) || animatedSquare->isAtFrame(5))
+            {
+                legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
+                legHurtBox->getTransform()->setPosition(Vector3((sign * 0.25f), centerPos.y, 0));
+            }
+            else if (animatedSquare->isAtFrame(3) || animatedSquare->isAtFrame(4))
+            {
+                legHurtBox->getTransform()->setScale(Vector3(1.8f, 0.5f, 1.0f));
+                legHurtBox->getTransform()->setPosition(Vector3((sign * -0.1f), centerPos.y, 0));
+            }
+            else
+            {
+                legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
+                legHurtBox->getTransform()->setPosition(Vector3((sign * 2.0f), centerPos.y, 0));
+            }
         }
     }
-
 }
 
 bool Character::getHitConfirmSuccess()

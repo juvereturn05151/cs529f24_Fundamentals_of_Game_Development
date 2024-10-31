@@ -31,7 +31,11 @@ float BoxCollider2D::getHeight()
 }
 
 // Setters for position and size
-void BoxCollider2D::setPosition(float xPos, float yPos) { x = xPos; y = yPos; }
+void BoxCollider2D::setPosition(float xPos, float yPos) 
+{ 
+    x = xPos; 
+    y = yPos; 
+}
 void BoxCollider2D::setSize(float w, float h) { width = w; height = h; }
 
 // Method to check if this box is colliding with another box
