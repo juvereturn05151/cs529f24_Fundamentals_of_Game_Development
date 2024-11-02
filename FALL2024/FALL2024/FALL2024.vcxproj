@@ -160,7 +160,6 @@
     <ClCompile Include="FightingGameManager.cpp" />
     <ClCompile Include="FightingGameScene.cpp" />
     <ClCompile Include="FrameController.cpp" />
-    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Material.cpp" />

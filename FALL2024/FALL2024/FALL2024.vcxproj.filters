@@ -198,9 +198,6 @@
     <ClCompile Include="FightingGameScene.cpp">
       <Filter>Source Files\GameComponent\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files\GameComponent\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="FightingGameManager.cpp">
       <Filter>Source Files\GameComponent\Manager</Filter>
     </ClCompile>

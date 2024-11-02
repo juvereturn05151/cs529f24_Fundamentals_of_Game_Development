@@ -1,16 +1,36 @@
 #pragma once
-#include "GameManager.h"
-class FightingGameManager : public GameManager
+#include "Character.h"
+class FightingGameManager
 {
+private:
+    // Private constructor for singleton
+    Character* character1;
+    Character* character2;
+    Vector3 startingPos1;
+    Vector3 startingPos2;
+
+    // Private constructor and destructor to prevent instantiation
+    FightingGameManager() : character1(nullptr), character2(nullptr) {}
+    ~FightingGameManager() {}
+
+    // Delete copy constructor and assignment operator to prevent copying
+    FightingGameManager(const FightingGameManager&) = delete;
+    FightingGameManager& operator=(const FightingGameManager&) = delete;
+
 public:
-    // Override the initialize method
-    void initialize() override;
+    static FightingGameManager& getInstance()
+    {
+        static FightingGameManager instance;
+        return instance;
+    }
+
+    void initialize(Character* _character1, Character* _character2);
 
     // Override the update method
-    void update() override;
+    void update();
 
     // Override the reset method
-    void reset() override;
+    void reset();
 
 };
 

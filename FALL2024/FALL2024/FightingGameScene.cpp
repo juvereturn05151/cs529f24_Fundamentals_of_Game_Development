@@ -20,7 +20,7 @@ void FightingGameScene::assignObjects()
     character2 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 1);
     addObject(character2);
 
-    FightingGameManager::getInstance().initialize();
+    FightingGameManager::getInstance().initialize(character1, character2);
 
     Scene::assignObjects();
 }
@@ -71,6 +71,8 @@ void FightingGameScene::update(float deltaTime)
     character2->setYouLose(character1->getHitConfirmSuccess());
 
     Scene::update(deltaTime);
+
+    FightingGameManager::getInstance().update();
 }
 
 void FightingGameScene::handleCollision() 
