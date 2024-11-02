@@ -17,7 +17,8 @@ int main()
 
         scene->assignObjects();
 
-        while (!window.shouldClose()) {
+        while (!window.shouldClose()) 
+        {
             window.pollEvents();
 
             FrameController::getInstance().update();

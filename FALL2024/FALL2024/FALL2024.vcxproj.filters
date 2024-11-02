@@ -55,9 +55,6 @@
     <Filter Include="Source Files\Engine\Graphics">
       <UniqueIdentifier>{9d9db2b6-43df-4d0f-a65c-92e0e05a941f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Manager">
-      <UniqueIdentifier>{0e015100-4101-4a01-8a70-f404c02c5e70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Manager">
       <UniqueIdentifier>{6103ec3c-48a4-475a-87dc-1636c5a7215b}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,9 @@
     </Filter>
     <Filter Include="Source Files\Engine\Geometry">
       <UniqueIdentifier>{28e701fc-927d-475e-8502-1ef608333eae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Manager">
+      <UniqueIdentifier>{0e015100-4101-4a01-8a70-f404c02c5e70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,7 +246,7 @@
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="FrameController.h">
-      <Filter>Header Files\Manager</Filter>
+      <Filter>Header Files\Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\GameComponent</Filter>
