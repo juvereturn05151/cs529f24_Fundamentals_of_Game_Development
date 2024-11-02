@@ -62,7 +62,8 @@ void AnimatedSquare::updateVertices()
     float top = 1.0f - (frameHeight * animIndex);
     float bottom = top - frameHeight;
 
-    vertices = {
+    vertices = 
+    {
         squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, left, bottom,
         squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, left, top,
         squareVertices[6], squareVertices[7], squareVertices[8], color.x, color.y, color.z, alpha, right, top,
@@ -80,7 +81,8 @@ bool AnimatedSquare::isAnimationFinished() const
 }
 
 // Check if the animation is at a specific frame
-bool AnimatedSquare::isAtFrame(int frameNumber) const {
+bool AnimatedSquare::isAtFrame(int frameNumber) const 
+{
     return currentFrame == (frameNumber - 1);
 }
 
