@@ -1,8 +1,11 @@
 #include "Square.h"
 
-Square::Square(Vector3 color, float alpha, Shader* shaderProgram) : Mesh(color, alpha, shaderProgram)
+// Constructor using default vertices and provided color
+Square::Square(const Vector3& color, float alpha, Shader* shaderProgram)
+    : Mesh(color, alpha, shaderProgram)
 {
-    vertices =
+    // Initialize vertices using default square vertices and color
+    vertices = 
     {
         squareVertices[0], squareVertices[1], squareVertices[2], color.x, color.y, color.z, alpha, 0.0f, 0.0f,
         squareVertices[3], squareVertices[4], squareVertices[5], color.x, color.y, color.z, alpha, 0.0f, 1.0f,
@@ -10,18 +13,18 @@ Square::Square(Vector3 color, float alpha, Shader* shaderProgram) : Mesh(color, 
         squareVertices[9], squareVertices[10], squareVertices[11], color.x, color.y, color.z, alpha, 1.0f, 0.0f
     };
 
-    indices =
-    {
-        0, 1, 2,  // Define the triangle using vertex indices
-        0, 3, 2
-    };
+    // Define the indices to form two triangles for the square
+    indices = { 0, 1, 2, 0, 3, 2 };
 
     setupBuffers();
 }
 
-Square::Square(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 point4, Vector3 color, float alpha, Shader* shaderProgram) : Mesh(color, alpha, shaderProgram)
+// Constructor using custom vertices and provided color
+Square::Square(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4, const Vector3& color, float alpha, Shader* shaderProgram)
+    : Mesh(color, alpha, shaderProgram)
 {
-    vertices =
+    // Initialize vertices with given points and color
+    vertices = 
     {
         point1.x, point1.y, point1.z, color.x, color.y, color.z, alpha, 0.0f, 0.0f,
         point2.x, point2.y, point2.z, color.x, color.y, color.z, alpha, 0.0f, 1.0f,
@@ -29,11 +32,8 @@ Square::Square(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 point4, V
         point4.x, point4.y, point4.z, color.x, color.y, color.z, alpha, 1.0f, 0.0f
     };
 
-    indices =
-    {
-        0, 1, 2,  // Define the triangle using vertex indices
-        0, 3, 2
-    };
+    // Define the indices to form two triangles for the square
+    indices = { 0, 1, 2, 0, 3, 2 };
 
     setupBuffers();
 }
