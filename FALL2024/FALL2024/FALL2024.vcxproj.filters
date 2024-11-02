@@ -25,12 +25,6 @@
     <Filter Include="Source Files\UnusedCode">
       <UniqueIdentifier>{1440e9ef-e9d5-4998-9dc6-94af2a6a9499}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SceneComponents">
-      <UniqueIdentifier>{c4758536-f5d7-4f19-b499-3afdaa645b7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\SceneComponents">
-      <UniqueIdentifier>{355d7619-b862-4759-8828-37ae9855286b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{e9b3d391-9191-4458-878e-1a70fdf906b9}</UniqueIdentifier>
     </Filter>
@@ -103,6 +97,15 @@
     <Filter Include="Source Files\GameComponent\Scene">
       <UniqueIdentifier>{d83cc847-2d81-4410-9e7e-c0e898e6cf7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\SceneComponents">
+      <UniqueIdentifier>{c4758536-f5d7-4f19-b499-3afdaa645b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameComponent\Manager">
+      <UniqueIdentifier>{0c993d13-719b-41d9-9d3c-4f88b2c83f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\SceneComponents">
+      <UniqueIdentifier>{355d7619-b862-4759-8828-37ae9855286b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -145,10 +148,10 @@
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\SceneComponents</Filter>
+      <Filter>Source Files\Engine\SceneComponents</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\SceneComponents</Filter>
+      <Filter>Source Files\Engine\SceneComponents</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="FightingGameScene.cpp">
       <Filter>Source Files\GameComponent\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,10 +240,10 @@
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files\SceneComponents</Filter>
+      <Filter>Header Files\Engine\SceneComponents</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files\SceneComponents</Filter>
+      <Filter>Header Files\Engine\SceneComponents</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine\Graphics</Filter>
@@ -274,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="FightingGameScene.h">
       <Filter>Header Files\GameComponent\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

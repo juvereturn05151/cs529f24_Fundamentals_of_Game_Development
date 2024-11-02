@@ -4,19 +4,6 @@
 #include <chrono>
 
 class FrameController {
-public:
-    // Static method to get the singleton instance
-    static FrameController& getInstance();
-
-    // Public method to update the delta time
-    void update();
-
-    // Getters for deltaTime and FPS
-    float getDeltaTime() const;
-    float getFPS() const;
-    void setTimeScale(float scale);
-    float getTimeScale() const;
-
 private:
     // Private constructor to prevent instantiation
     FrameController();
@@ -33,6 +20,21 @@ private:
     float currentTime;
     float lastTime;
     float timeScale;
+
+public:
+    // Static method to get the singleton instance
+    static FrameController& getInstance();
+
+    // Public method to update the delta time
+    void update();
+
+    // Getters for deltaTime and FPS
+    float getDeltaTime() const;
+    float getFPS() const;
+    void setTimeScale(float scale);
+    float getTimeScale() const;
+
+
 };
 
 #endif // FRAMECONTROLLER_H
