@@ -1,36 +1,27 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
-{
+// Constructors
+GameObject::GameObject() = default;
 
+GameObject::GameObject(Mesh* mesh)
+    : mesh(mesh)
+{
 }
 
-GameObject::GameObject(Mesh* mesh) : mesh(mesh)
+GameObject::GameObject(Mesh* mesh, GLint modelMatrixLoc)
+    : mesh(mesh), modelMatrixLoc(modelMatrixLoc)
 {
-
-}
-
-GameObject::GameObject(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatrixLoc(modelMatrixLoc)
-{
-
 }
 
 // Destructor
-GameObject::~GameObject() {
-    // Delete the mesh object to free memory
+GameObject::~GameObject()
+{
     cleanup();
-
-    if (mesh != NULL)
-    {
-        delete mesh;
-    }
-
-    if (physicsComp != NULL)
-    {
-        delete physicsComp;
-    }
+    delete mesh;
+    delete physicsComp;
 }
 
+// Update function to handle physics and call the base class update
 void GameObject::update(float deltaTime)
 {
     if (physicsComp != NULL)
@@ -41,9 +32,10 @@ void GameObject::update(float deltaTime)
     Node::update(deltaTime);
 }
 
+// Draw function to render the mesh and call the base class draw
 void GameObject::draw()
 {
-    if (isActive) 
+    if (isActive)
     {
         Matrix4<float> modelMatrix = getGlobalModelMatrix();
         glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
@@ -57,6 +49,7 @@ void GameObject::draw()
     }
 }
 
+// Cleanup function to release mesh resources
 void GameObject::cleanup()
 {
     if (mesh != NULL)
@@ -65,18 +58,17 @@ void GameObject::cleanup()
     }
 }
 
+// Add a physics component to the GameObject, if one doesn't already exist
 void GameObject::addPhysicsComponent(float mass)
 {
-    if (physicsComp != NULL)
+    if (physicsComp == NULL)
     {
-        return;
+        physicsComp = new PhysicsComponent(mass);
     }
-
-    physicsComp = new PhysicsComponent(mass);
 }
 
-PhysicsComponent* GameObject::GetPhysicsComp()
+// Get the physics component
+PhysicsComponent* GameObject::getPhysicsComp()
 {
     return physicsComp;
 }
-

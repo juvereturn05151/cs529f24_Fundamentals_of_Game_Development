@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSquare.cpp" />
-    <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -168,7 +167,6 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RotatingObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Square.cpp" />
@@ -199,7 +197,6 @@
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RotatingObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Square.h" />

@@ -180,11 +180,11 @@ void Character::updateInput(PlayerInput* input)
         {
             if (playerSide == 0)
             {
-                GetPhysicsComp()->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
+                physicsComp->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
             }
             else
             {
-                GetPhysicsComp()->applyForce(Vector3(250.0f, 0.0f, 0.0f));
+                physicsComp->applyForce(Vector3(250.0f, 0.0f, 0.0f));
             }
         }
 

@@ -3,7 +3,6 @@
 #include "Triangle.h"
 #include "Square.h"
 #include "BoxCollider2D.h"
-#include "RotatingObject.h"
 
 // Constructor initializes camera and renderer
 Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) 
