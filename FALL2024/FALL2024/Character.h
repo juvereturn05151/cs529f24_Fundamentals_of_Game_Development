@@ -9,20 +9,20 @@ class Character : public GameObject
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc);
     Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);
-    void SetAnimatedSquare(AnimatedSquare* animated);
-    void SetFaceRight(bool isRight);
+    void setAnimatedSquare(AnimatedSquare* animated);
+    void setFaceRight(bool isRight);
 
     void updateInput(PlayerInput* input);
     void update(float deltaTime) override;
     void cleanup() override;
     void draw() override;
-    // Character actions (movement, etc.)
 
-    void MoveRight();
-    void MoveLeft();
-    void Attack();
-    void TriggerHurt();
-    bool IsAnimationFinished();
+    // Character actions (movement, etc.)
+    void moveRight();
+    void moveLeft();
+    void attack();
+    void triggerHurt();
+    bool isAnimationFinished();
     void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
     BoxCollider2D* getLegHurtBox();
@@ -33,15 +33,17 @@ public:
     bool getIsHurt();
     void setYouWin(bool win);
     bool getYouWin();
-    void setLose(bool lose);
+    void setYouLose(bool lose);
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
     float playerSide;
+
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
     BoxCollider2D* legHurtBox;
     BoxCollider2D* hitBox;
+
     float movementSpeed;
     bool faceRight;
     bool isAttacking;
@@ -54,8 +56,8 @@ private:
     bool isBlocking;
     bool block;
 
-    void UpdateMovement(PlayerInput* input);
-    void UpdateCMKCollider();
-    void CheckForBlock(PlayerInput* input);
+    void updateMovement(PlayerInput* input);
+    void updateCMKCollider();
+    void checkForBlock(PlayerInput* input);
 };
 

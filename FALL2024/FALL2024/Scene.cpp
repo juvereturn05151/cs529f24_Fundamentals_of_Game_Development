@@ -17,7 +17,7 @@ void Scene::assignObjects()
     player2Controller = new PlayerInput(1, KeyboardMouse, window);
 
     character1 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 0);
-    character1->SetFaceRight(true);
+    character1->setFaceRight(true);
     addObject(character1);
 
     character2 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 1);
@@ -73,8 +73,8 @@ void Scene::update(float deltaTime)
 
     character1->setCanHitConfirm(character2->getIsHurt());
     character2->setCanHitConfirm(character1->getIsHurt());
-    character1->setLose(character2->getHitConfirmSuccess());
-    character2->setLose(character1->getHitConfirmSuccess());
+    character1->setYouLose(character2->getHitConfirmSuccess());
+    character2->setYouLose(character1->getHitConfirmSuccess());
 
     for (Node* obj : objects) 
     {
@@ -110,13 +110,13 @@ void Scene::handleCollision()
     if (character1->getHitBox()->isColliding(*character2->getHurtBox())
         || character1->getHitBox()->isColliding(*character2->getLegHurtBox()))
     {
-        character2->TriggerHurt();
+        character2->triggerHurt();
     }
 
     if (character2->getHitBox()->isColliding(*character1->getHurtBox())
         || character2->getHitBox()->isColliding(*character1->getLegHurtBox()))
     {
-        character1->TriggerHurt();
+        character1->triggerHurt();
     }
 }
 

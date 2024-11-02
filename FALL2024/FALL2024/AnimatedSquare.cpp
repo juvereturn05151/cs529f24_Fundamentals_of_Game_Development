@@ -5,7 +5,8 @@
 AnimatedSquare::AnimatedSquare(const Vector3& color, float alpha, Shader* shaderProgram)
     : Square(color, alpha, shaderProgram)
 {
-    animations = {
+    animations = 
+    {
         { AnimationState::Idle,      {0, 5, 0.2f} },
         { AnimationState::WalkFront, {1, 6, 0.2f} },
         { AnimationState::WalkBack,  {2, 6, 0.2f} },
@@ -21,7 +22,8 @@ AnimatedSquare::AnimatedSquare(const Vector3& color, float alpha, Shader* shader
 }
 
 // Set animation state and reset frame-related parameters
-void AnimatedSquare::setAnimation(AnimationState newState, bool isLoop) {
+void AnimatedSquare::setAnimation(AnimationState newState, bool isLoop) 
+{
     if (currentState != newState) 
     {
         currentState = newState;

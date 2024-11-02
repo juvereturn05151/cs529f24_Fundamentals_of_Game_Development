@@ -32,8 +32,6 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     hurtBox = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
     legHurtBox = new BoxCollider2D(squareMesh3, renderer.GetModelMatrixLoc(), pos, scale);
 
-
-
     if (playerSide == 0)
     {
         getTransform()->setPosition(Vector3(-0.75f, 0.0f, 0.0f));
@@ -68,7 +66,7 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
         legHurtBox->getTransform()->setPosition(Vector3(centerPos.x - 0.75f, -2.0f, 0.0f));
     }
 
-    SetAnimatedSquare(ryu);
+    setAnimatedSquare(ryu);
 
     hitBox->setIsActive(false);
     legHurtBox->setIsActive(false);
@@ -86,7 +84,7 @@ void Character::setHurtBox(BoxCollider2D* newHurtBox)
     hurtBox = newHurtBox;
 }
 
-void Character::SetAnimatedSquare(AnimatedSquare* animated)
+void Character::setAnimatedSquare(AnimatedSquare* animated)
 {
     animatedSquare = animated;
 }
@@ -122,7 +120,7 @@ void Character::draw()
 }
 
 
-void Character::UpdateCMKCollider()
+void Character::updateCMKCollider()
 {
     float sign = 1.0f;
 
@@ -193,7 +191,7 @@ void Character::updateInput(PlayerInput* input)
 
     if (hitConfirmSuccess) 
     {
-        if (IsAnimationFinished() && !youWin) 
+        if (isAnimationFinished() && !youWin) 
         {
             youWin = true;
             animatedSquare->setAnimation(AnimationState::YouWin, false);
@@ -223,7 +221,7 @@ void Character::updateInput(PlayerInput* input)
         }
 
         // Skip other updates while hurt
-        if (IsAnimationFinished()) 
+        if (isAnimationFinished()) 
         {
             isHurt = false; // End hurt state once animation is done
         }
@@ -241,10 +239,10 @@ void Character::updateInput(PlayerInput* input)
 
             hitBox->setIsActive(animatedSquare->isAtFrame(3));
 
-            UpdateCMKCollider();
+            updateCMKCollider();
         }
 
-        if (IsAnimationFinished()) 
+        if (isAnimationFinished()) 
         {
             isAttacking = false; // Reset attack state
         }
@@ -260,20 +258,20 @@ void Character::updateInput(PlayerInput* input)
         if (InputManager::IsKeyJustPressed(input->GetcMK()))
         {
             
-            Attack();
+            attack();
             // Prevent movement during the attack
             return;
         }
 
         // Apply the movement
-        UpdateMovement(input);
+        updateMovement(input);
 
         if (isBlocking)
         {
             animatedSquare->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
 
-            if (IsAnimationFinished())
+            if (isAnimationFinished())
             {
                 isBlocking = false; // End block state when animation finishes
             }
@@ -283,7 +281,7 @@ void Character::updateInput(PlayerInput* input)
     }
 }
 
-void Character::CheckForBlock(PlayerInput* input)
+void Character::checkForBlock(PlayerInput* input)
 {
     bool facingOpponent = (playerSide == 0 && !InputManager::IsKeyPressed(input->GetMoveRight())) ||
         (playerSide == 1 && !InputManager::IsKeyPressed(input->GetMoveLeft()));
@@ -296,7 +294,7 @@ void Character::CheckForBlock(PlayerInput* input)
     }
 }
 
-void Character::TriggerHurt() 
+void Character::triggerHurt() 
 {
     if (block) 
     {
@@ -319,13 +317,13 @@ void Character::TriggerHurt()
 }
 
 
-void Character::UpdateMovement(PlayerInput* input)
+void Character::updateMovement(PlayerInput* input)
 {
     deltaX = 0.0f, deltaY = 0.0f;
     // Handle left/right movement
     if (InputManager::IsKeyPressed(input->GetMoveRight())) 
     {
-        MoveRight();
+        moveRight();
 
         if (playerSide == 1)
         {
@@ -334,7 +332,7 @@ void Character::UpdateMovement(PlayerInput* input)
     }
     if (InputManager::IsKeyPressed(input->GetMoveLeft())) 
     {
-        MoveLeft();
+        moveLeft();
 
         if (playerSide == 0) 
         {
@@ -353,7 +351,7 @@ void Character::UpdateMovement(PlayerInput* input)
     getTransform()->setPosition(getTransform()->getPosition() + Vector3(deltaX, deltaY, 0));
 }
 
-void Character::MoveRight()
+void Character::moveRight()
 {
     deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
     if (animatedSquare != NULL)
@@ -369,7 +367,7 @@ void Character::MoveRight()
     }
 }
 
-void Character::MoveLeft()
+void Character::moveLeft()
 {
     deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
     if (animatedSquare != NULL)
@@ -385,7 +383,7 @@ void Character::MoveLeft()
     }
 }
 
-void Character::Attack() 
+void Character::attack() 
 {
     isAttacking = true; // Set attacking state
     if (animatedSquare != NULL)
@@ -394,12 +392,12 @@ void Character::Attack()
     }
 }
 
-void Character::SetFaceRight(bool isRight)
+void Character::setFaceRight(bool isRight)
 {
     faceRight = isRight;
 }
 
-bool Character::IsAnimationFinished()
+bool Character::isAnimationFinished()
 {
     if (animatedSquare != NULL) 
     {
@@ -449,7 +447,7 @@ bool  Character::getYouWin()
     return youWin;
 }
 
-void Character::setLose(bool lose)
+void Character::setYouLose(bool lose)
 {
     youLose = lose;
 }

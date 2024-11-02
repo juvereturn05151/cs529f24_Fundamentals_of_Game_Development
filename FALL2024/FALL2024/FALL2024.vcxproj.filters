@@ -91,6 +91,12 @@
     <Filter Include="Source Files\Engine\Animation">
       <UniqueIdentifier>{5ed786eb-1a15-40df-aef3-ab9c43783547}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Geometry">
+      <UniqueIdentifier>{a5312fcb-4f07-4feb-a3ef-fd2ff482839b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Geometry">
+      <UniqueIdentifier>{28e701fc-927d-475e-8502-1ef608333eae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -138,12 +144,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\SceneComponents</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Square.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
@@ -173,6 +173,12 @@
     </ClCompile>
     <ClCompile Include="AnimatedSquare.cpp">
       <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\Engine\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Source Files\Engine\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +230,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\SceneComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Square.h">
-      <Filter>Header Files\Engine\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
@@ -242,9 +245,6 @@
     <ClInclude Include="BoxCollider2D.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Header Files\Engine\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="FrameController.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
@@ -256,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="AnimatedSquare.h">
       <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Header Files\Engine\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Engine\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
