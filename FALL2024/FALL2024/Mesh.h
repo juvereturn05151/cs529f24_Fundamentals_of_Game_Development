@@ -36,4 +36,6 @@ public:
     void cleanup(); // Cleanup resources
     virtual void draw();
     void AddTexture();
+    void AddTexture(std::string textureName);
+    void AddTexture(std::string textureName, GLenum format);
 };

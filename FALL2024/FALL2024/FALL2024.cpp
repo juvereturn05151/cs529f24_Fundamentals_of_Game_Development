@@ -12,6 +12,7 @@ int main()
     {
         GameWindow window(1600, 900, "OpenGL Window");
         Renderer renderer(window);
+        printf("Rendered by: %s\n", glGetString(GL_RENDERER));
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
         InputManager::Initialize(window.getWindow());
         Scene * scene = new FightingGameScene(camera,renderer, window);

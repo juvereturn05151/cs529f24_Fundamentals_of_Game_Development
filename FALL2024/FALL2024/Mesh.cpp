@@ -82,3 +82,19 @@ void Mesh::AddTexture()
         material->AddTexture();
     }
 }
+
+void Mesh::AddTexture(std::string textureName)
+{
+    if (material != NULL)
+    {
+        material->AddTexture(textureName);
+    }
+}
+
+void Mesh::AddTexture(std::string textureName, GLenum format)
+{
+    if (material != NULL)
+    {
+        material->AddTexture(textureName, format);
+    }
+}

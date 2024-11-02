@@ -10,6 +10,11 @@ FightingGameScene::FightingGameScene(Camera* cam, Renderer& rend, GameWindow& wi
 
 void FightingGameScene::assignObjects()
 {
+    Square* bgMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    bgMesh->AddTexture("bg3.png", GL_RGB);
+    GameObject* bg = new GameObject(bgMesh, renderer.GetModelMatrixLoc());
+    addObject(bg);
+
     player1Controller = new PlayerInput(0, KeyboardMouse, window);
     player2Controller = new PlayerInput(1, KeyboardMouse, window);
 

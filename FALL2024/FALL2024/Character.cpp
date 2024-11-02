@@ -13,7 +13,7 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     movementSpeed = 5.0f;
 
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    ryu->AddTexture();
+    ryu->AddTexture("Ryu2.png");
     Node* visualHolder = new GameObject(ryu, renderer.GetModelMatrixLoc());
     
     Vector3 pos = getTransform()->getPosition();
