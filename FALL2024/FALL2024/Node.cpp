@@ -1,15 +1,18 @@
 #include "Node.h"
 
+// Constructor
 Node::Node()
+    : transform(new Transform()), parent(nullptr), isActive(true)
 {
-    transform = new Transform();
 }
 
+// Destructor
 Node::~Node()
 {
-
+    delete transform;
 }
 
+// Update function to recursively update all child nodes
 void Node::update(float deltaTime)
 {
     for (Node* child : children)
@@ -18,9 +21,10 @@ void Node::update(float deltaTime)
     }
 }
 
+// Draw function to recursively draw all child nodes if this node is active
 void Node::draw()
 {
-    if (isActive) 
+    if (isActive)
     {
         for (Node* child : children)
         {
@@ -29,55 +33,57 @@ void Node::draw()
     }
 }
 
+// Get the transform of this node
 Transform* Node::getTransform()
 {
     return transform;
 }
 
-Matrix4<float> Node::getGlobalModelMatrix() const {
-    // Get the local model matrix from the transform
+// Compute the global model matrix by combining this node's transform with its parent's
+Matrix4<float> Node::getGlobalModelMatrix() const
+{
     Matrix4<float> localModelMatrix = transform->getModelMatrix();
 
-    // If this object has a parent, multiply the parent's global matrix with the local matrix
-    if (parent) 
+    if (parent)
     {
-        return localModelMatrix * parent->getGlobalModelMatrix(); // Parent's transform * Local transform
+        return localModelMatrix * parent->getGlobalModelMatrix();
     }
 
-    // If no parent, return the local matrix
     return localModelMatrix;
 }
 
-void Node::setParent(Node* parent)
+// Set the parent of this node
+void Node::setParent(Node* newParent)
 {
-    this->parent = parent;
+    parent = newParent;
 }
 
+// Add a child node and set this node as its parent
 void Node::addChild(Node* child)
 {
     child->setParent(this);
     children.push_back(child);
 }
 
+// Get the global position of this node by adding its local position to the parent's global position
 Vector3 Node::getGlobalPosition() const
 {
-    if (parent)
+    if (parent && parent->getTransform())
     {
-        if (parent->getTransform() != nullptr)
-        {
-            return parent->getGlobalPosition() + transform->getPosition();
-        }
+        return parent->getGlobalPosition() + transform->getPosition();
     }
 
     return transform->getPosition();
 }
 
-void Node::setIsActive(bool active) 
+// Set the active state of this node
+void Node::setIsActive(bool active)
 {
     isActive = active;
 }
 
-bool Node::getIsActive() 
+// Get the active state of this node
+bool Node::getIsActive()
 {
     return isActive;
 }

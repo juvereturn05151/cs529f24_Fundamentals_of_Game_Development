@@ -57,7 +57,7 @@ void Scene::update(float deltaTime)
     {
         character1->getTransform()->setPosition(Vector3(leftBoundary, position1.y, position1.z));
     }
-    else if (position1.x > rightBoundary +1.75f)
+    else if (position1.x > rightBoundary + 1.75f)
     {
         character1->getTransform()->setPosition(Vector3(rightBoundary + 1.75f, position1.y, position1.z));
     }
