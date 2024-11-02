@@ -85,6 +85,12 @@
     <Filter Include="Source Files\GameComponent">
       <UniqueIdentifier>{3eb5c759-f542-4143-98fd-f17cced73b63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Animation">
+      <UniqueIdentifier>{d2a0367b-d4a3-469d-b98a-fcec39a658ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Animation">
+      <UniqueIdentifier>{5ed786eb-1a15-40df-aef3-ab9c43783547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -141,9 +147,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="AnimatedSquare.cpp">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="stb.cpp">
       <Filter>Source Files\TemplatedExample</Filter>
     </ClCompile>
@@ -167,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSquare.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +230,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="AnimatedSquare.h">
-      <Filter>Header Files\Engine\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerInput.h">
       <Filter>Header Files\Engine\Input</Filter>
     </ClInclude>
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSquare.h">
+      <Filter>Header Files\Engine\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

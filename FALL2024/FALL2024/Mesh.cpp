@@ -18,7 +18,7 @@ void Mesh::setupBuffers()
     VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
 }
 
-void  Mesh::editBUffers()
+void Mesh::editBuffers()
 {
     VBO1->EditVBO(&vertices[0], vertices.size() * sizeof(GLfloat));
 }

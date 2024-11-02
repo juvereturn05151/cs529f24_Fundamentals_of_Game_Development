@@ -110,7 +110,7 @@ void Character::update(float deltaTime)
 {
     if (animatedSquare != NULL)
     {
-        animatedSquare->update_animation(deltaTime);
+        animatedSquare->updateAnimation(deltaTime);
     }
 
     GameObject::update(deltaTime);
@@ -173,7 +173,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
-            animatedSquare->set_animation(AnimationState::YouLose, false);
+            animatedSquare->setAnimation(AnimationState::YouLose, false);
         }
 
         if (animatedSquare->isAtFrame(5)) 
@@ -196,7 +196,7 @@ void Character::updateInput(PlayerInput* input)
         if (IsAnimationFinished() && !youWin) 
         {
             youWin = true;
-            animatedSquare->set_animation(AnimationState::YouWin, false);
+            animatedSquare->setAnimation(AnimationState::YouWin, false);
         }
 
         return;
@@ -209,7 +209,7 @@ void Character::updateInput(PlayerInput* input)
             if (InputManager::IsKeyJustPressed(input->GetcMK()))
             {
                 hitConfirmSuccess = true;
-                animatedSquare->set_animation(AnimationState::Hadoken);
+                animatedSquare->setAnimation(AnimationState::Hadoken);
                 return;
             }
         }
@@ -219,7 +219,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare != NULL) 
         {
-            animatedSquare->set_animation(AnimationState::Hurt);
+            animatedSquare->setAnimation(AnimationState::Hurt);
         }
 
         // Skip other updates while hurt
@@ -237,7 +237,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare != NULL)
         {
-            animatedSquare->set_animation(AnimationState::cMK);
+            animatedSquare->setAnimation(AnimationState::cMK);
 
             hitBox->setIsActive(animatedSquare->isAtFrame(3));
 
@@ -270,7 +270,7 @@ void Character::updateInput(PlayerInput* input)
 
         if (isBlocking)
         {
-            animatedSquare->set_animation(AnimationState::Block); // Set blocking animation
+            animatedSquare->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
 
             if (IsAnimationFinished())
@@ -291,7 +291,7 @@ void Character::CheckForBlock(PlayerInput* input)
     if (facingOpponent)
     {
         isBlocking = true;
-        animatedSquare->set_animation(AnimationState::Block); // Set to blocking animation
+        animatedSquare->setAnimation(AnimationState::Block); // Set to blocking animation
         hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
@@ -313,7 +313,7 @@ void Character::TriggerHurt()
 
     if (animatedSquare != NULL) 
     {
-        animatedSquare->set_animation(AnimationState::Hurt);
+        animatedSquare->setAnimation(AnimationState::Hurt);
     }
     hitBox->setIsActive(false); // Disable hitbox while in hurt state
 }
@@ -346,7 +346,7 @@ void Character::UpdateMovement(PlayerInput* input)
     {
         if (animatedSquare != NULL)
         {
-            animatedSquare->set_animation(AnimationState::Idle);
+            animatedSquare->setAnimation(AnimationState::Idle);
         }
     }
 
@@ -360,11 +360,11 @@ void Character::MoveRight()
     {
         if (faceRight)
         {
-            animatedSquare->set_animation(AnimationState::WalkFront);
+            animatedSquare->setAnimation(AnimationState::WalkFront);
         }
         else
         {
-            animatedSquare->set_animation(AnimationState::WalkBack);
+            animatedSquare->setAnimation(AnimationState::WalkBack);
         }
     }
 }
@@ -376,11 +376,11 @@ void Character::MoveLeft()
     {
         if (faceRight)
         {
-            animatedSquare->set_animation(AnimationState::WalkBack);
+            animatedSquare->setAnimation(AnimationState::WalkBack);
         }
         else
         {
-            animatedSquare->set_animation(AnimationState::WalkFront);
+            animatedSquare->setAnimation(AnimationState::WalkFront);
         }
     }
 }
@@ -390,7 +390,7 @@ void Character::Attack()
     isAttacking = true; // Set attacking state
     if (animatedSquare != NULL)
     {
-        animatedSquare->set_animation(AnimationState::cMK); // Set cMK animation
+        animatedSquare->setAnimation(AnimationState::cMK); // Set cMK animation
     }
 }
 
