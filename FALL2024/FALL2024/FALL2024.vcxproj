@@ -157,6 +157,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FALL2024.cpp" />
+    <ClCompile Include="FightingGameManager.cpp" />
     <ClCompile Include="FightingGameScene.cpp" />
     <ClCompile Include="FrameController.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="FightingGameManager.h" />
     <ClInclude Include="FightingGameScene.h" />
     <ClInclude Include="FrameController.h" />
     <ClInclude Include="GameManager.h" />

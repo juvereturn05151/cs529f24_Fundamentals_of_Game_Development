@@ -1,4 +1,5 @@
 #include "FightingGameScene.h"
+#include "FightingGameManager.h"
 
 FightingGameScene::FightingGameScene(Camera* cam, Renderer& rend, GameWindow& wind)
 	: Scene(cam, rend, wind)
@@ -18,6 +19,8 @@ void FightingGameScene::assignObjects()
 
     character2 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 1);
     addObject(character2);
+
+    FightingGameManager::getInstance().initialize();
 
     Scene::assignObjects();
 }

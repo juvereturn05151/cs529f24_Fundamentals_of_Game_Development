@@ -106,6 +106,15 @@
     <Filter Include="Source Files\Engine\SceneComponents">
       <UniqueIdentifier>{355d7619-b862-4759-8828-37ae9855286b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameComponent\Manager">
+      <UniqueIdentifier>{510b6264-44d5-4113-9a5c-fdc847ec7a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameComponent\Character">
+      <UniqueIdentifier>{cec916ab-0167-4d40-af22-2ada51c047f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponent\Character">
+      <UniqueIdentifier>{ae96eb15-349b-43d0-85b0-c6a5b2b188fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -174,9 +183,6 @@
     <ClCompile Include="FrameController.cpp">
       <Filter>Source Files\Engine\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files\GameComponent</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\Engine\Physics</Filter>
     </ClCompile>
@@ -193,7 +199,13 @@
       <Filter>Source Files\GameComponent\Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameComponent\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FightingGameManager.cpp">
+      <Filter>Source Files\GameComponent\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\GameComponent\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +275,6 @@
     <ClInclude Include="FrameController.h">
       <Filter>Header Files\Engine\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files\GameComponent</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Engine\Physics</Filter>
     </ClInclude>
@@ -282,7 +291,13 @@
       <Filter>Header Files\GameComponent\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameComponent\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FightingGameManager.h">
+      <Filter>Header Files\GameComponent\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\GameComponent\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
