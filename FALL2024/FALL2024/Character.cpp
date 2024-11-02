@@ -34,13 +34,13 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 
     if (playerSide == 0)
     {
-        getTransform()->setPosition(Vector3(-0.75f, 0.0f, 0.0f));
-        visualHolder->getTransform()->setScale(Vector3(3.5f, 3.5f, 3.5f));
+        getTransform()->setPosition(Vector3(-0.75f, -1.75f, 0.0f));
+        visualHolder->getTransform()->setScale(Vector3(4.0f, 4.0f, 3.5f));
     }
     else 
     {
-        getTransform()->setPosition(Vector3(0.75f, 0.0f, 0.0f));
-        visualHolder->getTransform()->setScale(Vector3(-3.5f, 3.5f, 3.5f));
+        getTransform()->setPosition(Vector3(0.75f, -1.75f, 0.0f));
+        visualHolder->getTransform()->setScale(Vector3(-4.0f, 4.0f, 3.5f));
     }
 
     if (playerSide == 0)

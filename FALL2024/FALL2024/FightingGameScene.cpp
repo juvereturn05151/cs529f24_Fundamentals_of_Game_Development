@@ -11,8 +11,9 @@ FightingGameScene::FightingGameScene(Camera* cam, Renderer& rend, GameWindow& wi
 void FightingGameScene::assignObjects()
 {
     Square* bgMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    bgMesh->AddTexture("bg3.png", GL_RGB);
+    bgMesh->AddTexture("bg2.png", GL_RGB);
     GameObject* bg = new GameObject(bgMesh, renderer.GetModelMatrixLoc());
+    bg->getTransform()->setScale(Vector3(15.0f, 10.0f, 0.0f));
     addObject(bg);
 
     player1Controller = new PlayerInput(0, KeyboardMouse, window);
