@@ -1,10 +1,10 @@
 #pragma once
-#include "ObjectMesh.h"
+#include "GameObject.h"
 #include "PlayerInput.h"
 #include "AnimatedSquare.h"
 #include "BoxCollider2D.h"
 #include "Renderer.h"
-class Character : public ObjectMesh
+class Character : public GameObject
 {
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc);

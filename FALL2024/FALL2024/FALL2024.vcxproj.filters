@@ -102,7 +102,7 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectMesh.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="VAO.cpp">
@@ -188,7 +188,7 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectMesh.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Header Files\Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="EBO.h">

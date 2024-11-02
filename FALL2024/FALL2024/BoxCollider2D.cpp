@@ -1,7 +1,7 @@
 #include "BoxCollider2D.h"
 
 BoxCollider2D::BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position, Vector3 scale)
-    : ObjectMesh(mesh, modelMatrixLoc), x(position.x), y(position.y), width(scale.x * 2.0f), height(scale.y)
+    : GameObject(mesh, modelMatrixLoc), x(position.x), y(position.y), width(scale.x * 2.0f), height(scale.y)
 {
     isActive = true;
 }

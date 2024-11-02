@@ -1,6 +1,6 @@
 #include "RotatingObject.h"
 
-RotatingObject::RotatingObject(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelMatrixLoc)
+RotatingObject::RotatingObject(Mesh* mesh, GLint modelMatrixLoc) : GameObject(mesh, modelMatrixLoc)
 {
 	angle = 0;
 }

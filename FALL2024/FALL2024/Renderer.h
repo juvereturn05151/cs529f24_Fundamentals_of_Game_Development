@@ -18,7 +18,7 @@
 #include "VBO.h"
 #include "EBO.h"
 #include "Camera.h"
-#include "ObjectMesh.h"
+#include "GameObject.h"
 
 class Renderer
 {

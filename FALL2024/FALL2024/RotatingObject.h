@@ -1,7 +1,7 @@
 #pragma once
-#include "ObjectMesh.h"
+#include "GameObject.h"
 #include "Mesh.h"
-class RotatingObject : public ObjectMesh
+class RotatingObject : public GameObject
 {
 private:
 	float angle;

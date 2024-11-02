@@ -2,19 +2,19 @@
 #include "FrameController.h"
 #include "InputManager.h"
 
-Character::Character(Mesh* mesh, GLint modelMatrixLoc) : ObjectMesh(mesh, modelMatrixLoc)
+Character::Character(Mesh* mesh, GLint modelMatrixLoc) : GameObject(mesh, modelMatrixLoc)
 {
     movementSpeed = 5.0f;
 }
 
-Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : ObjectMesh(mesh, modelMatrixLoc)
+Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : GameObject(mesh, modelMatrixLoc)
 {
     this->playerSide = playerSide;
     movementSpeed = 5.0f;
 
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture();
-    Node* visualHolder = new ObjectMesh(ryu, renderer.GetModelMatrixLoc());
+    Node* visualHolder = new GameObject(ryu, renderer.GetModelMatrixLoc());
     
     Vector3 pos = getTransform()->getPosition();
     Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
@@ -103,7 +103,7 @@ void Character::cleanup()
         delete hurtBox;
     }
 
-    ObjectMesh::cleanup();
+    GameObject::cleanup();
 }
 
 void Character::update(float deltaTime)
@@ -113,12 +113,12 @@ void Character::update(float deltaTime)
         animatedSquare->update_animation(deltaTime);
     }
 
-    ObjectMesh::update(deltaTime);
+    GameObject::update(deltaTime);
 }
 
 void Character::draw()
 {
-    ObjectMesh::draw();
+    GameObject::draw();
 }
 
 

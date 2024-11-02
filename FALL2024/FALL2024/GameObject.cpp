@@ -1,22 +1,22 @@
-#include "ObjectMesh.h"
+#include "GameObject.h"
 
-ObjectMesh::ObjectMesh()
+GameObject::GameObject()
 {
 
 }
 
-ObjectMesh::ObjectMesh(Mesh* mesh) : mesh(mesh)
+GameObject::GameObject(Mesh* mesh) : mesh(mesh)
 {
 
 }
 
-ObjectMesh::ObjectMesh(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatrixLoc(modelMatrixLoc)
+GameObject::GameObject(Mesh* mesh, GLint modelMatrixLoc) : mesh(mesh), modelMatrixLoc(modelMatrixLoc)
 {
 
 }
 
 // Destructor
-ObjectMesh::~ObjectMesh() {
+GameObject::~GameObject() {
     // Delete the mesh object to free memory
     cleanup();
 
@@ -31,7 +31,7 @@ ObjectMesh::~ObjectMesh() {
     }
 }
 
-void ObjectMesh::update(float deltaTime)
+void GameObject::update(float deltaTime)
 {
     if (physicsComp != NULL)
     {
@@ -41,7 +41,7 @@ void ObjectMesh::update(float deltaTime)
     Node::update(deltaTime);
 }
 
-void ObjectMesh::draw()
+void GameObject::draw()
 {
     if (isActive) 
     {
@@ -57,7 +57,7 @@ void ObjectMesh::draw()
     }
 }
 
-void ObjectMesh::cleanup()
+void GameObject::cleanup()
 {
     if (mesh != NULL)
     {
@@ -65,7 +65,7 @@ void ObjectMesh::cleanup()
     }
 }
 
-void ObjectMesh::addPhysicsComponent(float mass)
+void GameObject::addPhysicsComponent(float mass)
 {
     if (physicsComp != NULL)
     {
@@ -75,7 +75,7 @@ void ObjectMesh::addPhysicsComponent(float mass)
     physicsComp = new PhysicsComponent(mass);
 }
 
-PhysicsComponent* ObjectMesh::GetPhysicsComp()
+PhysicsComponent* GameObject::GetPhysicsComp()
 {
     return physicsComp;
 }

@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "ObjectMesh.h"
+#include "GameObject.h"
 #include "Triangle.h"
 #include "Square.h"
 #include "BoxCollider2D.h"
@@ -49,11 +49,8 @@ void Scene::update(float deltaTime)
     handleCollision();
 
     // Check if characters are within the defined boundaries
-    Vector3 position1 = character1->getGlobalPosition();
-    Vector3 position2 = character2->getGlobalPosition();
-
-    printf("character 1 pos: %f\n", position1.x);
-    printf("character 2 pos: %f\n", position2.x);
+    Vector3 position1 = character1->getTransform()->getPosition();
+    Vector3 position2 = character2->getTransform()->getPosition();
 
     // Clamp character1's position within the boundaries
     if (position1.x < leftBoundary)

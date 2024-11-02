@@ -2,8 +2,8 @@
 #include<iostream>
 #include <glew/glew.h>
 #include"Square.h"
-#include"ObjectMesh.h"
-class BoxCollider2D : public ObjectMesh
+#include"GameObject.h"
+class BoxCollider2D : public GameObject
 {
 private:
     float x, y;         // Position (top-left corner)
