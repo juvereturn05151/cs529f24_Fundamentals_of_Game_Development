@@ -97,6 +97,12 @@
     <Filter Include="Header Files\Engine\Manager">
       <UniqueIdentifier>{0e015100-4101-4a01-8a70-f404c02c5e70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameComponent\Scene">
+      <UniqueIdentifier>{880da996-3e3c-4f20-a0a8-d09e3d3d9735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponent\Scene">
+      <UniqueIdentifier>{d83cc847-2d81-4410-9e7e-c0e898e6cf7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -180,6 +186,9 @@
     <ClCompile Include="Square.cpp">
       <Filter>Source Files\Engine\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="FightingGameScene.cpp">
+      <Filter>Source Files\GameComponent\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VectorTemplated.h">
@@ -262,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Header Files\Engine\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="FightingGameScene.h">
+      <Filter>Header Files\GameComponent\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

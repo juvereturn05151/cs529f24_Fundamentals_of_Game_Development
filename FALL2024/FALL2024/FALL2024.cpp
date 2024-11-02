@@ -2,18 +2,19 @@
 #include "GameWindow.h"
 #include "Renderer.h"
 #include "Camera.h"
-#include "Scene.h"
+#include "FightingGameScene.h"
 #include "FrameController.h"
 #include "InputManager.h"
 
 int main() 
 {
-    try {
+    try 
+    {
         GameWindow window(1600, 900, "OpenGL Window");
         Renderer renderer(window);
         Camera * camera = new Camera(renderer.GetViewMatrixLoc(), renderer.GetProjectionMatrixLoc(), window);
         InputManager::Initialize(window.getWindow());
-        Scene * scene = new Scene(camera,renderer, window);
+        Scene * scene = new FightingGameScene(camera,renderer, window);
 
         scene->assignObjects();
 
@@ -32,7 +33,8 @@ int main()
         delete camera;
         delete scene;
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e) 
+    {
         std::cerr << "Error: " << e.what() << std::endl;
         return -1;
     }
