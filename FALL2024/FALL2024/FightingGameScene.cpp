@@ -72,7 +72,7 @@ void FightingGameScene::update(float deltaTime)
 
     Scene::update(deltaTime);
 
-    FightingGameManager::getInstance().update();
+    FightingGameManager::getInstance().update(deltaTime);
 }
 
 void FightingGameScene::handleCollision() 

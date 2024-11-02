@@ -10,13 +10,21 @@ void FightingGameManager::initialize(Character* _character1, Character* _charact
 }
 
 // Override the update method
-void FightingGameManager::update() 
+void FightingGameManager::update(float deltaTime)
 {
 	if (character1 != NULL && character2 != NULL) 
 	{
 		if (character1->getYouWin() || character2->getYouWin()) 
 		{
-			reset();
+			currentCountDownToReset += deltaTime;
+			if (currentCountDownToReset >= countDownToReset) 
+			{
+				if (!hasReset)
+				{
+					hasReset = true;
+					reset();
+				}
+			}
 		}
 	}
 }
@@ -26,4 +34,8 @@ void FightingGameManager::reset()
 {
 	character1->getTransform()->setPosition(startingPos1);
 	character2->getTransform()->setPosition(startingPos2);
+	character1->reset();
+	character2->reset();
+	currentCountDownToReset = 0;
+	hasReset = false;
 }

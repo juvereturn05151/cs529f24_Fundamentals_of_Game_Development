@@ -79,6 +79,20 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     addPhysicsComponent(1.0f);
 }
 
+void Character::reset()
+{
+    isAttacking = false;
+    isAttackAnimFinished = false;
+    isHurt = false;
+    canHitConfirm = false;
+    hitConfirmSuccess = false;
+    youWin = false;
+    youLose = false;
+    isBlocking = false;
+    block = false;
+    hitBox->setIsActive(false);
+}
+
 void Character::setHurtBox(BoxCollider2D* newHurtBox)
 {
     hurtBox = newHurtBox;

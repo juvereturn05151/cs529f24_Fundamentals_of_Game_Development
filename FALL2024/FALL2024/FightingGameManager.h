@@ -9,6 +9,11 @@ private:
     Vector3 startingPos1;
     Vector3 startingPos2;
 
+    //Reset
+    bool hasReset;
+    const float countDownToReset = 3.0f;
+    float currentCountDownToReset = 0.0f;
+
     // Private constructor and destructor to prevent instantiation
     FightingGameManager() : character1(nullptr), character2(nullptr) {}
     ~FightingGameManager() {}
@@ -27,7 +32,7 @@ public:
     void initialize(Character* _character1, Character* _character2);
 
     // Override the update method
-    void update();
+    void update(float deltaTime);
 
     // Override the reset method
     void reset();

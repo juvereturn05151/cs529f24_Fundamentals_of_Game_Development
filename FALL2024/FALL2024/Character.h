@@ -34,6 +34,7 @@ public:
     void setYouWin(bool win);
     bool getYouWin();
     void setYouLose(bool lose);
+    void reset();
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
