@@ -4,7 +4,7 @@
 class Canvas
 {
 protected:
-	std::vector<Node*> objects;
+	std::vector<Node*> userInterfaces;
 public:
     Canvas();
 

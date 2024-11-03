@@ -28,6 +28,11 @@ void Scene::update(float deltaTime)
     {
         obj->update(deltaTime);  // Assuming objects have an update method
     }
+
+    if (canvas != NULL)
+    {
+        canvas->update(deltaTime);
+    }
 }
 
 void Scene::handleCollision()
@@ -49,6 +54,11 @@ void Scene::draw() {
         obj->draw();
     }
 
+    if (canvas != NULL)
+    {
+        canvas->draw();
+    }
+
     // Swap buffers after rendering
     renderer.swapBuffers();
 }
@@ -58,9 +68,11 @@ Scene::~Scene()
 {
     for (Node* obj : objects) 
     {
-        if (obj != NULL) 
-        {
-            delete obj;
-        }
+        delete obj;
+    }
+
+    if (canvas != NULL) 
+    {
+        delete canvas;
     }
 }

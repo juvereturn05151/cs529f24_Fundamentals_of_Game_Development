@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "Node.h" 
 #include "GameWindow.h"
+#include "Canvas.h"
 
 class Scene {
 protected:
@@ -11,6 +12,7 @@ protected:
     Camera* camera;                // Pointer to the camera
     Renderer& renderer;            // Pointer to the renderer
     GameWindow& window;
+    Canvas* canvas;
 
 public:
     // Constructor
