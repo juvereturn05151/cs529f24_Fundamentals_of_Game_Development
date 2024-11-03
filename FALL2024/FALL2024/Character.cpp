@@ -3,6 +3,7 @@
 #include "InputManager.h"
 #include "EventSystem.h"
 #include <algorithm>
+#include "SoundManager.h"
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : GameObject(mesh, modelMatrixLoc)
 {
@@ -88,6 +89,8 @@ void Character::reset()
     youLose = false;
     isBlocking = false;
     block = false;
+    hasPlayUrghSound = false;
+    hasPlayHitConfirmSound = false;
     hitBox->setIsActive(false);
 }
 
@@ -175,6 +178,8 @@ bool Character::getHitConfirmSuccess()
     return hitConfirmSuccess;
 }
 
+
+
 void Character::updateInput(PlayerInput* input) 
 {
     block = false;
@@ -191,6 +196,12 @@ void Character::updateInput(PlayerInput* input)
 
         if (animatedSquare->isAtFrame(5)) 
         {
+            if (!hasPlayUrghSound) 
+            {
+                SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
+                hasPlayUrghSound = true;
+            }
+
             if (playerSide == 0)
             {
                 physicsComp->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
@@ -206,9 +217,24 @@ void Character::updateInput(PlayerInput* input)
 
     if (hitConfirmSuccess) 
     {
+        if (animatedSquare->isAtFrame(3)) 
+        {
+            if (!hasPlayHitConfirmSound) 
+            {
+                if (animatedSquare->getCurrentState() != AnimationState::YouWin)
+                {
+                    hasPlayHitConfirmSound = true;
+                    SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
+                }
+            }
+
+
+        }
+
         if (isAnimationFinished() && !youWin) 
         {
             youWin = true;
+            SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
             animatedSquare->setAnimation(AnimationState::YouWin, false);
         }
 
@@ -221,7 +247,12 @@ void Character::updateInput(PlayerInput* input)
         {
             if (InputManager::IsKeyJustPressed(input->GetcMK()))
             {
+                SoundManager::getInstance().playSound("audio/ryuken-hadooken-101soundboards.mp3", false);
                 hitConfirmSuccess = true;
+                if (animatedSquare->getCurrentState() != AnimationState::Hadoken)
+                {
+                    SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
+                }
                 animatedSquare->setAnimation(AnimationState::Hadoken);
                 return;
             }
@@ -283,7 +314,7 @@ void Character::updateInput(PlayerInput* input)
         {
             animatedSquare->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
-
+            //SoundManager::getInstance().playSound("audio/guard-101soundboards.mp3", false);
             if (isAnimationFinished())
             {
                 isBlocking = false; // End block state when animation finishes
@@ -311,7 +342,15 @@ void Character::triggerHurt()
 {
     if (block) 
     {
-        isBlocking = true;
+        if (!isBlocking)
+        {
+            isBlocking = true;
+            if (animatedSquare->getCurrentState() != AnimationState::Block) 
+            {
+                SoundManager::getInstance().playSound("audio/guard-101soundboards.mp3", false);
+            }
+        }
+        
         return;
     }
 
@@ -324,7 +363,11 @@ void Character::triggerHurt()
 
     if (animatedSquare != NULL) 
     {
-        animatedSquare->setAnimation(AnimationState::Hurt);
+        if (animatedSquare->getCurrentState() != AnimationState::Hurt) 
+        {
+            animatedSquare->setAnimation(AnimationState::Hurt);
+            SoundManager::getInstance().playSound("audio/hit.wav", false);
+        }
     }
     hitBox->setIsActive(false); // Disable hitbox while in hurt state
 }
@@ -399,6 +442,7 @@ void Character::moveLeft()
 void Character::attack() 
 {
     isAttacking = true; // Set attacking state
+    SoundManager::getInstance().playSound("audio/ryu_attack_sound.mp3", false);
     if (animatedSquare != NULL)
     {
         animatedSquare->setAnimation(AnimationState::cMK); // Set cMK animation

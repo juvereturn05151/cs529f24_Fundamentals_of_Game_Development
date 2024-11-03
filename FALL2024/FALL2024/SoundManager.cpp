@@ -19,7 +19,7 @@ SoundManager::~SoundManager()
 }
 
 // Public methods for sound control
-void SoundManager::playSound(const std::string& filePath, bool loop = false) 
+void SoundManager::playSound(const std::string& filePath, bool loop) 
 {
     if (soundEngine) 
     {

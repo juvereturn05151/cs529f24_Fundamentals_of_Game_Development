@@ -184,6 +184,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />

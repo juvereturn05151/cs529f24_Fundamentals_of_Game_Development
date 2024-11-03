@@ -58,6 +58,8 @@ private:
     bool youLose;
     bool isBlocking;
     bool block;
+    bool hasPlayUrghSound = false;
+    bool hasPlayHitConfirmSound = false;
 
     void updateMovement(PlayerInput* input);
     void updateCMKCollider();
