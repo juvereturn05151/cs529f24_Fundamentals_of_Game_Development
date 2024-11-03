@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{dd211f0e-5b6d-41e0-8930-47ddf5dd711e}</ProjectGuid>
     <RootNamespace>FALL2024</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,6 +78,10 @@
     <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -117,7 +121,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;opengl32.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
