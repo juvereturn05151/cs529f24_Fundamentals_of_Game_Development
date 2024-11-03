@@ -115,6 +115,12 @@
     <Filter Include="Source Files\GameComponent\Character">
       <UniqueIdentifier>{ae96eb15-349b-43d0-85b0-c6a5b2b188fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameComponent\UI">
+      <UniqueIdentifier>{c72c41f1-4f0e-4253-a3f7-d6205c78cc67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponent\UI">
+      <UniqueIdentifier>{d077420e-d61a-41ac-8947-be1de2928159}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -203,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\GameComponent\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartUI.cpp">
+      <Filter>Source Files\GameComponent\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\GameComponent\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="HeartUI.h">
+      <Filter>Header Files\GameComponent\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

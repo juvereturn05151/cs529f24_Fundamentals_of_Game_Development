@@ -6,10 +6,10 @@
 
 class GameObject : public Node {
 private:
-    Mesh* mesh = nullptr;  // Pointer to a Mesh instance, initialized to nullptr
     GLint modelMatrixLoc;
 
 protected:
+    Mesh* mesh = nullptr;  // Pointer to a Mesh instance, initialized to nullptr
     PhysicsComponent* physicsComp = nullptr;  // Initialized to nullptr
 
 public:

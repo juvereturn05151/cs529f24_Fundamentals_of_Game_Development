@@ -58,6 +58,9 @@ Scene::~Scene()
 {
     for (Node* obj : objects) 
     {
-        delete obj;
+        if (obj != NULL) 
+        {
+            delete obj;
+        }
     }
 }

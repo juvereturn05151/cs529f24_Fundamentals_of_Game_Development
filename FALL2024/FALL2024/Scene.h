@@ -30,5 +30,5 @@ public:
     virtual void update(float deltaTime);
 
     // Destructor to clean up dynamically allocated objects
-    ~Scene();
+    virtual ~Scene();
 };
