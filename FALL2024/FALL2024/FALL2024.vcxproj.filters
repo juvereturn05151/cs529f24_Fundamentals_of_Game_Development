@@ -213,6 +213,12 @@
     <ClCompile Include="HeartUI.cpp">
       <Filter>Source Files\GameComponent\UI</Filter>
     </ClCompile>
+    <ClCompile Include="FightingGameCanvasManager.cpp">
+      <Filter>Source Files\GameComponent\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files\GameComponent\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VectorTemplated.h">
@@ -306,6 +312,12 @@
       <Filter>Header Files\GameComponent\Character</Filter>
     </ClInclude>
     <ClInclude Include="HeartUI.h">
+      <Filter>Header Files\GameComponent\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FightingGameCanvasManager.h">
+      <Filter>Header Files\GameComponent\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
       <Filter>Header Files\GameComponent\UI</Filter>
     </ClInclude>
   </ItemGroup>
