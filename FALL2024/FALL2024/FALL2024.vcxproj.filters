@@ -121,6 +121,9 @@
     <Filter Include="Source Files\Engine\UI">
       <UniqueIdentifier>{4c95a3d3-5b19-41d0-9639-af75bc6953d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Sound">
+      <UniqueIdentifier>{292d038e-5f05-4944-beb2-fe97b347daf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
