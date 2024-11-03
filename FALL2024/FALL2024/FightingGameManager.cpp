@@ -32,6 +32,11 @@ void FightingGameManager::update(float deltaTime)
 // Override the reset method
 void FightingGameManager::reset() 
 {
+	if (character1->getHealth() <= 0 || character2->getHealth() <= 0) 
+	{
+		return;
+	}
+
 	character1->getTransform()->setPosition(startingPos1);
 	character2->getTransform()->setPosition(startingPos2);
 	character1->reset();

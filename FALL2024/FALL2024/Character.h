@@ -35,6 +35,7 @@ public:
     bool getYouWin();
     void setYouLose(bool lose);
     void reset();
+    int getHealth();
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;

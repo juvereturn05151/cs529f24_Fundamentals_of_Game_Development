@@ -45,7 +45,7 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxSize);
 	printf("max size: %i", maxSize);
 
-	glTexImage2D(texType, 0, GL_RGBA, widthImg, heightImg, 0, format, pixelType, bytes);
+	glTexImage2D(texType, 0, format, widthImg, heightImg, 0, format, pixelType, bytes);
 	// Generates MipMaps
 	glGenerateMipmap(texType);
 

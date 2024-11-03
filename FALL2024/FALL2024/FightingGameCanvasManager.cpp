@@ -27,6 +27,28 @@ FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(re
     player2HeartUI[2] = heartUI6;
     addObject(heartUI6);
 
+    Square* bgPostGameMesh = new Square(Vector3(0.0f, 0.0f, 0.0f), 0.95f, renderer.GetShader());
+    GameObject* bgPostGame = new GameObject(bgPostGameMesh, renderer.GetModelMatrixLoc());
+    bgPostGame->getTransform()->setScale(Vector3(15.0f, 10.0f, 0.0f));
+    bgPostGame->getTransform()->setPosition(bgPostGame->getTransform()->getPosition() + Vector3(0.0f, 0.05f, 0.0f));
+    addObject(bgPostGame);
+    bgPostGame->setIsActive(false);
+    this->postGameBg = bgPostGame;
+
+    Square* player1winMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    player1winMesh->AddTexture("player1win.png", GL_RGBA);
+    GameObject* player1win = new GameObject(player1winMesh, renderer.GetModelMatrixLoc());
+    bgPostGame->addChild(player1win);
+    player1win->setIsActive(false);
+    this->player1Win = player1win;
+
+    Square* player2winMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    player2winMesh->AddTexture("player2win.png", GL_RGBA);
+    GameObject* player2win = new GameObject(player2winMesh, renderer.GetModelMatrixLoc());
+    bgPostGame->addChild(player2win);
+    player2win->setIsActive(false);
+    this->player2Win = player2win;
+
     auto decreasePlayerHealthCallback = [this](int a, int b)
     {
         decreasePlayerHealth(a, b);
@@ -51,6 +73,11 @@ void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
                 player1HeartUI[i]->setIsActive(false); 
             }
         }
+
+        if (health <= 0) 
+        {
+            player2Win->setIsActive(true);
+        }
     }
     else if (playerSide == 1) 
     {
@@ -65,6 +92,29 @@ void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
             {
                 player2HeartUI[i]->setIsActive(false); 
             }
+        }
+
+        if (health <= 0)
+        {
+            player1Win->setIsActive(true);
+        }
+    }
+
+    if (health <= 0)
+    {
+        startCountDownToPostGame = true;
+    }
+}
+
+void FightingGameCanvasManager::update(float deltaTime)
+{
+    if (startCountDownToPostGame) 
+    {
+        currentCountDownToPostGameUI += deltaTime;
+        if (currentCountDownToPostGameUI >= countDownToPostGameUI)
+        {
+            postGameBg->setIsActive(true);
+            startCountDownToPostGame = false;
         }
     }
 }

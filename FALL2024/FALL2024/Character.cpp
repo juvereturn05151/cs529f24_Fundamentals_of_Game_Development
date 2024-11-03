@@ -464,3 +464,8 @@ void Character::setYouLose(bool lose)
 {
     youLose = lose;
 }
+
+int Character::getHealth()
+{
+    return health;
+}
