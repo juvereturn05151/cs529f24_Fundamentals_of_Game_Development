@@ -121,6 +121,12 @@
     <Filter Include="Source Files\GameComponent\UI">
       <UniqueIdentifier>{d077420e-d61a-41ac-8947-be1de2928159}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\UI">
+      <UniqueIdentifier>{51ef2159-8fb0-49bb-86c9-e2e70c41640a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\UI">
+      <UniqueIdentifier>{4c95a3d3-5b19-41d0-9639-af75bc6953d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -217,7 +223,7 @@
       <Filter>Source Files\GameComponent\UI</Filter>
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
-      <Filter>Source Files\GameComponent\UI</Filter>
+      <Filter>Source Files\Engine\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +324,7 @@
       <Filter>Header Files\GameComponent\UI</Filter>
     </ClInclude>
     <ClInclude Include="Canvas.h">
-      <Filter>Header Files\GameComponent\UI</Filter>
+      <Filter>Header Files\Engine\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

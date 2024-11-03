@@ -1,8 +1,11 @@
 #pragma once
-class FightingGameCanvasManager
+#include "Canvas.h"
+
+class FightingGameCanvasManager : public Canvas
 {
 public:
-	void Instantiate();
+	FightingGameCanvasManager(Renderer& rend);
+	~FightingGameCanvasManager();
 
 };
 

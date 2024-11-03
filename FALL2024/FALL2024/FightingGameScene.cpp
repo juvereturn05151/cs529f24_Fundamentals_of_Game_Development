@@ -1,6 +1,6 @@
 #include "FightingGameScene.h"
 #include "FightingGameManager.h"
-#include "HeartUI.h"
+#include "FightingGameCanvasManager.h"
 
 FightingGameScene::FightingGameScene(Camera* cam, Renderer& rend, GameWindow& wind)
 	: Scene(cam, rend, wind)
@@ -27,24 +27,7 @@ void FightingGameScene::assignObjects()
     character2 = new Character(NULL, renderer.GetModelMatrixLoc(), renderer, 1);
     addObject(character2);
     
-    HeartUI* heartUI1 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(-3.75f, 3.0f, 0.0f));
-    addObject(heartUI1);
-
-    HeartUI* heartUI2 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(-4.75f, 3.0f, 0.0f));
-    addObject(heartUI2);
-
-    HeartUI* heartUI3 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(-5.75f, 3.0f, 0.0f));
-    addObject(heartUI3);
-
-    HeartUI* heartUI4 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(3.75f, 3.0f, 0.0f));
-    addObject(heartUI4);
-
-    HeartUI* heartUI5 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(4.75f, 3.0f, 0.0f));
-    addObject(heartUI5);
-
-    HeartUI* heartUI6 = new HeartUI(NULL, renderer.GetModelMatrixLoc(), renderer, Vector3(5.75f, 3.0f, 0.0f));
-    addObject(heartUI6);
-
+    canvas = new FightingGameCanvasManager(renderer);
 
     FightingGameManager::getInstance().initialize(character1, character2);
 

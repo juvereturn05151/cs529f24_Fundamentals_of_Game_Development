@@ -1,6 +1,6 @@
 #include "Canvas.h"
 
-Canvas::Canvas() 
+Canvas::Canvas(Renderer& rend): renderer(rend)
 {
 
 }
@@ -29,4 +29,9 @@ Canvas::~Canvas()
             delete obj;
         }
     }
+}
+
+void Canvas::addObject(Node* obj)
+{
+    userInterfaces.push_back(obj);
 }
