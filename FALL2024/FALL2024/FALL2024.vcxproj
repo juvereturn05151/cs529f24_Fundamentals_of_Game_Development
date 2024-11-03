@@ -157,6 +157,7 @@
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="FALL2024.cpp" />
     <ClCompile Include="FightingGameCanvasManager.cpp" />
     <ClCompile Include="FightingGameManager.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="FightingGameCanvasManager.h" />
     <ClInclude Include="FightingGameManager.h" />
     <ClInclude Include="FightingGameScene.h" />

@@ -1,30 +1,24 @@
 #include "EventSystem.h"
 
-void EventSystem::subscribe(const std::string& eventType, Callback callback) 
+// Unsubscribe from an event using the unique ID
+void EventSystem::unsubscribe(const std::string& eventType, CallbackId id) 
 {
-    subscribers[eventType].push_back(callback);
-}
-
-// Unsubscribe from an event
-void EventSystem::unsubscribe(const std::string& eventType, Callback callback)
-{
-    if (subscribers.find(eventType) != subscribers.end()) {
-        auto& callbacks = subscribers[eventType];
-        // Remove the callback from the vector
-        callbacks.erase(std::remove(callbacks.begin(), callbacks.end(), callback), callbacks.end());
-
-        // If no more callbacks are left for the event, remove the event from the map
-        if (callbacks.empty()) {
+    if (subscribers.find(eventType) != subscribers.end()) 
+    {
+        subscribers[eventType].erase(id);
+        if (subscribers[eventType].empty()) 
+        {
             subscribers.erase(eventType);
         }
     }
 }
 
+// Notify all subscribers of an event
 void EventSystem::notify(const std::string& eventType) 
 {
     if (subscribers.find(eventType) != subscribers.end()) 
     {
-        for (const auto& callback : subscribers[eventType]) 
+        for (const auto& [id, callback] : subscribers[eventType]) 
         {
             callback();
         }

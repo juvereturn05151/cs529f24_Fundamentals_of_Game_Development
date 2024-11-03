@@ -8,7 +8,9 @@ class EventSystem
 {
 private:
 	using Callback = std::function<void()>;
-	std::map<std::string, std::vector<Callback>> subscribers;
+	using CallbackId = size_t;
+	std::map<std::string, std::unordered_map<CallbackId, Callback>> subscribers;
+	CallbackId nextId = 0;
 
 	// Private constructor to prevent instantiation
 	EventSystem() = default;
@@ -24,8 +26,14 @@ public:
 		return instance;
 	}
 
-	void subscribe(const std::string& eventType, Callback callback);
-	void unsubscribe(const std::string& eventType, Callback callback);
+	CallbackId subscribe(const std::string& eventType, Callback callback)
+	{
+		CallbackId id = nextId++;
+		subscribers[eventType][id] = callback;
+		return id;
+	}
+
+	void unsubscribe(const std::string& eventType, CallbackId id);
 	void notify(const std::string& eventType);
 };
 

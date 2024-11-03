@@ -216,6 +216,9 @@
     <ClCompile Include="stb.cpp">
       <Filter>Source Files\UnusedCode</Filter>
     </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>Source Files\Engine\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="Canvas.h">
       <Filter>Header Files\Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>Header Files\Engine\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
