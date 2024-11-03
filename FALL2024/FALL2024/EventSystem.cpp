@@ -3,12 +3,24 @@
 // Unsubscribe from an event using the unique ID
 void EventSystem::unsubscribe(const std::string& eventType, CallbackId id) 
 {
-    if (subscribers.find(eventType) != subscribers.end()) 
+    if (voidSubscribers.find(eventType) != voidSubscribers.end()) 
     {
-        subscribers[eventType].erase(id);
-        if (subscribers[eventType].empty()) 
+        voidSubscribers[eventType].erase(id);
+        if (voidSubscribers[eventType].empty()) 
         {
-            subscribers.erase(eventType);
+            voidSubscribers.erase(eventType);
+        }
+    }
+}
+
+void EventSystem::unsubscribeIntAndInt(const std::string& eventType, CallbackId id)
+{
+    if (intAndIntSubscribers.find(eventType) != intAndIntSubscribers.end())
+    {
+        intAndIntSubscribers[eventType].erase(id);
+        if (intAndIntSubscribers[eventType].empty())
+        {
+            intAndIntSubscribers.erase(eventType);
         }
     }
 }
@@ -16,11 +28,22 @@ void EventSystem::unsubscribe(const std::string& eventType, CallbackId id)
 // Notify all subscribers of an event
 void EventSystem::notify(const std::string& eventType) 
 {
-    if (subscribers.find(eventType) != subscribers.end()) 
+    if (voidSubscribers.find(eventType) != voidSubscribers.end()) 
     {
-        for (const auto& [id, callback] : subscribers[eventType]) 
+        for (const auto& [id, callback] : voidSubscribers[eventType]) 
         {
             callback();
+        }
+    }
+}
+
+void EventSystem::notify(const std::string& eventType, int a, int b)
+{
+    if (intAndIntSubscribers.find(eventType) != intAndIntSubscribers.end())
+    {
+        for (const auto& [id, callback] : intAndIntSubscribers[eventType])
+        {
+            callback(a, b);
         }
     }
 }

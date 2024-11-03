@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "FrameController.h"
 #include "InputManager.h"
+#include "EventSystem.h"
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc) : GameObject(mesh, modelMatrixLoc)
 {
@@ -186,6 +187,15 @@ void Character::updateInput(PlayerInput* input)
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
             animatedSquare->setAnimation(AnimationState::YouLose, false);
+
+            if (playerSide == 0)
+            {
+                EventSystem::getInstance().notify("decreasePlayer1Health");
+            }
+            else 
+            {
+                EventSystem::getInstance().notify("decreasePlayer2Health");
+            }
         }
 
         if (animatedSquare->isAtFrame(5)) 
@@ -266,8 +276,6 @@ void Character::updateInput(PlayerInput* input)
     }
     else
     {
-
-
         // Handle crouching medium kick input (cMK)
         if (InputManager::IsKeyJustPressed(input->GetcMK()))
         {
