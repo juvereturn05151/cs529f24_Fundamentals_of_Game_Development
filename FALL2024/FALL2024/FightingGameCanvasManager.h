@@ -10,7 +10,6 @@ public:
 	FightingGameCanvasManager(Renderer& rend);
 	~FightingGameCanvasManager();
 
-	void decreasePlayer1Health();
-	void decreasePlayer2Health();
+	void decreasePlayerHealth(int playerSide, int health);
 };
 

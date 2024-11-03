@@ -2,16 +2,13 @@
 #include "FrameController.h"
 #include "InputManager.h"
 #include "EventSystem.h"
-
-Character::Character(Mesh* mesh, GLint modelMatrixLoc) : GameObject(mesh, modelMatrixLoc)
-{
-    movementSpeed = 5.0f;
-}
+#include <algorithm>
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : GameObject(mesh, modelMatrixLoc)
 {
     this->playerSide = playerSide;
     movementSpeed = 5.0f;
+    health = 3;
 
     AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture("Ryu2.png");
@@ -187,15 +184,9 @@ void Character::updateInput(PlayerInput* input)
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
             animatedSquare->setAnimation(AnimationState::YouLose, false);
-
-            if (playerSide == 0)
-            {
-                EventSystem::getInstance().notify("decreasePlayer1Health");
-            }
-            else 
-            {
-                EventSystem::getInstance().notify("decreasePlayer2Health");
-            }
+            health--;
+            health = std::clamp(health, 0, 3);
+            EventSystem::getInstance().notify("decreasePlayerHealth", playerSide, health);
         }
 
         if (animatedSquare->isAtFrame(5)) 

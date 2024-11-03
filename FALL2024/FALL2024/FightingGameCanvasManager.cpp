@@ -27,28 +27,46 @@ FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(re
     player2HeartUI[2] = heartUI6;
     addObject(heartUI6);
 
-    auto decreasePlayer1HealthCallback = [this]()
+    auto decreasePlayerHealthCallback = [this](int a, int b)
     {
-        decreasePlayer1Health();
+        decreasePlayerHealth(a, b);
     };
 
-    auto decreasePlayer2HealthCallback = [this]()
+    EventSystem::getInstance().subscribe("decreasePlayerHealth", decreasePlayerHealthCallback);
+}
+
+void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
+{
+    if (playerSide == 0) 
     {
-        decreasePlayer2Health();
-    };
-
-    EventSystem::getInstance().subscribe("decreasePlayer1Health", decreasePlayer1HealthCallback);
-    EventSystem::getInstance().subscribe("decreasePlayer2Health", decreasePlayer2HealthCallback);
-}
-
-void FightingGameCanvasManager::decreasePlayer1Health()
-{
-    player1HeartUI[2]->setIsActive(false);
-}
-
-void FightingGameCanvasManager::decreasePlayer2Health()
-{
-    player2HeartUI[2]->setIsActive(false);
+        // Decrease Player 1's health
+        for (int i = 0; i < 3; ++i) 
+        {
+            if (i < health) 
+            {
+                player1HeartUI[i]->setIsActive(true);
+            }
+            else 
+            {
+                player1HeartUI[i]->setIsActive(false); 
+            }
+        }
+    }
+    else if (playerSide == 1) 
+    {
+        // Decrease Player 2's health
+        for (int i = 0; i < 3; ++i) 
+        {
+            if (i < health) 
+            {
+                player2HeartUI[i]->setIsActive(true);
+            }
+            else 
+            {
+                player2HeartUI[i]->setIsActive(false); 
+            }
+        }
+    }
 }
 
 FightingGameCanvasManager::~FightingGameCanvasManager()

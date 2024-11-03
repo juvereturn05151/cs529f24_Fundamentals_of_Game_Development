@@ -39,6 +39,7 @@ public:
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
     float playerSide;
+    int health;
 
     AnimatedSquare* animatedSquare;
     BoxCollider2D* hurtBox;
