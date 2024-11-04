@@ -14,6 +14,7 @@ public:
     static void Update();
 
     static void AddKey(int key);
+    static void AddButton(int button);
 
     // Key press detection
     static bool IsKeyPressed(int key);           // Check if key is held down
@@ -29,10 +30,15 @@ public:
     // Get mouse movement delta
     static void GetMouseDelta(double& xoffset, double& yoffset);
 
+    static bool IsGamepadButtonPressed(int button);
+    static bool IsGamepadButtonJustPressed(int button);
+    static bool IsGamepadButtonJustReleased(int button);
+
     // Callbacks for GLFW input events
     static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
     static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+    static void JoystickCallback(int jid, int event);
 
 private:
     static GLFWwindow* window;  // Reference to the window
@@ -45,6 +51,7 @@ private:
 
     // Track key and mouse button states
     static std::unordered_map<int, KeyState> keys;
+    static std::unordered_map<int, KeyState> gamepadButtons;
     static std::unordered_map<int, bool> mouseButtons;
 
     // Mouse position and movement tracking

@@ -3,6 +3,7 @@
 // Static member initialization
 GLFWwindow* InputManager::window = nullptr;
 std::unordered_map<int, InputManager::KeyState> InputManager::keys;
+std::unordered_map<int, InputManager::KeyState> InputManager::gamepadButtons;
 std::unordered_map<int, bool> InputManager::mouseButtons;
 double InputManager::lastX = 0.0;
 double InputManager::lastY = 0.0;
@@ -17,6 +18,7 @@ void InputManager::Initialize(GLFWwindow* windowContext) {
     glfwSetKeyCallback(window, KeyCallback);
     glfwSetMouseButtonCallback(window, MouseButtonCallback);
     glfwSetCursorPosCallback(window, CursorPositionCallback);
+    glfwSetJoystickCallback(JoystickCallback);
 }
 
 void InputManager::Update() {
@@ -45,12 +47,54 @@ void InputManager::Update() {
         }
     }
 
+    // Update gamepad buttons
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1)) {
+        int buttonCount;
+        const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCount);
+
+        for (int i = 0; i < buttonCount; i++) {
+            if (buttons[i] == GLFW_PRESS) {
+                std::cout << "Button " << i << " is pressed." << std::endl;
+            }
+        }
+        // Iterate over each button and update its state
+        for (auto& [button, state] : gamepadButtons) {
+            // Reset the pressed and released states for the new frame
+            state.pressed = false;
+            state.released = false;
+
+            // Check if the button index is within the range of available buttons
+            if (button < buttonCount) {
+                bool isPressed = (buttons[button] == GLFW_PRESS);
+
+                if (isPressed) {
+                    if (!state.held) {
+                        state.pressed = true; // Button was just pressed
+                    }
+                    state.held = true; // Button is being held
+                }
+                else {
+                    if (state.held) {
+                        state.released = true; // Button was just released
+                    }
+                    state.held = false; // Button is no longer held
+                }
+            }
+        }
+    }
+
     // Process other GLFW events
     glfwPollEvents();
 }
 
-void InputManager::AddKey(int key) {
+void InputManager::AddKey(int key) 
+{
     keys.insert({ key, KeyState() });
+}
+
+void InputManager::AddButton(int button)
+{
+    gamepadButtons.insert({ button, KeyState() });
 }
 
 bool InputManager::IsKeyPressed(int key) {
@@ -63,6 +107,21 @@ bool InputManager::IsKeyJustPressed(int key) {
 
 bool InputManager::IsKeyJustReleased(int key) {
     return keys[key].released;
+}
+
+bool InputManager::IsGamepadButtonPressed(int button)
+{
+    return gamepadButtons[button].held;
+}
+
+bool InputManager::IsGamepadButtonJustPressed(int button)
+{
+    return gamepadButtons[button].pressed;
+}
+
+bool InputManager::IsGamepadButtonJustReleased(int button)
+{
+    return gamepadButtons[button].released;
 }
 
 bool InputManager::IsMouseButtonPressed(int button) {
@@ -110,4 +169,13 @@ void InputManager::CursorPositionCallback(GLFWwindow* window, double xpos, doubl
     deltaY = lastY - ypos;  // Inverted since y-coordinates range from bottom to top
     lastX = xpos;
     lastY = ypos;
+}
+
+void InputManager::JoystickCallback(int jid, int event) {
+    if (event == GLFW_CONNECTED) {
+        std::cout << "Joystick " << jid << " connected\n";
+    }
+    else if (event == GLFW_DISCONNECTED) {
+        std::cout << "Joystick " << jid << " disconnected\n";
+    }
 }

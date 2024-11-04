@@ -264,7 +264,7 @@ void Character::updateInput(PlayerInput* input)
     {
         if (!hitConfirmSuccess) 
         {
-            if (InputManager::IsKeyJustPressed(input->GetcMK()))
+            if (InputManager::IsKeyJustPressed(input->GetcMK()) || InputManager::IsGamepadButtonJustPressed(input->GetcMKController()))
             {
                 SoundManager::getInstance().playSound("audio/ryuken-hadooken-101soundboards.mp3", false);
                 hitConfirmSuccess = true;
@@ -346,14 +346,14 @@ void Character::updateInput(PlayerInput* input)
     {
         if (isOpponentWithinThrowRange())
         {
-            if (InputManager::IsKeyJustPressed(input->GetcMK()))
+            if (InputManager::IsGamepadButtonPressed(input->GetcMKController()) || InputManager::IsKeyJustPressed(input->GetcMK()))
             {
-                if (playerSide == 0 && InputManager::IsKeyPressed(input->GetMoveRight()))
+                if (playerSide == 0 && (InputManager::IsGamepadButtonPressed(input->GetMoveRightController()) || InputManager::IsKeyPressed(input->GetMoveRight())))
                 {
                     executeThrow(); 
                     return;
                 }
-                else if (playerSide == 1 && InputManager::IsKeyPressed(input->GetMoveLeft()))
+                else if (playerSide == 1 && (InputManager::IsGamepadButtonPressed(input->GetMoveLeftController()) || InputManager::IsKeyPressed(input->GetMoveLeft())))
                 {
                     executeThrow();
                     return;
@@ -362,7 +362,7 @@ void Character::updateInput(PlayerInput* input)
         }
 
         // Handle crouching medium kick input (cMK)
-        if (InputManager::IsKeyJustPressed(input->GetcMK()))
+        if (InputManager::IsKeyJustReleased(input->GetcMK()) || InputManager::IsGamepadButtonJustPressed(input->GetcMKController()))
         {  
             attack();
             // Prevent movement during the attack
@@ -404,8 +404,8 @@ void Character::executeThrow()
 
 void Character::checkForBlock(PlayerInput* input)
 {
-    bool facingOpponent = (playerSide == 0 && !InputManager::IsKeyPressed(input->GetMoveRight())) ||
-        (playerSide == 1 && !InputManager::IsKeyPressed(input->GetMoveLeft()));
+    bool facingOpponent = (playerSide == 0 && !(InputManager::IsKeyPressed(input->GetMoveRight()) || InputManager::IsGamepadButtonPressed(input->GetMoveRightController()))) ||
+        (playerSide == 1 && !( InputManager::IsKeyPressed(input->GetMoveLeft()) || InputManager::IsGamepadButtonPressed(input->GetMoveLeftController())));
 
     if (facingOpponent)
     {
@@ -452,11 +452,9 @@ void Character::triggerHurt()
 
 void Character::updateMovement(PlayerInput* input)
 {
-
-
     deltaX = 0.0f, deltaY = 0.0f;
     // Handle left/right movement
-    if (InputManager::IsKeyPressed(input->GetMoveRight())) 
+    if (InputManager::IsGamepadButtonPressed(input->GetMoveRightController()) || InputManager::IsKeyPressed(input->GetMoveRight()))
     {
         moveRight();
 
@@ -465,7 +463,7 @@ void Character::updateMovement(PlayerInput* input)
             block = true;
         }
     }
-    if (InputManager::IsKeyPressed(input->GetMoveLeft())) 
+    if (InputManager::IsGamepadButtonPressed(input->GetMoveLeftController()) || InputManager::IsKeyPressed(input->GetMoveLeft()))
     {
         moveLeft();
 

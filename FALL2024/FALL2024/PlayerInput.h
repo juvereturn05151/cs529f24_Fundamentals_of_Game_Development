@@ -19,24 +19,15 @@ public:
     int GetMoveLeft();
     int GetMoveRight();
     int GetcMK();
+    int GetMoveLeftController();
+    int GetMoveRightController();
+    int GetcMKController();
 
 private:
     GameWindow& window;
 
     int playerId;  // Player's ID
     InputDevice device;  // The input device used by this player
-
-    // Keyboard/Mouse states
-    std::unordered_map<int, bool> keys;
-    //std::unordered_map<int, bool> mouseButtons;
-    double lastMouseX, lastMouseY;
-    double deltaX, deltaY;
-    bool firstMouseMove;
-
-    // Gamepad states
-    //std::unordered_map<int, bool> gamepadButtons;
-    float gamepadLeftX, gamepadLeftY;
-    float gamepadRightX, gamepadRightY;
 
     // Internal functions to handle input updates
     void UpdateKeyboardMouse();
@@ -45,6 +36,9 @@ private:
     int moveLeft = -1;
     int moveRight = -1;
     int cMK = -1;
+    int moveLeftController = -1;
+    int moveRightController = -1;
+    int cMKController = -1;
 };
 
 #endif
