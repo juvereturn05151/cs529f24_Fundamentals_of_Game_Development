@@ -6,6 +6,14 @@ BoxCollider2D::BoxCollider2D(Mesh* mesh, GLint modelMatrixLoc, Vector3 position,
     isActive = true;
 }
 
+void BoxCollider2D::draw()
+{
+    if (isDrawingActive) 
+    {
+        GameObject::draw();
+    }
+}
+
 // Getters for position and size
 float BoxCollider2D::getX() 
 { 
@@ -72,5 +80,10 @@ bool BoxCollider2D::isColliding(BoxCollider2D& other)
 
     // If both axes overlap, there's a collision
     return collisionX && collisionY;
+}
+
+void BoxCollider2D::setIsDrawingActive(bool active)
+{
+    isDrawingActive = active;
 }
 

@@ -10,6 +10,7 @@ private:
     float width, height; // Dimensions
     float widthJitterScale = 2.0f;
     float heightJitterScale = 2.0f;
+    bool isDrawingActive;
     Square* square;
 
 public:
@@ -22,9 +23,12 @@ public:
     float getWidth();
     float getHeight();
 
+    void draw() override;
+
     // Setters for position and size
     void setPosition(float xPos, float yPos);
     void setSize(float w, float h);
+    void setIsDrawingActive(bool active);
 
     // Method to check if this box is colliding with another box
     bool isColliding(BoxCollider2D& other);

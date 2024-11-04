@@ -8,8 +8,6 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
 
     if (playerId == 0) 
     {
-       /* keys.insert({GLFW_KEY_A, false});
-        keys.insert({ GLFW_KEY_D, false });*/
         InputManager::AddKey(GLFW_KEY_A);
         InputManager::AddKey(GLFW_KEY_D);
         InputManager::AddKey(GLFW_KEY_SPACE);
@@ -19,8 +17,6 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
     }
     else if (playerId == 1)
     {
-        /*keys.insert({GLFW_KEY_LEFT, false});
-        keys.insert({ GLFW_KEY_RIGHT, false });*/
         InputManager::AddKey(GLFW_KEY_LEFT);
         InputManager::AddKey(GLFW_KEY_RIGHT);
         InputManager::AddKey(GLFW_KEY_RIGHT_SHIFT);

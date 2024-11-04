@@ -83,12 +83,13 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scancode, int ac
         keys[key] = KeyState(); // Initialize if not present
     }
 
-    if (action == GLFW_PRESS) {
-        printf("press");
+    if (action == GLFW_PRESS) 
+    {
         keys[key].pressed = true;
         keys[key].held = true;
     }
-    else if (action == GLFW_RELEASE) {
+    else if (action == GLFW_RELEASE)
+    {
         keys[key].released = true;
         keys[key].held = false;
     }
