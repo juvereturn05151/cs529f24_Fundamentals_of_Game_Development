@@ -59,31 +59,6 @@ void PlayerInput::UpdateGamepad() {
     }*/
 }
 
-bool PlayerInput::IsKeyPressed(int key) 
-{
-    PlayerInput* input = reinterpret_cast<PlayerInput*>(glfwGetWindowUserPointer(window.getWindow()));
-
-    if (!input->keys.contains(key)) 
-    {
-        return false;
-    }
-
-    return input->keys.at(key);
-}
-
-bool PlayerInput::IsMouseButtonPressed(int button) const {
-    return false;//mouseButtons.at(button);
-}
-
-void PlayerInput::GetMousePosition(double& xpos, double& ypos) const {
-    glfwGetCursorPos(glfwGetCurrentContext(), &xpos, &ypos);
-}
-
-void PlayerInput::GetMouseDelta(double& xoffset, double& yoffset) const {
-    xoffset = deltaX;
-    yoffset = deltaY;
-}
-
 int PlayerInput::GetMoveLeft()
 {
     return moveLeft;

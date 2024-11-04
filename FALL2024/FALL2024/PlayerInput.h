@@ -16,16 +16,6 @@ public:
     // Update player-specific input
     void Update();
 
-    // Query input actions for the player
-    bool IsKeyPressed(int key);
-    bool IsMouseButtonPressed(int button) const;
-
-    void GetMousePosition(double& xpos, double& ypos) const;
-    void GetMouseDelta(double& xoffset, double& yoffset) const;
-
-    bool IsGamepadButtonPressed(int button) const;
-    void GetGamepadAxes(float& leftX, float& leftY, float& rightX, float& rightY) const;
-
     int GetMoveLeft();
     int GetMoveRight();
     int GetcMK();
