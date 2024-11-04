@@ -373,11 +373,8 @@ void Character::updateInput(PlayerInput* input)
         {
             animatedSquare->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
-            //SoundManager::getInstance().playSound("audio/guard-101soundboards.mp3", false);
-            if (isAnimationFinished())
-            {
-                isBlocking = false; // End block state when animation finishes
-            }
+
+            isBlocking = false; // End block state when animation finishes
 
             return;
         }
@@ -452,6 +449,8 @@ void Character::triggerHurt()
 
 void Character::updateMovement(PlayerInput* input)
 {
+
+
     deltaX = 0.0f, deltaY = 0.0f;
     // Handle left/right movement
     if (InputManager::IsKeyPressed(input->GetMoveRight())) 
@@ -472,6 +471,8 @@ void Character::updateMovement(PlayerInput* input)
             block = true;
         }
     }
+
+    //printf("player side %f: updatemovement %f %f  \n", playerSide, deltaX, deltaY);
 
     if (deltaX == 0.0f && deltaY == 0.0f)
     {
