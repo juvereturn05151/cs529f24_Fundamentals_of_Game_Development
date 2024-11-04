@@ -11,15 +11,9 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
         InputManager::AddKey(GLFW_KEY_A);
         InputManager::AddKey(GLFW_KEY_D);
         InputManager::AddKey(GLFW_KEY_SPACE);
-        InputManager::AddButton(GLFW_GAMEPAD_BUTTON_DPAD_DOWN);
-        InputManager::AddButton(GLFW_GAMEPAD_BUTTON_DPAD_UP);
-        InputManager::AddButton(GLFW_GAMEPAD_BUTTON_A);
         moveLeft = GLFW_KEY_A;
         moveRight = GLFW_KEY_D;
         cMK = GLFW_KEY_SPACE;
-        moveLeftController = GLFW_GAMEPAD_BUTTON_DPAD_DOWN;
-        moveRightController = GLFW_GAMEPAD_BUTTON_DPAD_UP;
-        cMKController = GLFW_GAMEPAD_BUTTON_A;
     }
     else if (playerId == 1)
     {
@@ -30,6 +24,13 @@ PlayerInput::PlayerInput(int playerId, InputDevice device, GameWindow& wind)
         moveRight = GLFW_KEY_RIGHT;
         cMK = GLFW_KEY_RIGHT_SHIFT;
     }
+
+    InputManager::AddButton(GLFW_GAMEPAD_BUTTON_DPAD_DOWN);
+    InputManager::AddButton(GLFW_GAMEPAD_BUTTON_DPAD_UP);
+    InputManager::AddButton(GLFW_GAMEPAD_BUTTON_A);
+    moveLeftController = GLFW_GAMEPAD_BUTTON_DPAD_DOWN;
+    moveRightController = GLFW_GAMEPAD_BUTTON_DPAD_UP;
+    cMKController = GLFW_GAMEPAD_BUTTON_A;
     // Set GLFW callbacks for input
 }
 

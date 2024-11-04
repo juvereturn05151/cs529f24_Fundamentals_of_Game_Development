@@ -4,6 +4,7 @@
 GLFWwindow* InputManager::window = nullptr;
 std::unordered_map<int, InputManager::KeyState> InputManager::keys;
 std::unordered_map<int, InputManager::KeyState> InputManager::gamepadButtons;
+std::unordered_map<int, InputManager::KeyState> InputManager::gamepadButtons2;
 std::unordered_map<int, bool> InputManager::mouseButtons;
 double InputManager::lastX = 0.0;
 double InputManager::lastY = 0.0;
@@ -48,17 +49,56 @@ void InputManager::Update() {
     }
 
     // Update gamepad buttons
-    if (glfwJoystickPresent(GLFW_JOYSTICK_1)) {
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1)) 
+    {
         int buttonCount;
         const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCount);
 
-        for (int i = 0; i < buttonCount; i++) {
-            if (buttons[i] == GLFW_PRESS) {
-                std::cout << "Button " << i << " is pressed." << std::endl;
+        //for (int i = 0; i < buttonCount; i++) {
+        //    if (buttons[i] == GLFW_PRESS) {
+        //        std::cout << "Button " << i << " is pressed." << std::endl;
+        //    }
+        //}
+        // Iterate over each button and update its state
+        for (auto& [button, state] : gamepadButtons) 
+        {
+            // Reset the pressed and released states for the new frame
+            state.pressed = false;
+            state.released = false;
+
+            // Check if the button index is within the range of available buttons
+            if (button < buttonCount) {
+                bool isPressed = (buttons[button] == GLFW_PRESS);
+
+                if (isPressed) {
+                    if (!state.held) {
+                        state.pressed = true; // Button was just pressed
+                    }
+                    state.held = true; // Button is being held
+                }
+                else {
+                    if (state.held) {
+                        state.released = true; // Button was just released
+                    }
+                    state.held = false; // Button is no longer held
+                }
             }
         }
+    }
+
+    if (glfwJoystickPresent(GLFW_JOYSTICK_2))
+    {
+        int buttonCount;
+        const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_2, &buttonCount);
+
+        //for (int i = 0; i < buttonCount; i++) {
+        //    if (buttons[i] == GLFW_PRESS) {
+        //        std::cout << "Button " << i << " is pressed." << std::endl;
+        //    }
+        //}
         // Iterate over each button and update its state
-        for (auto& [button, state] : gamepadButtons) {
+        for (auto& [button, state] : gamepadButtons2) 
+        {
             // Reset the pressed and released states for the new frame
             state.pressed = false;
             state.released = false;
@@ -94,7 +134,15 @@ void InputManager::AddKey(int key)
 
 void InputManager::AddButton(int button)
 {
-    gamepadButtons.insert({ button, KeyState() });
+    if (!gamepadButtons.contains(button)) 
+    {
+        gamepadButtons.insert({ button, KeyState() });
+    }
+
+    if (!gamepadButtons2.contains(button))
+    {
+        gamepadButtons2.insert({ button, KeyState() });
+    }
 }
 
 bool InputManager::IsKeyPressed(int key) {
@@ -109,19 +157,61 @@ bool InputManager::IsKeyJustReleased(int key) {
     return keys[key].released;
 }
 
-bool InputManager::IsGamepadButtonPressed(int button)
+bool InputManager::IsGamepadButtonPressed(int button, int playerId)
 {
-    return gamepadButtons[button].held;
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1 + playerId))
+    {
+        if (GLFW_JOYSTICK_1 + playerId == 0)
+        {
+            return gamepadButtons[button].held;
+        }
+        else
+        {
+            return gamepadButtons2[button].held;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
-bool InputManager::IsGamepadButtonJustPressed(int button)
+bool InputManager::IsGamepadButtonJustPressed(int button, int playerId)
 {
-    return gamepadButtons[button].pressed;
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1 + playerId))
+    {
+        if (GLFW_JOYSTICK_1 + playerId == 0) 
+        {
+            return gamepadButtons[button].pressed;
+        }
+        else 
+        {
+            return gamepadButtons2[button].pressed;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
-bool InputManager::IsGamepadButtonJustReleased(int button)
+bool InputManager::IsGamepadButtonJustReleased(int button, int playerId)
 {
-    return gamepadButtons[button].released;
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1 + playerId))
+    {
+        if (GLFW_JOYSTICK_1 + playerId == 0)
+        {
+            return gamepadButtons[button].released;
+        }
+        else
+        {
+            return gamepadButtons2[button].released;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool InputManager::IsMouseButtonPressed(int button) {

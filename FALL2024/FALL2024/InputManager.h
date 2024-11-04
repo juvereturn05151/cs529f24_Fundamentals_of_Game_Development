@@ -30,9 +30,9 @@ public:
     // Get mouse movement delta
     static void GetMouseDelta(double& xoffset, double& yoffset);
 
-    static bool IsGamepadButtonPressed(int button);
-    static bool IsGamepadButtonJustPressed(int button);
-    static bool IsGamepadButtonJustReleased(int button);
+    static bool IsGamepadButtonPressed(int button, int playerId = 0);
+    static bool IsGamepadButtonJustPressed(int button, int playerId = 0);
+    static bool IsGamepadButtonJustReleased(int button, int playerId = 0);
 
     // Callbacks for GLFW input events
     static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -52,6 +52,7 @@ private:
     // Track key and mouse button states
     static std::unordered_map<int, KeyState> keys;
     static std::unordered_map<int, KeyState> gamepadButtons;
+    static std::unordered_map<int, KeyState> gamepadButtons2;
     static std::unordered_map<int, bool> mouseButtons;
 
     // Mouse position and movement tracking

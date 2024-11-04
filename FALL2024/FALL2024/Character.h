@@ -8,7 +8,7 @@ class Character : public GameObject
 {
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
-    float playerSide;
+    int playerSide;
     int health;
 
     AnimatedSquare* animatedSquare;
