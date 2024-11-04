@@ -9,6 +9,11 @@ PhysicsComponent::PhysicsComponent(float mass)
 
 void PhysicsComponent::update(Transform* transform, float deltaTime)
 {
+	if (!isActive) 
+	{
+		return;
+	}
+
 	Vector3 gravity(0.0f, -9.81f * mass, 0.0f);
 	accumulatedForce += gravity;
 
@@ -27,7 +32,8 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 	pos.y += velocity.y * deltaTime;
 
 	// Clamp the y position to ensure it doesn't go below 0
-	if (pos.y < -1.75f) {
+	if (pos.y < -1.75f) 
+	{
 		pos.y = -1.75f;
 		velocity.y = 0.0f; // Reset the y velocity to prevent bouncing below the ground
 	}
@@ -57,4 +63,9 @@ Vector3 PhysicsComponent::getVelocity() const
 float PhysicsComponent::getMass() const 
 {
 	return mass;
+}
+
+void PhysicsComponent::setIsActive(bool active)
+{
+	isActive = active;
 }

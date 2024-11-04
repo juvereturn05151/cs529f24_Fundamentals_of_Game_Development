@@ -194,8 +194,6 @@ void Character::updateInput(PlayerInput* input)
 
     if (youLose)
     {
-        printf("you lose %f\n", playerSide);
-
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
             animatedSquare->setAnimation(AnimationState::YouLose, false);
@@ -208,6 +206,8 @@ void Character::updateInput(PlayerInput* input)
         {
             if (animatedSquare->isAtFrame(5))
             {
+                getPhysicsComp()->setIsActive(true);
+
                 if (!hasPlayUrghSound)
                 {
                     SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
@@ -231,6 +231,8 @@ void Character::updateInput(PlayerInput* input)
 
     if (beingThrown)
     {
+
+
         return;
     }
 
@@ -384,7 +386,7 @@ void Character::executeThrow()
     {
         xOffset = 1.75f;
     }
-
+    opponent->getPhysicsComp()->setIsActive(false);
     opponent->getTransform()->setPosition(getTransform()->getPosition() + Vector3(xOffset,2.0f,0.0f));
     opponent->setBeingThrown(true);
 }

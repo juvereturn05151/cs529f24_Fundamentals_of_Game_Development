@@ -20,6 +20,6 @@ public:
 	Vector3 getVelocity() const;
 	float getMass() const;
 
-
+	void setIsActive(bool active);
 };
 
