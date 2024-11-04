@@ -1,6 +1,7 @@
 #pragma once
 #include "Canvas.h"
 #include "HeartUI.h"
+
 class FightingGameCanvasManager : public Canvas
 {
 private:
@@ -9,6 +10,8 @@ private:
 	Node* postGameBg;
 	Node* player1Win;
 	Node* player2Win;
+	Node* ready;
+	Node* fight;
 	const float countDownToPostGameUI = 5.0f;
 	float currentCountDownToPostGameUI;
 	bool startCountDownToPostGame;
@@ -19,5 +22,8 @@ public:
 
 	void update(float deltaTime) override;
 	void decreasePlayerHealth(int playerSide, int health);
+	void triggerReadyUI();
+	void triggerFightUI();
+	void disableReadyAndFightUI();
 };
 

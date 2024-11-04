@@ -27,6 +27,24 @@ FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(re
     player2HeartUI[2] = heartUI6;
     addObject(heartUI6);
 
+    Square* readyMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    readyMesh->AddTexture("ready.png", GL_RGBA);
+    GameObject* ready = new GameObject(readyMesh, renderer.GetModelMatrixLoc());
+    ready->getTransform()->setScale(Vector3(10.0f, 5.0f, 0.0f));
+    ready->getTransform()->setPosition(ready->getTransform()->getPosition() + Vector3(0.0f, 0.25f, 0.0f));
+    addObject(ready);
+    this->ready = ready;
+    ready->setIsActive(false);
+
+    Square* fightMesh = new Square(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    fightMesh->AddTexture("fight.png", GL_RGBA);
+    GameObject* fight = new GameObject(fightMesh, renderer.GetModelMatrixLoc());
+    fight->getTransform()->setScale(Vector3(10.0f, 5.0f, 0.0f));
+    fight->getTransform()->setPosition(fight->getTransform()->getPosition() + Vector3(0.0f, 0.25f, 0.0f));
+    addObject(fight);
+    this->fight = fight;
+    fight->setIsActive(false);
+
     Square* bgPostGameMesh = new Square(Vector3(0.0f, 0.0f, 0.0f), 0.95f, renderer.GetShader());
     GameObject* bgPostGame = new GameObject(bgPostGameMesh, renderer.GetModelMatrixLoc());
     bgPostGame->getTransform()->setScale(Vector3(15.0f, 10.0f, 0.0f));
@@ -55,6 +73,25 @@ FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(re
     };
 
     EventSystem::getInstance().subscribe("decreasePlayerHealth", decreasePlayerHealthCallback);
+
+    auto triggerReadyUICallback = [this]()
+    {
+        triggerReadyUI();
+    };
+
+    auto triggerFightUICallback = [this]()
+    {
+        triggerFightUI();
+    };
+
+    auto disableReadyAndFightUICallback = [this]()
+    {
+        disableReadyAndFightUI();
+    };
+
+    EventSystem::getInstance().subscribe("triggerReadyUI", triggerReadyUICallback);
+    EventSystem::getInstance().subscribe("triggerFightUI", triggerFightUICallback);
+    EventSystem::getInstance().subscribe("disableReadyAndFightUI", disableReadyAndFightUICallback);
 }
 
 void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
@@ -116,6 +153,40 @@ void FightingGameCanvasManager::update(float deltaTime)
             postGameBg->setIsActive(true);
             startCountDownToPostGame = false;
         }
+    }
+}
+
+void FightingGameCanvasManager::triggerReadyUI()
+{
+    if (ready != NULL) 
+    {
+        ready->setIsActive(true);
+    }
+}
+
+void FightingGameCanvasManager::triggerFightUI()
+{
+    if (fight != NULL)
+    {
+        if (ready != NULL)
+        {
+            ready->setIsActive(false);
+        }
+
+        fight->setIsActive(true);
+    }
+}
+
+void FightingGameCanvasManager::disableReadyAndFightUI() 
+{
+    if (fight != NULL)
+    {
+        fight->setIsActive(false);
+    }
+
+    if (ready != NULL)
+    {
+        ready->setIsActive(false);
     }
 }
 

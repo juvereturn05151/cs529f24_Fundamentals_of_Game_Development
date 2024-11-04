@@ -1,5 +1,8 @@
 #pragma once
 #include "Character.h"
+
+enum class GameState { ReadyFight, InSession, AfterMath };
+
 class FightingGameManager
 {
 private:
@@ -8,6 +11,11 @@ private:
     Character* character2;
     Vector3 startingPos1;
     Vector3 startingPos2;
+
+    //ReadyFight State
+    float readyDuration = 2.0f; // Time to show "Ready"
+    float fightDuration = 1.0f; // Time to show "Fight"
+    float messageTimer = 0.0f;
 
     //Reset
     bool hasReset;
@@ -21,6 +29,8 @@ private:
     // Delete copy constructor and assignment operator to prevent copying
     FightingGameManager(const FightingGameManager&) = delete;
     FightingGameManager& operator=(const FightingGameManager&) = delete;
+
+    GameState currentGameState;
 
 public:
     static FightingGameManager& getInstance()
@@ -37,5 +47,7 @@ public:
     // Override the reset method
     void reset();
 
+    void setGameState(GameState newGameState);
+    GameState getGameState();
 };
 

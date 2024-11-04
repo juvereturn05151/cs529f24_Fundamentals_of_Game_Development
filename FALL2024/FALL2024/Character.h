@@ -36,6 +36,7 @@ public:
     void setYouLose(bool lose);
     void reset();
     int getHealth();
+    void setIsReadyToFight(bool isReady);
 
 private:
     float deltaX = 0.0f, deltaY = 0.0f;
@@ -60,6 +61,7 @@ private:
     bool block;
     bool hasPlayUrghSound = false;
     bool hasPlayHitConfirmSound = false;
+    bool isReadyToFight;
 
     void updateMovement(PlayerInput* input);
     void updateCMKCollider();

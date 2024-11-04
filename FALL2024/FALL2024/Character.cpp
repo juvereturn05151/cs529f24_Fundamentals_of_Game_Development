@@ -91,7 +91,9 @@ void Character::reset()
     block = false;
     hasPlayUrghSound = false;
     hasPlayHitConfirmSound = false;
+    isReadyToFight = false;
     hitBox->setIsActive(false);
+    animatedSquare->setAnimation(AnimationState::Idle);
 }
 
 void Character::setHurtBox(BoxCollider2D* newHurtBox)
@@ -182,6 +184,11 @@ bool Character::getHitConfirmSuccess()
 
 void Character::updateInput(PlayerInput* input) 
 {
+    if (!isReadyToFight) 
+    {
+        return;
+    }
+
     block = false;
 
     if (youLose)
@@ -227,8 +234,6 @@ void Character::updateInput(PlayerInput* input)
                     SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
                 }
             }
-
-
         }
 
         if (isAnimationFinished() && !youWin) 
@@ -512,4 +517,9 @@ void Character::setYouLose(bool lose)
 int Character::getHealth()
 {
     return health;
+}
+
+void Character::setIsReadyToFight(bool isReady)
+{
+    isReadyToFight = isReady;
 }

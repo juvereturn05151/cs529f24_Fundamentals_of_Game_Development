@@ -1,4 +1,5 @@
 #include "FightingGameManager.h"
+#include "EventSystem.h"
 
 // Override the initialize method
 void FightingGameManager::initialize(Character* _character1, Character* _character2) 
@@ -12,18 +13,48 @@ void FightingGameManager::initialize(Character* _character1, Character* _charact
 // Override the update method
 void FightingGameManager::update(float deltaTime)
 {
-	if (character1 != NULL && character2 != NULL) 
+	if (currentGameState == GameState::ReadyFight) 
 	{
-		if (character1->getYouWin() || character2->getYouWin()) 
+		messageTimer += deltaTime;
+		if (messageTimer < readyDuration)
 		{
-			currentCountDownToReset += deltaTime;
-			if (currentCountDownToReset >= countDownToReset) 
+			// Display "Ready" message
+			EventSystem::getInstance().notify("triggerReadyUI");
+		}
+		else if (messageTimer < readyDuration + fightDuration)
+		{
+			// Display "Fight" message
+			EventSystem::getInstance().notify("triggerFightUI");
+		}
+		else
+		{
+			// Transition to the actual fight
+			EventSystem::getInstance().notify("disableReadyAndFightUI");
+			currentGameState = GameState::InSession;
+			messageTimer = 0.0f;
+			character1->setIsReadyToFight(true);
+			character2->setIsReadyToFight(true);
+		}
+	}
+	else if (currentGameState == GameState::InSession)
+	{
+		if (character1 != NULL && character2 != NULL)
+		{
+			if (character1->getYouWin() || character2->getYouWin())
 			{
-				if (!hasReset)
-				{
-					hasReset = true;
-					reset();
-				}
+				currentGameState = GameState::AfterMath;
+			}
+		}
+	}
+	else  if (currentGameState == GameState::AfterMath)
+	{
+		currentCountDownToReset += deltaTime;
+		if (currentCountDownToReset >= countDownToReset)
+		{
+			if (!hasReset)
+			{
+				hasReset = true;
+				reset();
 			}
 		}
 	}
@@ -43,4 +74,15 @@ void FightingGameManager::reset()
 	character2->reset();
 	currentCountDownToReset = 0;
 	hasReset = false;
+	currentGameState = GameState::ReadyFight;
+}
+
+void FightingGameManager::setGameState(GameState newGameState)
+{
+	currentGameState = newGameState;
+}
+
+GameState FightingGameManager::getGameState()
+{
+	return currentGameState;
 }
