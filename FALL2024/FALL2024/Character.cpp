@@ -191,7 +191,6 @@ void Character::updateInput(PlayerInput* input)
 
     block = false;
 
-
     if (youLose)
     {
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
@@ -231,8 +230,6 @@ void Character::updateInput(PlayerInput* input)
 
     if (beingThrown)
     {
-
-
         return;
     }
 
@@ -298,10 +295,24 @@ void Character::updateInput(PlayerInput* input)
     {
         if (animatedSquare != NULL)
         {
-            if (animatedSquare->getCurrentState() != AnimationState::Throw)
+            if (!youWin) 
             {
-                animatedSquare->setAnimation(AnimationState::Throw, false);
+                if (animatedSquare->getCurrentState() != AnimationState::Throw)
+                {
+                    animatedSquare->setAnimation(AnimationState::Throw, false);
+                }
+
+                if (animatedSquare->getCurrentState() == AnimationState::Throw)
+                {
+                    if (animatedSquare->isAtFrame(5))
+                    {
+                        youWin = true;
+                        SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
+                    }
+                }
             }
+
+
         }
 
         return;
@@ -376,7 +387,7 @@ void Character::updateInput(PlayerInput* input)
 void Character::executeThrow()
 {
     isThrowing = true; // Set to attacking state
-    youWin = true;
+    //youWin = true;
     float xOffset = 0;
     if (playerSide == 0) 
     {
