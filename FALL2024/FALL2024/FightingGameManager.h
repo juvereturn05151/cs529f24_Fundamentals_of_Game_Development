@@ -1,7 +1,7 @@
 #pragma once
 #include "Character.h"
 
-enum class GameState { ReadyFight, InSession, AfterMath };
+enum class GameState { ReadyFight, InSession, AfterMath, Result};
 
 class FightingGameManager
 {

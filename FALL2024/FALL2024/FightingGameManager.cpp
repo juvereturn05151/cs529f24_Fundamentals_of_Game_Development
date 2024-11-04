@@ -81,6 +81,7 @@ void FightingGameManager::reset()
 {
 	if (character1->getHealth() <= 0 || character2->getHealth() <= 0) 
 	{
+		currentGameState = GameState::Result;
 		return;
 	}
 
