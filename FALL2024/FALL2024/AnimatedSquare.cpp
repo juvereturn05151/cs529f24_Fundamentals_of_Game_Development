@@ -15,7 +15,8 @@ AnimatedSquare::AnimatedSquare(const Vector3& color, float alpha, Shader* shader
         { AnimationState::Hadoken,   {6, 6, 0.2f} },
         { AnimationState::YouWin,    {7, 6, 0.2f} },
         { AnimationState::YouLose,   {5, 11, 0.2f} },
-        { AnimationState::Block,     {9, 1, 0.2f} }
+        { AnimationState::Block,     {9, 6, 0.2f} },
+        { AnimationState::Throw,     {8, 6, 0.2f} }
     };
 
     setAnimation(AnimationState::Idle, true);

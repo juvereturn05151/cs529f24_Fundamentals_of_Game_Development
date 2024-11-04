@@ -6,8 +6,41 @@
 #include "Renderer.h"
 class Character : public GameObject
 {
+private:
+    float deltaX = 0.0f, deltaY = 0.0f;
+    float playerSide;
+    int health;
+
+    AnimatedSquare* animatedSquare;
+    BoxCollider2D* hurtBox;
+    BoxCollider2D* legHurtBox;
+    BoxCollider2D* hitBox;
+
+    Character* opponent;
+
+    float movementSpeed;
+    bool faceRight;
+    bool isAttacking;
+    bool isAttackAnimFinished;
+    bool isHurt = false;
+    bool canHitConfirm;
+    bool hitConfirmSuccess;
+    bool youWin;
+    bool youLose;
+    bool isBlocking;
+    bool block;
+    bool hasPlayUrghSound = false;
+    bool hasPlayHitConfirmSound = false;
+    bool isReadyToFight;
+    bool isThrowing;
+    bool beingThrown;
+
+    void updateMovement(PlayerInput* input);
+    void updateCMKCollider();
+    void checkForBlock(PlayerInput* input);
+    void executeThrow();
+
 public:
-    Character(Mesh* mesh, GLint modelMatrixLoc);
     Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);
     void setAnimatedSquare(AnimatedSquare* animated);
     void setFaceRight(bool isRight);
@@ -37,34 +70,10 @@ public:
     void reset();
     int getHealth();
     void setIsReadyToFight(bool isReady);
-
-private:
-    float deltaX = 0.0f, deltaY = 0.0f;
-    float playerSide;
-    int health;
-
-    AnimatedSquare* animatedSquare;
-    BoxCollider2D* hurtBox;
-    BoxCollider2D* legHurtBox;
-    BoxCollider2D* hitBox;
-
-    float movementSpeed;
-    bool faceRight;
-    bool isAttacking;
-    bool isAttackAnimFinished;
-    bool isHurt = false;
-    bool canHitConfirm;
-    bool hitConfirmSuccess;
-    bool youWin;
-    bool youLose;
-    bool isBlocking;
-    bool block;
-    bool hasPlayUrghSound = false;
-    bool hasPlayHitConfirmSound = false;
-    bool isReadyToFight;
-
-    void updateMovement(PlayerInput* input);
-    void updateCMKCollider();
-    void checkForBlock(PlayerInput* input);
+    void setOpponent(Character* opponent);
+    bool isOpponentWithinThrowRange();
+    bool getIsThrowing();
+    bool getIsBeingThrown();
+    void setBeingThrown(bool thrown);
 };
 

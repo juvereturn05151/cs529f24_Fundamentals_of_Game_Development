@@ -92,6 +92,8 @@ void Character::reset()
     hasPlayUrghSound = false;
     hasPlayHitConfirmSound = false;
     isReadyToFight = false;
+    beingThrown = false;
+    isThrowing = false;
     hitBox->setIsActive(false);
     animatedSquare->setAnimation(AnimationState::Idle);
 }
@@ -180,8 +182,6 @@ bool Character::getHitConfirmSuccess()
     return hitConfirmSuccess;
 }
 
-
-
 void Character::updateInput(PlayerInput* input) 
 {
     if (!isReadyToFight) 
@@ -191,8 +191,11 @@ void Character::updateInput(PlayerInput* input)
 
     block = false;
 
+
     if (youLose)
     {
+        printf("you lose %f\n", playerSide);
+
         if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
         {
             animatedSquare->setAnimation(AnimationState::YouLose, false);
@@ -201,24 +204,33 @@ void Character::updateInput(PlayerInput* input)
             EventSystem::getInstance().notify("decreasePlayerHealth", playerSide, health);
         }
 
-        if (animatedSquare->isAtFrame(5)) 
+        if (animatedSquare->getCurrentState() == AnimationState::YouLose)
         {
-            if (!hasPlayUrghSound) 
+            if (animatedSquare->isAtFrame(5))
             {
-                SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
-                hasPlayUrghSound = true;
-            }
+                if (!hasPlayUrghSound)
+                {
+                    SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
+                    hasPlayUrghSound = true;
+                }
 
-            if (playerSide == 0)
-            {
-                physicsComp->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
-            }
-            else
-            {
-                physicsComp->applyForce(Vector3(250.0f, 0.0f, 0.0f));
+                if (playerSide == 0)
+                {
+                    physicsComp->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
+                }
+                else
+                {
+                    physicsComp->applyForce(Vector3(250.0f, 0.0f, 0.0f));
+                }
             }
         }
 
+        return;
+    }
+
+
+    if (beingThrown)
+    {
         return;
     }
 
@@ -280,6 +292,19 @@ void Character::updateInput(PlayerInput* input)
         return;
     }
 
+    if (isThrowing) 
+    {
+        if (animatedSquare != NULL)
+        {
+            if (animatedSquare->getCurrentState() != AnimationState::Throw)
+            {
+                animatedSquare->setAnimation(AnimationState::Throw, false);
+            }
+        }
+
+        return;
+    }
+
     legHurtBox->setIsActive(isAttacking);
     // Check if the character is attacking
     if (isAttacking)
@@ -303,10 +328,16 @@ void Character::updateInput(PlayerInput* input)
     }
     else
     {
+        if ((InputManager::IsKeyPressed(input->GetMoveRight()) || InputManager::IsKeyPressed(input->GetMoveLeft())) &&
+            InputManager::IsKeyJustPressed(input->GetcMK()) &&
+            isOpponentWithinThrowRange()) {
+            executeThrow(); // Execute the throw
+            return;
+        }
+
         // Handle crouching medium kick input (cMK)
         if (InputManager::IsKeyJustPressed(input->GetcMK()))
-        {
-            
+        {  
             attack();
             // Prevent movement during the attack
             return;
@@ -328,6 +359,20 @@ void Character::updateInput(PlayerInput* input)
             return;
         }
     }
+}
+
+void Character::executeThrow()
+{
+    isThrowing = true; // Set to attacking state
+
+    // Deactivate hitbox and hurtbox during throw
+    //hitBox->setIsActive(false);
+    //hurtBox->setIsActive(false);
+
+    // Apply effects to the opponent, like damage or force
+    //opponent->triggerHurt();
+    youWin = true;
+    opponent->setBeingThrown(true);
 }
 
 void Character::checkForBlock(PlayerInput* input)
@@ -522,4 +567,52 @@ int Character::getHealth()
 void Character::setIsReadyToFight(bool isReady)
 {
     isReadyToFight = isReady;
+}
+
+void Character::setOpponent(Character* opponent)
+{
+    this->opponent = opponent;
+}
+
+bool Character::isOpponentWithinThrowRange()
+{
+    if (opponent != NULL) 
+    {
+        Vector3 oppoVector;
+
+        if (playerSide == 0)
+        {
+            oppoVector = opponent->getTransform()->getPosition() + Vector3(1.75f,0.0f,0.0f);
+        }
+        else 
+        {
+            oppoVector = opponent->getTransform()->getPosition() - Vector3(1.75f, 0.0f, 0.0f);
+        }
+
+        Vector3 newVector = getTransform()->getPosition() - oppoVector;
+        float distance = (newVector).magnitude();
+        /*printf("playerside: %f\n", playerSide);
+        printf("MY POS: %f %f %f \n", getTransform()->getPosition().x, getTransform()->getPosition().y, getTransform()->getPosition().z);
+        printf("Oppo POS: %f %f %f \n", oppoVector.x, oppoVector.y, oppoVector.z);
+        printf("diff POS: %f %f %f \n", newVector.x, newVector.y, newVector.z);
+        printf("distance: %f\n\n", distance);*/
+        return distance < 0.6f; // Adjust the distance threshold as needed
+    }
+
+    return false;
+}
+
+bool Character::getIsThrowing()
+{
+    return isThrowing;
+}
+
+bool Character::getIsBeingThrown()
+{
+    return beingThrown;
+}
+
+void Character::setBeingThrown(bool thrown)
+{
+    beingThrown = true;
 }
