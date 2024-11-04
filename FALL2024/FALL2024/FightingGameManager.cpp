@@ -1,5 +1,6 @@
 #include "FightingGameManager.h"
 #include "EventSystem.h"
+#include "SoundManager.h"
 
 // Override the initialize method
 void FightingGameManager::initialize(Character* _character1, Character* _character2) 
@@ -19,11 +20,24 @@ void FightingGameManager::update(float deltaTime)
 		if (messageTimer < readyDuration)
 		{
 			// Display "Ready" message
+			if (!hasPlayReadySound)
+			{
+				SoundManager::getInstance().playSound("audio/ready-101soundboards.mp3", false);
+				hasPlayReadySound = true;
+			}
+
+
 			EventSystem::getInstance().notify("triggerReadyUI");
 		}
 		else if (messageTimer < readyDuration + fightDuration)
 		{
 			// Display "Fight" message
+			if (!hasPlayFightSound) 
+			{
+				SoundManager::getInstance().playSound("audio/fight-101soundboards.mp3", false);
+				hasPlayFightSound = true;
+			}
+
 			EventSystem::getInstance().notify("triggerFightUI");
 		}
 		else
@@ -32,6 +46,8 @@ void FightingGameManager::update(float deltaTime)
 			EventSystem::getInstance().notify("disableReadyAndFightUI");
 			currentGameState = GameState::InSession;
 			messageTimer = 0.0f;
+			hasPlayFightSound = false;
+			hasPlayReadySound = false;
 			character1->setIsReadyToFight(true);
 			character2->setIsReadyToFight(true);
 		}

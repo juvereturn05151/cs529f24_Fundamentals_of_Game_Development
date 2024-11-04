@@ -13,6 +13,8 @@ private:
     Vector3 startingPos2;
 
     //ReadyFight State
+    bool hasPlayReadySound;
+    bool hasPlayFightSound;
     float readyDuration = 2.0f; // Time to show "Ready"
     float fightDuration = 1.0f; // Time to show "Fight"
     float messageTimer = 0.0f;
