@@ -4,6 +4,12 @@
 
 class PhysicsComponent
 {
+private:
+	Vector3 velocity;
+	float mass;
+	Vector3 accumulatedForce;
+	bool isActive;
+
 public:
 
 	PhysicsComponent(float mass);
@@ -14,9 +20,6 @@ public:
 	Vector3 getVelocity() const;
 	float getMass() const;
 
-private:
-	Vector3 velocity;
-	float mass;
-	Vector3 accumulatedForce;
+
 };
 

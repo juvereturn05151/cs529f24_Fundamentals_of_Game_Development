@@ -2,12 +2,16 @@
 
 PhysicsComponent::PhysicsComponent(float mass) 
 {
+	isActive = true;
 	this->mass = mass;
 	velocity = Vector3(0, 0, 0);
 }
 
 void PhysicsComponent::update(Transform* transform, float deltaTime)
 {
+	Vector3 gravity(0.0f, -9.81f * mass, 0.0f);
+	accumulatedForce += gravity;
+
 	Vector3 acceleration = accumulatedForce / mass;
 	/*printf("accelerationX %f \n", acceleration.x);
 	printf("deltaTime %f \n", deltaTime);*/
@@ -19,7 +23,16 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 
 	//printf("velocity %f \n", velocity.x);
 	Vector3 pos = transform->getPosition();
-	transform->setPosition(Vector3(pos.x + (velocity.x * deltaTime), pos.y + (velocity.y * deltaTime),0));
+	pos.x += velocity.x * deltaTime;
+	pos.y += velocity.y * deltaTime;
+
+	// Clamp the y position to ensure it doesn't go below 0
+	if (pos.y < -1.75f) {
+		pos.y = -1.75f;
+		velocity.y = 0.0f; // Reset the y velocity to prevent bouncing below the ground
+	}
+
+	transform->setPosition(pos);
 
 	// Reset accumulated force for next frame
 	accumulatedForce = Vector3(0.0f, 0.0f, 0.0f);

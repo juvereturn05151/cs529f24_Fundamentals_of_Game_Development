@@ -328,11 +328,21 @@ void Character::updateInput(PlayerInput* input)
     }
     else
     {
-        if ((InputManager::IsKeyPressed(input->GetMoveRight()) || InputManager::IsKeyPressed(input->GetMoveLeft())) &&
-            InputManager::IsKeyJustPressed(input->GetcMK()) &&
-            isOpponentWithinThrowRange()) {
-            executeThrow(); // Execute the throw
-            return;
+        if (isOpponentWithinThrowRange())
+        {
+            if (InputManager::IsKeyJustPressed(input->GetcMK()))
+            {
+                if (playerSide == 0 && InputManager::IsKeyPressed(input->GetMoveRight()))
+                {
+                    executeThrow(); 
+                    return;
+                }
+                else if (playerSide == 1 && InputManager::IsKeyPressed(input->GetMoveLeft()))
+                {
+                    executeThrow();
+                    return;
+                }
+            }
         }
 
         // Handle crouching medium kick input (cMK)
@@ -364,14 +374,18 @@ void Character::updateInput(PlayerInput* input)
 void Character::executeThrow()
 {
     isThrowing = true; // Set to attacking state
-
-    // Deactivate hitbox and hurtbox during throw
-    //hitBox->setIsActive(false);
-    //hurtBox->setIsActive(false);
-
-    // Apply effects to the opponent, like damage or force
-    //opponent->triggerHurt();
     youWin = true;
+    float xOffset = 0;
+    if (playerSide == 0) 
+    {
+        xOffset = -1.75f;
+    }
+    else
+    {
+        xOffset = 1.75f;
+    }
+
+    opponent->getTransform()->setPosition(getTransform()->getPosition() + Vector3(xOffset,2.0f,0.0f));
     opponent->setBeingThrown(true);
 }
 
