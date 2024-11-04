@@ -12,7 +12,7 @@ private:
 	Node* player2Win;
 	Node* ready;
 	Node* fight;
-	const float countDownToPostGameUI = 5.0f;
+	const float countDownToPostGameUI = 2.0f;
 	float currentCountDownToPostGameUI;
 	bool startCountDownToPostGame;
 
@@ -25,5 +25,6 @@ public:
 	void triggerReadyUI();
 	void triggerFightUI();
 	void disableReadyAndFightUI();
+	void triggerResultUI();
 };
 

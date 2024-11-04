@@ -90,9 +90,15 @@ FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(re
         disableReadyAndFightUI();
     };
 
+    auto triggerResultUICallback = [this]()
+    {
+        triggerResultUI();
+    };
+
     EventSystem::getInstance().subscribe("triggerReadyUI", triggerReadyUICallback);
     EventSystem::getInstance().subscribe("triggerFightUI", triggerFightUICallback);
     EventSystem::getInstance().subscribe("disableReadyAndFightUI", disableReadyAndFightUICallback);
+    EventSystem::getInstance().subscribe("triggerResultUI", triggerResultUICallback);
 }
 
 void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
@@ -136,11 +142,6 @@ void FightingGameCanvasManager::decreasePlayerHealth(int playerSide, int health)
         {
             player1Win->setIsActive(true);
         }
-    }
-
-    if (health <= 0)
-    {
-        startCountDownToPostGame = true;
     }
 }
 
@@ -191,6 +192,11 @@ void FightingGameCanvasManager::disableReadyAndFightUI()
     {
         ready->setIsActive(false);
     }
+}
+
+void FightingGameCanvasManager::triggerResultUI()
+{
+    startCountDownToPostGame = true;
 }
 
 FightingGameCanvasManager::~FightingGameCanvasManager()
