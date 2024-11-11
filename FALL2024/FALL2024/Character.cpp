@@ -30,9 +30,9 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
     hurtBox = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
     legHurtBox = new BoxCollider2D(squareMesh3, renderer.GetModelMatrixLoc(), pos, scale);
-    hitBox->setIsDrawingActive(false);
-    hurtBox->setIsDrawingActive(false);
-    legHurtBox->setIsDrawingActive(false);
+    //hitBox->setIsDrawingActive(true);
+   // hurtBox->setIsDrawingActive(true);
+    //legHurtBox->setIsDrawingActive(true);
 
     if (playerSide == 0)
     {
