@@ -46,7 +46,6 @@ private:
 
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);
-    void setAnimatedSquare(AnimatedCharacter* animated);
     void setFaceRight(bool isRight);
 
     void updateInput(PlayerInput* input);
@@ -60,7 +59,6 @@ public:
     void attack();
     void triggerHurt();
     bool isAnimationFinished();
-    void setHurtBox(BoxCollider2D* newHurtBox);
     BoxCollider2D* getHurtBox();
     BoxCollider2D* getLegHurtBox();
     BoxCollider2D* getHitBox();

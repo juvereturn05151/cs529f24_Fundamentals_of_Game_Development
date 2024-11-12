@@ -19,11 +19,11 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 
     if (playerSide == 0)
     {
-        getTransform()->setPosition(Vector3(-0.75f, 0.0f, 0.0f));
+        getTransform()->setPosition(Vector3(-0.75f, -1.75f, 0.0f));
     }
     else 
     {
-        getTransform()->setPosition(Vector3(0.75f, 0.0f, 0.0f));
+        getTransform()->setPosition(Vector3(0.75f, -1.75f, 0.0f));
     }
 
     if (playerSide == 0)
@@ -62,7 +62,6 @@ void Character::setupVisuals(Renderer& renderer)
 {
     animatedCharacter = new AnimatedCharacter(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     animatedCharacter->AddTexture("Ryu2.png");
-    setAnimatedSquare(animatedCharacter);
     GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());
 
     if (playerSide == 0)
@@ -118,16 +117,6 @@ void Character::reset()
     animatedCharacter->setAnimation(AnimationState::Idle);
 }
 
-void Character::setHurtBox(BoxCollider2D* newHurtBox)
-{
-    hurtBox = newHurtBox;
-}
-
-void Character::setAnimatedSquare(AnimatedCharacter* animated)
-{
-    animatedCharacter = animated;
-}
-
 void Character::cleanup()
 {
     if (hitBox != NULL) 
@@ -138,6 +127,11 @@ void Character::cleanup()
     if (hurtBox != NULL) 
     {
         delete hurtBox;
+    }
+
+    if (legHurtBox != NULL)
+    {
+        delete legHurtBox;
     }
 
     GameObject::cleanup();
