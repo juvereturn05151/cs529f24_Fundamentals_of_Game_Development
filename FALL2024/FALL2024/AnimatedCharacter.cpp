@@ -8,7 +8,7 @@ AnimatedCharacter::AnimatedCharacter(const Vector3& color, float alpha, Shader* 
         { AnimationState::Idle,      {0, 5, 0.2f} },
         { AnimationState::WalkFront, {1, 6, 0.2f} },
         { AnimationState::WalkBack,  {2, 6, 0.2f} },
-        { AnimationState::cMK,       {3, 7, 0.1f} },
+        { AnimationState::cMK,       {3, 7, 0.15f} },
         { AnimationState::Hurt,      {4, 4, 0.15f} },
         { AnimationState::Hadoken,   {6, 6, 0.2f} },
         { AnimationState::YouWin,    {7, 6, 0.2f} },

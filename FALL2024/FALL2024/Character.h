@@ -36,6 +36,7 @@ private:
     bool isThrowing;
     bool beingThrown;
 
+    void setupVisuals(Renderer& renderer);
     void updateMovement(PlayerInput* input);
     void updateCMKCollider();
     void checkForBlock(PlayerInput* input);

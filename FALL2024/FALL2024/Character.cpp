@@ -11,9 +11,7 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     movementSpeed = 5.0f;
     health = 3;
 
-    AnimatedCharacter* ryu = new AnimatedCharacter(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    ryu->AddTexture("Ryu2.png");
-    Node* visualHolder = new GameObject(ryu, renderer.GetModelMatrixLoc());
+    setupVisuals(renderer);
     
     Vector3 pos = getTransform()->getPosition();
     Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
@@ -37,12 +35,10 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     if (playerSide == 0)
     {
         getTransform()->setPosition(Vector3(-0.75f, -1.75f, 0.0f));
-        visualHolder->getTransform()->setScale(Vector3(4.0f, 4.0f, 3.5f));
     }
     else 
     {
         getTransform()->setPosition(Vector3(0.75f, -1.75f, 0.0f));
-        visualHolder->getTransform()->setScale(Vector3(-4.0f, 4.0f, 3.5f));
     }
 
     if (playerSide == 0)
@@ -68,17 +64,34 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
         legHurtBox->getTransform()->setPosition(Vector3(centerPos.x - 0.75f, -2.0f, 0.0f));
     }
 
-    setAnimatedSquare(ryu);
-
     hitBox->setIsActive(false);
     legHurtBox->setIsActive(false);
 
-    addChild(visualHolder);
     addChild(hurtBox);
     addChild(hitBox);
     addChild(legHurtBox);
 
     addPhysicsComponent(1.0f);
+}
+
+// Helper for Visual Setup
+void Character::setupVisuals(Renderer& renderer)
+{
+    animatedCharacter = new AnimatedCharacter(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    animatedCharacter->AddTexture("Ryu2.png");
+    setAnimatedSquare(animatedCharacter);
+    GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());
+
+    if (playerSide == 0)
+    {
+        visualHolder->getTransform()->setScale(Vector3(4.0f, 4.0f, 3.5f));
+    }
+    else
+    {
+        visualHolder->getTransform()->setScale(Vector3(-4.0f, 4.0f, 3.5f));
+    }
+
+    addChild(visualHolder);
 }
 
 void Character::reset()
