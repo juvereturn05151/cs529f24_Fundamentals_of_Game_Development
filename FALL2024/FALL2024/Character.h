@@ -37,6 +37,8 @@ private:
     bool beingThrown;
 
     void setupVisuals(Renderer& renderer);
+    void setupHitboxes(Renderer& renderer);
+    BoxCollider2D* createBoxCollider(Renderer& renderer, const Vector3& pos, const Vector3& scale, const Vector3& color);
     void updateMovement(PlayerInput* input);
     void updateCMKCollider();
     void checkForBlock(PlayerInput* input);
