@@ -4,6 +4,7 @@
 #include "AnimatedCharacter.h"
 #include "BoxCollider2D.h"
 #include "Renderer.h"
+
 class Character : public GameObject
 {
 private:

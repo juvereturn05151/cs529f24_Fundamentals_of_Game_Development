@@ -314,8 +314,6 @@ void Character::updateInput(PlayerInput* input)
                     }
                 }
             }
-
-
         }
 
         return;
@@ -387,7 +385,6 @@ void Character::updateInput(PlayerInput* input)
 void Character::executeThrow()
 {
     isThrowing = true; // Set to attacking state
-    //youWin = true;
     float xOffset = 0;
     if (playerSide == 0) 
     {
@@ -472,8 +469,6 @@ void Character::updateMovement(PlayerInput* input)
             block = true;
         }
     }
-
-    //printf("player side %f: updatemovement %f %f  \n", playerSide, deltaX, deltaY);
 
     if (deltaX == 0.0f && deltaY == 0.0f)
     {
