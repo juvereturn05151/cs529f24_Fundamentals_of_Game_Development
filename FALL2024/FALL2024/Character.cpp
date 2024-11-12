@@ -12,25 +12,10 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     health = 3;
 
     setupVisuals(renderer);
-    
-    Vector3 pos = getTransform()->getPosition();
-    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
-
-    Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
-
-    Square* squareMesh2 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(1, 0, 0), 0.5f, renderer.GetShader());
-
-    Square* squareMesh3 = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0), Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0), Vector3(pos.x + scale.x, pos.y - scale.y, 0), Vector3(0, 1, 0), 0.5f, renderer.GetShader());
-
-    hitBox = new BoxCollider2D(squareMesh2, renderer.GetModelMatrixLoc(), pos, scale);
-    hurtBox = new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
-    legHurtBox = new BoxCollider2D(squareMesh3, renderer.GetModelMatrixLoc(), pos, scale);
-    hitBox->setIsDrawingActive(true);
-    hurtBox->setIsDrawingActive(true);
-    legHurtBox->setIsDrawingActive(true);
+    setupHitboxes(renderer);
+    //hitBox->setIsDrawingActive(true);
+    //hurtBox->setIsDrawingActive(true);
+    //legHurtBox->setIsDrawingActive(true);
 
     if (playerSide == 0)
     {
@@ -44,7 +29,6 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     if (playerSide == 0)
     {
         Vector3 centerPos = getTransform()->getPosition() - Vector3(0.5f, 0.0f, 0.0f);
-
         hurtBox->getTransform()->setPosition(centerPos);
         hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
@@ -55,7 +39,6 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     else
     {
         Vector3 centerPos = getTransform()->getPosition() + Vector3(0.5f, 0.0f, 0.0f);
-
         hurtBox->getTransform()->setPosition(centerPos);
         hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
@@ -97,14 +80,11 @@ void Character::setupVisuals(Renderer& renderer)
 void Character::setupHitboxes(Renderer& renderer)
 {
     Vector3 pos = getTransform()->getPosition();
-    Vector3 scale = getTransform()->getScale() / 1.75f;
+    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
 
     hitBox = createBoxCollider(renderer, pos, scale, Vector3(1, 0, 0));
     hurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));
     legHurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));
-
-    hitBox->setIsActive(false);
-    legHurtBox->setIsActive(false);
 }
 
 BoxCollider2D* Character::createBoxCollider(Renderer& renderer, const Vector3& pos, const Vector3& scale, const Vector3& color)
