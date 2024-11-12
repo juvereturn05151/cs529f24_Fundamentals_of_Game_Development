@@ -3,8 +3,6 @@
 #include "Square.h"
 #include <map>
 
-enum class AnimationState { Idle, WalkFront, WalkBack, cMK, Hurt, Hadoken, YouWin, YouLose, Block, Throw };
-
 class AnimatedSquare : public Square {
 protected:
     struct Animation
@@ -14,8 +12,6 @@ protected:
         float frameDuration;
     };
 
-    AnimationState currentState = AnimationState::Idle;
-    std::map<AnimationState, Animation> animations;
     int frameCount = 5;
     float frameDuration = 0.2f;
     int currentFrame = 0;
@@ -29,10 +25,9 @@ protected:
 
 public:
     AnimatedSquare(const Vector3& color, float alpha, Shader* shaderProgram);
-    void setAnimation(AnimationState newState, bool isLoop = true);
     void updateAnimation(float deltaTime);
     bool isAnimationFinished() const;
     bool isAtFrame(int frameNumber) const;
     void draw() override;
-    AnimationState getCurrentState() const;
+
 };

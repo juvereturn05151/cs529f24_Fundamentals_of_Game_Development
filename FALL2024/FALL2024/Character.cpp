@@ -11,7 +11,7 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     movementSpeed = 5.0f;
     health = 3;
 
-    AnimatedSquare* ryu = new AnimatedSquare(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    AnimatedCharacter* ryu = new AnimatedCharacter(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     ryu->AddTexture("Ryu2.png");
     Node* visualHolder = new GameObject(ryu, renderer.GetModelMatrixLoc());
     
@@ -98,7 +98,7 @@ void Character::reset()
     beingThrown = false;
     isThrowing = false;
     hitBox->setIsActive(false);
-    animatedSquare->setAnimation(AnimationState::Idle);
+    animatedCharacter->setAnimation(AnimationState::Idle);
 }
 
 void Character::setHurtBox(BoxCollider2D* newHurtBox)
@@ -106,9 +106,9 @@ void Character::setHurtBox(BoxCollider2D* newHurtBox)
     hurtBox = newHurtBox;
 }
 
-void Character::setAnimatedSquare(AnimatedSquare* animated)
+void Character::setAnimatedSquare(AnimatedCharacter* animated)
 {
-    animatedSquare = animated;
+    animatedCharacter = animated;
 }
 
 void Character::cleanup()
@@ -128,9 +128,9 @@ void Character::cleanup()
 
 void Character::update(float deltaTime)
 {
-    if (animatedSquare != NULL)
+    if (animatedCharacter != NULL)
     {
-        animatedSquare->updateAnimation(deltaTime);
+        animatedCharacter->updateAnimation(deltaTime);
     }
 
     GameObject::update(deltaTime);
@@ -157,16 +157,16 @@ void Character::updateCMKCollider()
 
     Vector3 centerPos = legHurtBox->getTransform()->getPosition();//+ Vector3(sign * 0.75f, -2.0f, 0.0f);
 
-    if (animatedSquare != NULL) 
+    if (animatedCharacter != NULL) 
     {
         if (legHurtBox != NULL)
         {
-            if (animatedSquare->isAtFrame(2) || animatedSquare->isAtFrame(5))
+            if (animatedCharacter->isAtFrame(2) || animatedCharacter->isAtFrame(5))
             {
                 legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
                 legHurtBox->getTransform()->setPosition(Vector3((sign * 0.25f), centerPos.y, 0));
             }
-            else if (animatedSquare->isAtFrame(3) || animatedSquare->isAtFrame(4))
+            else if (animatedCharacter->isAtFrame(3) || animatedCharacter->isAtFrame(4))
             {
                 legHurtBox->getTransform()->setScale(Vector3(1.8f, 0.5f, 1.0f));
                 legHurtBox->getTransform()->setPosition(Vector3((sign * -0.1f), centerPos.y, 0));
@@ -196,17 +196,17 @@ void Character::updateInput(PlayerInput* input)
 
     if (youLose)
     {
-        if (animatedSquare->getCurrentState() != AnimationState::YouLose) 
+        if (animatedCharacter->getCurrentState() != AnimationState::YouLose) 
         {
-            animatedSquare->setAnimation(AnimationState::YouLose, false);
+            animatedCharacter->setAnimation(AnimationState::YouLose, false);
             health--;
             health = std::clamp(health, 0, 3);
             EventSystem::getInstance().notify("decreasePlayerHealth", playerSide, health);
         }
 
-        if (animatedSquare->getCurrentState() == AnimationState::YouLose)
+        if (animatedCharacter->getCurrentState() == AnimationState::YouLose)
         {
-            if (animatedSquare->isAtFrame(5))
+            if (animatedCharacter->isAtFrame(5))
             {
                 getPhysicsComp()->setIsActive(true);
 
@@ -238,11 +238,11 @@ void Character::updateInput(PlayerInput* input)
 
     if (hitConfirmSuccess) 
     {
-        if (animatedSquare->isAtFrame(3)) 
+        if (animatedCharacter->isAtFrame(3)) 
         {
             if (!hasPlayHitConfirmSound) 
             {
-                if (animatedSquare->getCurrentState() != AnimationState::YouWin)
+                if (animatedCharacter->getCurrentState() != AnimationState::YouWin)
                 {
                     hasPlayHitConfirmSound = true;
                     SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
@@ -254,7 +254,7 @@ void Character::updateInput(PlayerInput* input)
         {
             youWin = true;
             SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
-            animatedSquare->setAnimation(AnimationState::YouWin, false);
+            animatedCharacter->setAnimation(AnimationState::YouWin, false);
         }
 
         return;
@@ -268,11 +268,11 @@ void Character::updateInput(PlayerInput* input)
             {
                 SoundManager::getInstance().playSound("audio/ryuken-hadooken-101soundboards.mp3", false);
                 hitConfirmSuccess = true;
-                if (animatedSquare->getCurrentState() != AnimationState::Hadoken)
+                if (animatedCharacter->getCurrentState() != AnimationState::Hadoken)
                 {
                     SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
                 }
-                animatedSquare->setAnimation(AnimationState::Hadoken);
+                animatedCharacter->setAnimation(AnimationState::Hadoken);
                 return;
             }
         }
@@ -280,9 +280,9 @@ void Character::updateInput(PlayerInput* input)
 
     if (isHurt) 
     {
-        if (animatedSquare != NULL) 
+        if (animatedCharacter != NULL) 
         {
-            animatedSquare->setAnimation(AnimationState::Hurt);
+            animatedCharacter->setAnimation(AnimationState::Hurt);
         }
 
         // Skip other updates while hurt
@@ -296,18 +296,18 @@ void Character::updateInput(PlayerInput* input)
 
     if (isThrowing) 
     {
-        if (animatedSquare != NULL)
+        if (animatedCharacter != NULL)
         {
             if (!youWin) 
             {
-                if (animatedSquare->getCurrentState() != AnimationState::Throw)
+                if (animatedCharacter->getCurrentState() != AnimationState::Throw)
                 {
-                    animatedSquare->setAnimation(AnimationState::Throw, false);
+                    animatedCharacter->setAnimation(AnimationState::Throw, false);
                 }
 
-                if (animatedSquare->getCurrentState() == AnimationState::Throw)
+                if (animatedCharacter->getCurrentState() == AnimationState::Throw)
                 {
-                    if (animatedSquare->isAtFrame(5))
+                    if (animatedCharacter->isAtFrame(5))
                     {
                         youWin = true;
                         SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
@@ -325,11 +325,11 @@ void Character::updateInput(PlayerInput* input)
     // Check if the character is attacking
     if (isAttacking)
     {
-        if (animatedSquare != NULL)
+        if (animatedCharacter != NULL)
         {
-            animatedSquare->setAnimation(AnimationState::cMK);
+            animatedCharacter->setAnimation(AnimationState::cMK);
 
-            hitBox->setIsActive(animatedSquare->isAtFrame(3));
+            hitBox->setIsActive(animatedCharacter->isAtFrame(3));
 
             updateCMKCollider();
         }
@@ -374,7 +374,7 @@ void Character::updateInput(PlayerInput* input)
 
         if (isBlocking)
         {
-            animatedSquare->setAnimation(AnimationState::Block); // Set blocking animation
+            animatedCharacter->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
 
             isBlocking = false; // End block state when animation finishes
@@ -410,7 +410,7 @@ void Character::checkForBlock(PlayerInput* input)
     if (facingOpponent)
     {
         isBlocking = true;
-        animatedSquare->setAnimation(AnimationState::Block); // Set to blocking animation
+        animatedCharacter->setAnimation(AnimationState::Block); // Set to blocking animation
         hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
@@ -422,7 +422,7 @@ void Character::triggerHurt()
         if (!isBlocking)
         {
             isBlocking = true;
-            if (animatedSquare->getCurrentState() != AnimationState::Block) 
+            if (animatedCharacter->getCurrentState() != AnimationState::Block) 
             {
                 SoundManager::getInstance().playSound("audio/guard-101soundboards.mp3", false);
             }
@@ -438,11 +438,11 @@ void Character::triggerHurt()
 
     isHurt = true;  // Set hurt state
 
-    if (animatedSquare != NULL) 
+    if (animatedCharacter != NULL) 
     {
-        if (animatedSquare->getCurrentState() != AnimationState::Hurt) 
+        if (animatedCharacter->getCurrentState() != AnimationState::Hurt) 
         {
-            animatedSquare->setAnimation(AnimationState::Hurt);
+            animatedCharacter->setAnimation(AnimationState::Hurt);
             SoundManager::getInstance().playSound("audio/hit.wav", false);
         }
     }
@@ -477,9 +477,9 @@ void Character::updateMovement(PlayerInput* input)
 
     if (deltaX == 0.0f && deltaY == 0.0f)
     {
-        if (animatedSquare != NULL)
+        if (animatedCharacter != NULL)
         {
-            animatedSquare->setAnimation(AnimationState::Idle);
+            animatedCharacter->setAnimation(AnimationState::Idle);
         }
     }
 
@@ -489,15 +489,15 @@ void Character::updateMovement(PlayerInput* input)
 void Character::moveRight()
 {
     deltaX += movementSpeed * FrameController::getInstance().getDeltaTime();
-    if (animatedSquare != NULL)
+    if (animatedCharacter != NULL)
     {
         if (faceRight)
         {
-            animatedSquare->setAnimation(AnimationState::WalkFront);
+            animatedCharacter->setAnimation(AnimationState::WalkFront);
         }
         else
         {
-            animatedSquare->setAnimation(AnimationState::WalkBack);
+            animatedCharacter->setAnimation(AnimationState::WalkBack);
         }
     }
 }
@@ -505,15 +505,15 @@ void Character::moveRight()
 void Character::moveLeft()
 {
     deltaX -= movementSpeed * FrameController::getInstance().getDeltaTime();
-    if (animatedSquare != NULL)
+    if (animatedCharacter != NULL)
     {
         if (faceRight)
         {
-            animatedSquare->setAnimation(AnimationState::WalkBack);
+            animatedCharacter->setAnimation(AnimationState::WalkBack);
         }
         else
         {
-            animatedSquare->setAnimation(AnimationState::WalkFront);
+            animatedCharacter->setAnimation(AnimationState::WalkFront);
         }
     }
 }
@@ -522,9 +522,9 @@ void Character::attack()
 {
     isAttacking = true; // Set attacking state
     SoundManager::getInstance().playSound("audio/ryu_attack_sound.mp3", false);
-    if (animatedSquare != NULL)
+    if (animatedCharacter != NULL)
     {
-        animatedSquare->setAnimation(AnimationState::cMK); // Set cMK animation
+        animatedCharacter->setAnimation(AnimationState::cMK); // Set cMK animation
     }
 }
 
@@ -535,9 +535,9 @@ void Character::setFaceRight(bool isRight)
 
 bool Character::isAnimationFinished()
 {
-    if (animatedSquare != NULL) 
+    if (animatedCharacter != NULL) 
     {
-        return animatedSquare->isAnimationFinished();
+        return animatedCharacter->isAnimationFinished();
     }
 
     return false;

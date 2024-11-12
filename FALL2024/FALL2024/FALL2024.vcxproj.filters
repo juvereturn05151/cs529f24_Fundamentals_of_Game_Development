@@ -127,6 +127,12 @@
     <Filter Include="Source Files\Engine\Sound">
       <UniqueIdentifier>{ded3a525-2733-40bd-8570-21b5eae24ceb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameComponent\Animation">
+      <UniqueIdentifier>{d7488d71-4b77-40f2-9ed4-7bd0523df8d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameComponent\Animation">
+      <UniqueIdentifier>{3fcdf555-7c01-4aef-9daf-6ade4d68997f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -227,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedCharacter.cpp">
+      <Filter>Source Files\GameComponent\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Header Files\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedCharacter.h">
+      <Filter>Header Files\GameComponent\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

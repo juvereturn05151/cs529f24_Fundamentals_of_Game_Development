@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "PlayerInput.h"
-#include "AnimatedSquare.h"
+#include "AnimatedCharacter.h"
 #include "BoxCollider2D.h"
 #include "Renderer.h"
 class Character : public GameObject
@@ -11,7 +11,7 @@ private:
     int playerSide;
     int health;
 
-    AnimatedSquare* animatedSquare;
+    AnimatedCharacter* animatedCharacter;
     BoxCollider2D* hurtBox;
     BoxCollider2D* legHurtBox;
     BoxCollider2D* hitBox;
@@ -42,7 +42,7 @@ private:
 
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);
-    void setAnimatedSquare(AnimatedSquare* animated);
+    void setAnimatedSquare(AnimatedCharacter* animated);
     void setFaceRight(bool isRight);
 
     void updateInput(PlayerInput* input);
