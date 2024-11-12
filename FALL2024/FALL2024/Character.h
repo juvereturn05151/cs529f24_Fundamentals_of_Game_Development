@@ -4,6 +4,7 @@
 #include "AnimatedCharacter.h"
 #include "BoxCollider2D.h"
 #include "Renderer.h"
+#include "CharacterCollisionManager.h"
 
 class Character : public GameObject
 {
@@ -16,7 +17,7 @@ private:
     BoxCollider2D* hurtBox;
     BoxCollider2D* legHurtBox;
     BoxCollider2D* hitBox;
-
+    CharacterCollisionManager* characterCollisionManager;
     Character* opponent;
 
     float movementSpeed;

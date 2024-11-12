@@ -14,7 +14,7 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 		return;
 	}
 
-	Vector3 gravity(0.0f, -9.81f * mass, 0.0f);
+	Vector3 gravity(0.0f, -20.0f * mass, 0.0f);
 	accumulatedForce += gravity;
 
 	Vector3 acceleration = accumulatedForce / mass;

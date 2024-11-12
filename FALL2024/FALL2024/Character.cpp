@@ -12,10 +12,13 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     health = 3;
 
     setupVisuals(renderer);
-    setupHitboxes(renderer);
+    //setupHitboxes(renderer);
+
     //hitBox->setIsDrawingActive(true);
     //hurtBox->setIsDrawingActive(true);
     //legHurtBox->setIsDrawingActive(true);
+    characterCollisionManager = new CharacterCollisionManager(renderer, getTransform()->getPosition(), 
+        Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z)));
 
     if (playerSide == 0)
     {
@@ -26,7 +29,9 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
         getTransform()->setPosition(Vector3(0.75f, -1.75f, 0.0f));
     }
 
-    if (playerSide == 0)
+    characterCollisionManager->setupHitboxes(getTransform()->getPosition(), playerSide);
+
+    /*if (playerSide == 0)
     {
         Vector3 centerPos = getTransform()->getPosition() - Vector3(0.5f, 0.0f, 0.0f);
         hurtBox->getTransform()->setPosition(centerPos);
@@ -48,11 +53,11 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     }
 
     hitBox->setIsActive(false);
-    legHurtBox->setIsActive(false);
-
-    addChild(hurtBox);
-    addChild(hitBox);
-    addChild(legHurtBox);
+    legHurtBox->setIsActive(false);*/
+    
+    addChild(characterCollisionManager->getHurtBox());
+    addChild(characterCollisionManager->getHitBox());
+    addChild(characterCollisionManager->getLegHurtBox());
 
     addPhysicsComponent(1.0f);
 }
@@ -81,9 +86,9 @@ void Character::setupHitboxes(Renderer& renderer)
     Vector3 pos = getTransform()->getPosition();
     Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
 
-    hitBox = createBoxCollider(renderer, pos, scale, Vector3(1, 0, 0));
+    /*hitBox = createBoxCollider(renderer, pos, scale, Vector3(1, 0, 0));
     hurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));
-    legHurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));
+    legHurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));*/
 }
 
 BoxCollider2D* Character::createBoxCollider(Renderer& renderer, const Vector3& pos, const Vector3& scale, const Vector3& color)
@@ -113,25 +118,15 @@ void Character::reset()
     isReadyToFight = false;
     beingThrown = false;
     isThrowing = false;
-    hitBox->setIsActive(false);
+    //hitBox->setIsActive(false);
     animatedCharacter->setAnimation(AnimationState::Idle);
 }
 
 void Character::cleanup()
 {
-    if (hitBox != NULL) 
+    if (characterCollisionManager != NULL) 
     {
-        delete hitBox;
-    }
-
-    if (hurtBox != NULL) 
-    {
-        delete hurtBox;
-    }
-
-    if (legHurtBox != NULL)
-    {
-        delete legHurtBox;
+        delete characterCollisionManager;
     }
 
     GameObject::cleanup();
@@ -166,12 +161,14 @@ void Character::updateCMKCollider()
         sign = 1.0f;
     }
 
-    Vector3 centerPos = legHurtBox->getTransform()->getPosition();
+
 
     if (animatedCharacter != NULL) 
     {
-        if (legHurtBox != NULL)
+        /*if (legHurtBox != NULL)
         {
+            Vector3 centerPos = legHurtBox->getTransform()->getPosition();
+
             if (animatedCharacter->isAtFrame(2) || animatedCharacter->isAtFrame(5))
             {
                 legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
@@ -187,7 +184,7 @@ void Character::updateCMKCollider()
                 legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
                 legHurtBox->getTransform()->setPosition(Vector3((sign * 2.0f), centerPos.y, 0));
             }
-        }
+        }*/
     }
 }
 
@@ -330,7 +327,7 @@ void Character::updateInput(PlayerInput* input)
         return;
     }
 
-    legHurtBox->setIsActive(isAttacking);
+    //legHurtBox->setIsActive(isAttacking);
     // Check if the character is attacking
     if (isAttacking)
     {
@@ -338,7 +335,7 @@ void Character::updateInput(PlayerInput* input)
         {
             animatedCharacter->setAnimation(AnimationState::cMK);
 
-            hitBox->setIsActive(animatedCharacter->isAtFrame(3));
+            //hitBox->setIsActive(animatedCharacter->isAtFrame(3));
 
             updateCMKCollider();
         }
@@ -384,7 +381,7 @@ void Character::updateInput(PlayerInput* input)
         if (isBlocking)
         {
             animatedCharacter->setAnimation(AnimationState::Block); // Set blocking animation
-            hitBox->setIsActive(false); // Disable hitbox while blocking
+            //hitBox->setIsActive(false); // Disable hitbox while blocking
             isBlocking = false; // End block state when animation finishes
             return;
         }
@@ -417,7 +414,7 @@ void Character::checkForBlock(PlayerInput* input)
     {
         isBlocking = true;
         animatedCharacter->setAnimation(AnimationState::Block); // Set to blocking animation
-        hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
+        //hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
 
@@ -452,7 +449,7 @@ void Character::triggerHurt()
             SoundManager::getInstance().playSound("audio/hit.wav", false);
         }
     }
-    hitBox->setIsActive(false); // Disable hitbox while in hurt state
+   // hitBox->setIsActive(false); // Disable hitbox while in hurt state
 }
 
 
@@ -547,7 +544,7 @@ bool Character::isAnimationFinished()
     return false;
 }
 
-BoxCollider2D* Character::getHurtBox()
+/*BoxCollider2D* Character::getHurtBox()
 {
     return hurtBox;
 }
@@ -560,7 +557,7 @@ BoxCollider2D* Character::getHitBox()
 BoxCollider2D* Character::getLegHurtBox()
 {
     return legHurtBox;
-}
+}*/
 
 void Character::setCanHitConfirm(bool isEnemyHurt)
 {

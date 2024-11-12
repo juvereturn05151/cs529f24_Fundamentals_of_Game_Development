@@ -237,6 +237,9 @@
     <ClCompile Include="AnimatedCharacter.cpp">
       <Filter>Source Files\GameComponent\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterCollisionManager.cpp">
+      <Filter>Source Files\GameComponent\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="AnimatedCharacter.h">
       <Filter>Header Files\GameComponent\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterCollisionManager.h">
+      <Filter>Header Files\GameComponent\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
