@@ -155,7 +155,7 @@ void Character::updateCMKCollider()
         sign = 1.0f;
     }
 
-    Vector3 centerPos = legHurtBox->getTransform()->getPosition();//+ Vector3(sign * 0.75f, -2.0f, 0.0f);
+    Vector3 centerPos = legHurtBox->getTransform()->getPosition();
 
     if (animatedCharacter != NULL) 
     {
@@ -374,9 +374,7 @@ void Character::updateInput(PlayerInput* input)
         {
             animatedCharacter->setAnimation(AnimationState::Block); // Set blocking animation
             hitBox->setIsActive(false); // Disable hitbox while blocking
-
             isBlocking = false; // End block state when animation finishes
-
             return;
         }
     }

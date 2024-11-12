@@ -145,15 +145,18 @@ void InputManager::AddButton(int button)
     }
 }
 
-bool InputManager::IsKeyPressed(int key) {
+bool InputManager::IsKeyPressed(int key) 
+{
     return keys[key].held;
 }
 
-bool InputManager::IsKeyJustPressed(int key) {
+bool InputManager::IsKeyJustPressed(int key) 
+{
     return keys[key].pressed;
 }
 
-bool InputManager::IsKeyJustReleased(int key) {
+bool InputManager::IsKeyJustReleased(int key) 
+{
     return keys[key].released;
 }
 
