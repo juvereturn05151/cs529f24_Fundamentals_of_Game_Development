@@ -12,11 +12,6 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     health = 3;
 
     setupVisuals(renderer);
-    //setupHitboxes(renderer);
-
-    //hitBox->setIsDrawingActive(true);
-    //hurtBox->setIsDrawingActive(true);
-    //legHurtBox->setIsDrawingActive(true);
     characterCollisionManager = new CharacterCollisionManager(renderer, getTransform()->getPosition(), 
         Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z)));
 
@@ -30,30 +25,6 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
     }
 
     characterCollisionManager->setupHitboxes(getTransform()->getPosition(), playerSide);
-
-    /*if (playerSide == 0)
-    {
-        Vector3 centerPos = getTransform()->getPosition() - Vector3(0.5f, 0.0f, 0.0f);
-        hurtBox->getTransform()->setPosition(centerPos);
-        hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
-        hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
-        hitBox->getTransform()->setPosition(Vector3(centerPos.x + 1.75f, -2.0f, 0.0f));
-        legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-        legHurtBox->getTransform()->setPosition(Vector3(centerPos.x + 0.75f, -2.0f, 0.0f));
-    }
-    else
-    {
-        Vector3 centerPos = getTransform()->getPosition() + Vector3(0.5f, 0.0f, 0.0f);
-        hurtBox->getTransform()->setPosition(centerPos);
-        hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
-        hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
-        hitBox->getTransform()->setPosition(Vector3(centerPos.x - 1.75f, -2.0f, 0.0f));
-        legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-        legHurtBox->getTransform()->setPosition(Vector3(centerPos.x - 0.75f, -2.0f, 0.0f));
-    }
-
-    hitBox->setIsActive(false);
-    legHurtBox->setIsActive(false);*/
     
     addChild(characterCollisionManager->getHurtBox());
     addChild(characterCollisionManager->getHitBox());
@@ -81,27 +52,6 @@ void Character::setupVisuals(Renderer& renderer)
     addChild(visualHolder);
 }
 
-void Character::setupHitboxes(Renderer& renderer)
-{
-    Vector3 pos = getTransform()->getPosition();
-    Vector3 scale = Vector3(Vector3(getTransform()->getScale().x / 1.75f, getTransform()->getScale().y, getTransform()->getScale().z));
-
-    /*hitBox = createBoxCollider(renderer, pos, scale, Vector3(1, 0, 0));
-    hurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));
-    legHurtBox = createBoxCollider(renderer, pos, scale, Vector3(0, 1, 0));*/
-}
-
-BoxCollider2D* Character::createBoxCollider(Renderer& renderer, const Vector3& pos, const Vector3& scale, const Vector3& color)
-{
-    Square* squareMesh = new Square(Vector3(pos.x - scale.x, pos.y - scale.y, 0),
-        Vector3(pos.x - scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y + scale.y, 0),
-        Vector3(pos.x + scale.x, pos.y - scale.y, 0),
-        color, 0.5f, renderer.GetShader());
-    return new BoxCollider2D(squareMesh, renderer.GetModelMatrixLoc(), pos, scale);
-}
-
-
 void Character::reset()
 {
     isAttacking = false;
@@ -118,6 +68,7 @@ void Character::reset()
     isReadyToFight = false;
     beingThrown = false;
     isThrowing = false;
+    characterCollisionManager->getHitBox()->setIsActive(false);
     //hitBox->setIsActive(false);
     animatedCharacter->setAnimation(AnimationState::Idle);
 }
@@ -150,42 +101,7 @@ void Character::draw()
 
 void Character::updateCMKCollider()
 {
-    float sign = 1.0f;
-
-    if (playerSide == 0) 
-    {
-        sign = -1.0f;
-    }
-    else 
-    {
-        sign = 1.0f;
-    }
-
-
-
-    if (animatedCharacter != NULL) 
-    {
-        /*if (legHurtBox != NULL)
-        {
-            Vector3 centerPos = legHurtBox->getTransform()->getPosition();
-
-            if (animatedCharacter->isAtFrame(2) || animatedCharacter->isAtFrame(5))
-            {
-                legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
-                legHurtBox->getTransform()->setPosition(Vector3((sign * 0.25f), centerPos.y, 0));
-            }
-            else if (animatedCharacter->isAtFrame(3) || animatedCharacter->isAtFrame(4))
-            {
-                legHurtBox->getTransform()->setScale(Vector3(1.8f, 0.5f, 1.0f));
-                legHurtBox->getTransform()->setPosition(Vector3((sign * -0.1f), centerPos.y, 0));
-            }
-            else
-            {
-                legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
-                legHurtBox->getTransform()->setPosition(Vector3((sign * 2.0f), centerPos.y, 0));
-            }
-        }*/
-    }
+    characterCollisionManager->updateLegHitBox(animatedCharacter, playerSide);
 }
 
 bool Character::getHitConfirmSuccess()
@@ -327,16 +243,14 @@ void Character::updateInput(PlayerInput* input)
         return;
     }
 
-    //legHurtBox->setIsActive(isAttacking);
+    characterCollisionManager->getLegHurtBox()->setIsActive(isAttacking);
     // Check if the character is attacking
     if (isAttacking)
     {
         if (animatedCharacter != NULL)
         {
             animatedCharacter->setAnimation(AnimationState::cMK);
-
-            //hitBox->setIsActive(animatedCharacter->isAtFrame(3));
-
+            characterCollisionManager->getHitBox()->setIsActive(animatedCharacter->isAtFrame(3));
             updateCMKCollider();
         }
 
@@ -381,7 +295,7 @@ void Character::updateInput(PlayerInput* input)
         if (isBlocking)
         {
             animatedCharacter->setAnimation(AnimationState::Block); // Set blocking animation
-            //hitBox->setIsActive(false); // Disable hitbox while blocking
+            characterCollisionManager->getHitBox()->setIsActive(false); // Disable hitbox while blocking
             isBlocking = false; // End block state when animation finishes
             return;
         }
@@ -414,6 +328,7 @@ void Character::checkForBlock(PlayerInput* input)
     {
         isBlocking = true;
         animatedCharacter->setAnimation(AnimationState::Block); // Set to blocking animation
+        characterCollisionManager->getHitBox()->setIsActive(false);
         //hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
@@ -449,6 +364,8 @@ void Character::triggerHurt()
             SoundManager::getInstance().playSound("audio/hit.wav", false);
         }
     }
+
+    characterCollisionManager->getHitBox()->setIsActive(false);
    // hitBox->setIsActive(false); // Disable hitbox while in hurt state
 }
 
@@ -544,21 +461,6 @@ bool Character::isAnimationFinished()
     return false;
 }
 
-/*BoxCollider2D* Character::getHurtBox()
-{
-    return hurtBox;
-}
-
-BoxCollider2D* Character::getHitBox()
-{
-    return hitBox;
-}
-
-BoxCollider2D* Character::getLegHurtBox()
-{
-    return legHurtBox;
-}*/
-
 void Character::setCanHitConfirm(bool isEnemyHurt)
 {
     canHitConfirm = isEnemyHurt;
@@ -621,11 +523,6 @@ bool Character::isOpponentWithinThrowRange()
 
         Vector3 newVector = getTransform()->getPosition() - oppoVector;
         float distance = (newVector).magnitude();
-        /*printf("playerside: %f\n", playerSide);
-        printf("MY POS: %f %f %f \n", getTransform()->getPosition().x, getTransform()->getPosition().y, getTransform()->getPosition().z);
-        printf("Oppo POS: %f %f %f \n", oppoVector.x, oppoVector.y, oppoVector.z);
-        printf("diff POS: %f %f %f \n", newVector.x, newVector.y, newVector.z);
-        printf("distance: %f\n\n", distance);*/
         return distance < 0.6f; // Adjust the distance threshold as needed
     }
 
@@ -645,4 +542,9 @@ bool Character::getIsBeingThrown()
 void Character::setBeingThrown(bool thrown)
 {
     beingThrown = true;
+}
+
+CharacterCollisionManager* Character::getCharacterCollisionManager()
+{
+    return characterCollisionManager;
 }

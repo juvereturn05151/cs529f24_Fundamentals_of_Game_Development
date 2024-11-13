@@ -71,7 +71,7 @@ void CharacterCollisionManager::setupHitboxes(const Vector3& pos, int playerSide
     else
     {
         Vector3 centerPos = pos + Vector3(0.5f, 0.0f, 0.0f);
-        hurtBox->getTransform()->setPosition(centerPos);
+        hurtBox->getTransform()->setPosition(Vector3(centerPos.x, 0.0f, 0.0f));
         hurtBox->getTransform()->setScale(Vector3(1.0f, 2.0f, 1.0f));
         hitBox->getTransform()->setScale(Vector3(1.0f, 0.5f, 1.0f));
         hitBox->getTransform()->setPosition(Vector3(centerPos.x - 1.75f, -2.0f, 0.0f));
@@ -82,4 +82,42 @@ void CharacterCollisionManager::setupHitboxes(const Vector3& pos, int playerSide
     hitBox->setIsDrawingActive(true);
     hurtBox->setIsDrawingActive(true);
     legHurtBox->setIsDrawingActive(true);
+
+    hitBox->setIsActive(false);
+    legHurtBox->setIsActive(false);
+}
+
+void CharacterCollisionManager::updateLegHitBox(AnimatedCharacter* animatedCharacter, int playerSide)
+{
+    if (legHurtBox != NULL)
+    {
+        float sign = 1.0f;
+
+        if (playerSide == 0)
+        {
+            sign = -1.0f;
+        }
+        else
+        {
+            sign = 1.0f;
+        }
+
+        Vector3 centerPos = legHurtBox->getTransform()->getPosition();
+
+        if (animatedCharacter->isAtFrame(2) || animatedCharacter->isAtFrame(5))
+        {
+            legHurtBox->getTransform()->setScale(Vector3(0.75f, 0.5f, 1.0f));
+            legHurtBox->getTransform()->setPosition(Vector3((sign * 0.25f), centerPos.y, 0));
+        }
+        else if (animatedCharacter->isAtFrame(3) || animatedCharacter->isAtFrame(4))
+        {
+            legHurtBox->getTransform()->setScale(Vector3(1.8f, 0.5f, 1.0f));
+            legHurtBox->getTransform()->setPosition(Vector3((sign * -0.1f), centerPos.y, 0));
+        }
+        else
+        {
+            legHurtBox->getTransform()->setScale(Vector3(0.25f, 0.5f, 1.0f));
+            legHurtBox->getTransform()->setPosition(Vector3((sign * 2.0f), centerPos.y, 0));
+        }
+    }
 }

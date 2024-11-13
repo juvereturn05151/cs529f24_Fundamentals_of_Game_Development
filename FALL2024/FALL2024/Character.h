@@ -14,9 +14,6 @@ private:
     int health;
 
     AnimatedCharacter* animatedCharacter;
-    BoxCollider2D* hurtBox;
-    BoxCollider2D* legHurtBox;
-    BoxCollider2D* hitBox;
     CharacterCollisionManager* characterCollisionManager;
     Character* opponent;
 
@@ -38,8 +35,6 @@ private:
     bool beingThrown;
 
     void setupVisuals(Renderer& renderer);
-    void setupHitboxes(Renderer& renderer);
-    BoxCollider2D* createBoxCollider(Renderer& renderer, const Vector3& pos, const Vector3& scale, const Vector3& color);
     void updateMovement(PlayerInput* input);
     void updateCMKCollider();
     void checkForBlock(PlayerInput* input);
@@ -60,9 +55,6 @@ public:
     void attack();
     void triggerHurt();
     bool isAnimationFinished();
-    BoxCollider2D* getHurtBox();
-    BoxCollider2D* getLegHurtBox();
-    BoxCollider2D* getHitBox();
     void setCanHitConfirm(bool isEnemyHurt);
     bool getCanHitConfirm();
     bool getHitConfirmSuccess();
@@ -78,5 +70,6 @@ public:
     bool getIsThrowing();
     bool getIsBeingThrown();
     void setBeingThrown(bool thrown);
+    CharacterCollisionManager* getCharacterCollisionManager();
 };
 

@@ -67,7 +67,8 @@ void FightingGameScene::handleCollision()
 {
     /*Player1 Player2 Collision*/
 
-    /*if (character1->getHurtBox()->isColliding(*character2->getHurtBox()))
+    if (character1->getCharacterCollisionManager()->getHurtBox()->
+        isColliding(*character2->getCharacterCollisionManager()->getHurtBox()))
     {
         float pushbackDistance = 0.1f; // Adjust this value to control the pushback strength 
 
@@ -88,7 +89,7 @@ void FightingGameScene::handleCollision()
             character1->getTransform()->setPosition(Vector3(position1.x - pushbackDistance, position1.y, position1.z));
             character2->getTransform()->setPosition(Vector3(position2.x + pushbackDistance, position2.y, position2.z));
         }
-    }*/
+    }
 
     /*If Attack Happens*/
     //character1->isOpponentWithinThrowRange();
@@ -96,17 +97,21 @@ void FightingGameScene::handleCollision()
     //printf("character 2 in range: %i\n", character1->isWithinThrowRange());
     //printf("character 1 in range: %i\n", character2->isWithinThrowRange());
 
-    /*if (character1->getHitBox()->isColliding(*character2->getHurtBox())
-        || character1->getHitBox()->isColliding(*character2->getLegHurtBox()))
+    if (character1->getCharacterCollisionManager()->getHitBox()->
+        isColliding(*character2->getCharacterCollisionManager()->getHurtBox())
+        || character1->getCharacterCollisionManager()->getHitBox()->
+        isColliding(*character2->getCharacterCollisionManager()->getLegHurtBox()))
     {
         character2->triggerHurt();
     }
 
-    if (character2->getHitBox()->isColliding(*character1->getHurtBox())
-        || character2->getHitBox()->isColliding(*character1->getLegHurtBox()))
+    if (character2->getCharacterCollisionManager()->getHitBox()->
+        isColliding(*character1->getCharacterCollisionManager()->getHurtBox())
+        || character2->getCharacterCollisionManager()->getHitBox()->
+        isColliding(*character1->getCharacterCollisionManager()->getLegHurtBox()))
     {
         character1->triggerHurt();
-    }*/
+    }
 
     /*Player Wall Collision*/
 

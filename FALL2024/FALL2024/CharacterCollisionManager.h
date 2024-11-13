@@ -1,6 +1,7 @@
 #pragma once
 #include "BoxCollider2D.h"
 #include "Renderer.h"
+#include "AnimatedCharacter.h"
 class CharacterCollisionManager
 {
 private:
@@ -15,6 +16,7 @@ public:
     BoxCollider2D* getHurtBox();
     BoxCollider2D* getLegHurtBox();
     BoxCollider2D* getHitBox();
+    void updateLegHitBox(AnimatedCharacter* animatedCharacter,int playerSide);
     ~CharacterCollisionManager();
 };
 
