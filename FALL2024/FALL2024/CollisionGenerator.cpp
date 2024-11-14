@@ -28,20 +28,83 @@ bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2,
 }
 
 bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
+    const AABB* aabb1 = static_cast<const AABB*>(a);
+    const AABB* aabb2 = static_cast<const AABB*>(b);
 
+    // Check for overlap on each axis
+    if (aabb1->getMax().x < aabb2->getMin().x || aabb1->getMin().x > aabb2->getMax().x ||
+        aabb1->getMax().y < aabb2->getMin().y || aabb1->getMin().y > aabb2->getMax().y) 
+    {
+        return false;
+    }
+
+    // If overlap, calculate the contact point as the midpoint between AABBs
+    contact.point = (aabb1->getCenter() + aabb2->getCenter()) * 0.5f;
     return true;
 }
 
 bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
+    const OBB* obb1 = static_cast<const OBB*>(a);
+    const OBB* obb2 = static_cast<const OBB*>(b);
+
+    // Axes to test: normals of obb1, obb2, and cross products of these axes
+    std::vector<Vector3> axes = 
+    {
+        obb1->getRight(), obb1->getUp(),
+        obb2->getRight(), obb2->getUp()
+    };
+
+    for (const auto& axis : axes) 
+    {
+        // Project both OBBs onto the axis
+        float min1, max1, min2, max2;
+        obb1->project(axis, min1, max1);
+        obb2->project(axis, min2, max2);
+
+        // Check for overlap
+        if (max1 < min2 || max2 < min1) 
+        {
+            return false; // Separating axis found
+        }
+    }
+
+    // If no separating axis is found, we have a collision
+    contact.point = (obb1->getCenter() + obb2->getCenter()) * 0.5f;
 
     return true;
 }
 
 bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
+    const AABB* aabb = static_cast<const AABB*>(a);
+    const OBB* obb = static_cast<const OBB*>(b);
 
+    // Axes to test: AABB's x, y axes and OBB's right, up axes
+    std::vector<Vector3> axes = 
+    {
+        Vector3(1, 0, 0), Vector3(0, 1, 0),
+        obb->getRight(), obb->getUp()
+    };
+
+    for (const auto& axis : axes) 
+    {
+        // Project both shapes onto the axis
+        float minAABB, maxAABB;
+        minAABB = aabb->getMin().x;
+        maxAABB = aabb->getMax().x;
+        minAABB = aabb->getMin().y;
+        maxAABB = aabb->getMax().y;
+
+        float  minOBB, maxOBB;
+        obb->project(axis, minOBB, maxOBB);
+
+        // Check for overlap
+        if (maxAABB < minOBB || maxOBB < minAABB) {
+            return false; // Separating axis found
+        }
+    }
+
+    // If no separating axis is found, we have a collision
+    contact.point = (aabb->getCenter() + obb->getCenter()) * 0.5f;
     return true;
 }
 
@@ -55,8 +118,20 @@ void CollisionGenerator::initializeCollisionMatrix() {
         for (auto& test : row)
             test = nullptr;
 
+    int AABB = static_cast<int>(Shape::Type::AABB);
+    int OBB = static_cast<int>(Shape::Type::OBB);
+    int Circle = static_cast<int>(Shape::Type::Circle);
+
     // Set up existing collision tests
-    // TODO: register all the collision functions in the test table
+    collisionTests[AABB][AABB] = &CollisionGenerator::AABBvsAABB;
+    collisionTests[OBB][OBB] = &CollisionGenerator::OBBvsOBB;
+    collisionTests[AABB][OBB] = &CollisionGenerator::AABBvsOBB;
+    collisionTests[OBB][AABB] = &CollisionGenerator::OBBvsAABB;
+    collisionTests[Circle][Circle] = &CollisionGenerator::CirclevsCircle;
+    collisionTests[Circle][AABB] = &CollisionGenerator::CirclevsAABB;
+    collisionTests[AABB][Circle] = &CollisionGenerator::AABBvsCircle;
+    collisionTests[Circle][OBB] = &CollisionGenerator::CirclevsOBB;
+    collisionTests[OBB][Circle] = &CollisionGenerator::OBBvsCircle;
 
 }
 
