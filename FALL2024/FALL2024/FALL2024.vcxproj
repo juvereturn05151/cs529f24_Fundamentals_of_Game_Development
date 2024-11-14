@@ -71,6 +71,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -102,7 +114,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -112,10 +124,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glew;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glfw;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glm;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glew32s.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -126,12 +140,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glew;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glfw;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\glm;E:\DigiPenMasterCourse\Semester1_2024\CS529_FunOfGame\cs529f24_Fundamentals_of_Game_Development\FALL2024\FALL2024\include\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3_mt.lib;glfw3dll.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
