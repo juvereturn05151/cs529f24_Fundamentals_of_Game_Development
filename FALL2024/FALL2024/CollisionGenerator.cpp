@@ -89,10 +89,18 @@ bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& cont
     {
         // Project both shapes onto the axis
         float minAABB, maxAABB;
-        minAABB = aabb->getMin().x;
-        maxAABB = aabb->getMax().x;
-        minAABB = aabb->getMin().y;
-        maxAABB = aabb->getMax().y;
+        if (axis == Vector3(1, 0, 0)) 
+        {
+            // Projection on X-axis: Use min.x and max.x of AABB
+            minAABB = aabb->getMin().x;
+            maxAABB = aabb->getMax().x;
+        }
+        else if (axis == Vector3(0, 1, 0)) 
+        {
+            // Projection on Y-axis: Use min.y and max.y of AABB
+            minAABB = aabb->getMin().y;
+            maxAABB = aabb->getMax().y;
+        }
 
         float  minOBB, maxOBB;
         obb->project(axis, minOBB, maxOBB);

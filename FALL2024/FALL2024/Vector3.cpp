@@ -24,6 +24,11 @@ Vector3 Vector3::operator*(const Vector3& other) const
     return Vector3(x * other.x, y * other.y, z * other.z);
 }
 
+bool Vector3::operator==(const Vector3& other)
+{
+    return (x == other.x && y == other.y && z == other.z);
+}
+
 float Vector3::dot(const Vector3& other) const
 {
     return x * other.x + y * other.y + z * other.z;
