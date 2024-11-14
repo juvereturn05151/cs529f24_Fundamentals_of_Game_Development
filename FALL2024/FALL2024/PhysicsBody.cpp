@@ -59,11 +59,17 @@ RenderableNode* PhysicsBody::getOwner() const { return owner; }
 void PhysicsBody::integrate(float dt) {
     if (isStatic) return;
 
-    // TODO: Semi-implicit Euler integration
-    // implement here ->:
+    // Calculate acceleration from force and mass
+    Vector3 effectiveAcceleration = acceleration + force * inverseMass;
 
-    // TODO: Update position through the owner's transform
-    Vector3 newPosition = Vector3();// <- how do you get this new value :) ??? 
+    // Update velocity with semi-implicit Euler integration
+    velocity = velocity + effectiveAcceleration * dt;
+
+    // Apply friction (simple linear drag model)
+    velocity = velocity * (1.0f - friction);
+
+    // Update position with the new velocity
+    Vector3 newPosition = owner->getLocalPosition() + velocity * dt;
     owner->setLocalPosition(newPosition);
 
     // Update collision shape
@@ -75,9 +81,8 @@ void PhysicsBody::integrate(float dt) {
         currentTransform.setRotation(owner->getLocalRotation());
         currentTransform.setScale(owner->getLocalScale());
 
-        // TODO: What else do you have to update during the integration
-        // besides the owner's position?
-        // implement here ->:
+        // Update the collision shape with the new transform
+        collisionShape->update(currentTransform);
     }
 
     // Reset force accumulator

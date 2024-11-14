@@ -20,7 +20,14 @@ void PhysicsManager::removeBody(PhysicsBody* body) {
 
 void PhysicsManager::update(float deltaTime)
 {
+    // Integrate each body's position and velocity
+    for (PhysicsBody* body : bodies) 
+    {
+        body->integrate(deltaTime);
+    }
 
+    // Check for collisions after updating all positions
+    checkCollisions();
 }
 
 void PhysicsManager::checkCollisions() {
