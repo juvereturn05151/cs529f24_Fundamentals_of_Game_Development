@@ -14,11 +14,15 @@ bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2,
     if (!shape1 || !shape2) return false;
 
     int type1 = static_cast<int>(shape1->getType());
+    printf("type1: %i\n", type1);
     int type2 = static_cast<int>(shape2->getType());
+    printf("type2: %i\n", type2);
 
     CollisionTest test = collisionTests[type1][type2];
-    if (test) {
-        if (test(shape1, shape2, contact)) {
+    if (test) 
+    {
+        if (test(shape1, shape2, contact)) 
+        {
             contact.bodies[0] = body1;
             contact.bodies[1] = body2;
             return true;
@@ -43,15 +47,22 @@ bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& con
     return true;
 }
 
-bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) 
+{
+    printf("OBB\n");
+
     const OBB* obb1 = static_cast<const OBB*>(a);
     const OBB* obb2 = static_cast<const OBB*>(b);
+
+    Vector3 centerDiff = obb2->getCenter() - obb1->getCenter();
+
+    float scale = obb1->getHalfExtents().x * 2.0f;
 
     // Axes to test: normals of obb1, obb2, and cross products of these axes
     std::vector<Vector3> axes = 
     {
-        obb1->getRight(), obb1->getUp(),
-        obb2->getRight(), obb2->getUp()
+        obb1->getRight().normalized(), obb1->getUp().normalized(),
+        obb2->getRight().normalized(), obb2->getUp().normalized()
     };
 
     for (const auto& axis : axes) 
@@ -61,16 +72,23 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
         obb1->project(axis, min1, max1);
         obb2->project(axis, min2, max2);
 
+        float extent1 = (max1 - min1) * 0.5f;
+        float extent2 = (max2 - min2) * 0.5f;
+
+        float rawDistance = std::abs(centerDiff.dot(axis));
+        float scaledDistance = rawDistance * scale;
+
         // Check for overlap
-        if (max1 < min2 || max2 < min1) 
+        if (scaledDistance > extent1 + extent2)
         {
+            printf("false\n");
             return false; // Separating axis found
         }
     }
 
     // If no separating axis is found, we have a collision
     contact.point = (obb1->getCenter() + obb2->getCenter()) * 0.5f;
-
+    printf("true\n");
     return true;
 }
 
