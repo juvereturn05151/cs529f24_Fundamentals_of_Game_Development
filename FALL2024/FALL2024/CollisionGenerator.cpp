@@ -33,9 +33,6 @@ bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& con
     const AABB* aabb1 = static_cast<const AABB*>(a);
     const AABB* aabb2 = static_cast<const AABB*>(b);
 
-    //printf("aabb1->getCenter(): %f %f %f \n", aabb1->getCenter().x, aabb1->getCenter().y, aabb1->getCenter().z);
-    //printf("aabb2->getCenter() : %f %f %f \n", aabb2->getCenter().x, aabb2->getCenter().y, aabb2->getCenter().z);
-
     // Check for overlap on each axis
     if (aabb1->getMax().x < aabb2->getMin().x || aabb1->getMin().x > aabb2->getMax().x ||
         aabb1->getMax().y < aabb2->getMin().y || aabb1->getMin().y > aabb2->getMax().y) 
@@ -54,8 +51,6 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
     const OBB* obb2 = static_cast<const OBB*>(b);
 
     Vector3 centerDiff = obb2->getCenter() - obb1->getCenter();
-    printf("obb1->getCenter(): %f %f %f \n", obb1->getCenter().x, obb1->getCenter().y, obb1->getCenter().z);
-    printf("obb2->getCenter() : %f %f %f \n", obb2->getCenter().x, obb2->getCenter().y, obb2->getCenter().z);
     float scale = obb1->getHalfExtents().x * 2.0f;
 
     // Axes to test: normals of obb1, obb2, and cross products of these axes

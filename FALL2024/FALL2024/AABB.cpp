@@ -11,26 +11,26 @@ Shape::Type AABB::getType() const {
 }
 
 void AABB::update(Transform& transform){
-    // For 2D AABB, we only need 4 corners
-    Vector3 corners[4] = {
-        Vector3(localMin.x, localMin.y, 0.0f), // Bottom-left
-        Vector3(localMax.x, localMin.y, 0.0f), // Bottom-right
-        Vector3(localMin.x, localMax.y, 0.0f), // Top-left
-        Vector3(localMax.x, localMax.y, 0.0f)  // Top-right
-    };
+    // Compute the local center of the AABB
+    Vector3 localCenter = (localMin + localMax) * 0.5f;
 
-    // Get the transform matrix once
-    Matrix4 transformMatrix = transform.getLocalMatrix();
+    // Get the transform's world position
+    Vector3 worldCenter = transform.getPosition();
 
-    // Transform corners and find new world AABB bounds
-    worldMin = worldMax = transformMatrix * corners[0];
-    for (int i = 1; i < 4; i++) {
-        Vector3 transformed = transformMatrix * corners[i];
-        worldMin.x = std::min(worldMin.x, transformed.x);
-        worldMin.y = std::min(worldMin.y, transformed.y);
-        worldMax.x = std::max(worldMax.x, transformed.x);
-        worldMax.y = std::max(worldMax.y, transformed.y);
-    }
+    // Extract the scale from the transform
+    Vector3 scale = transform.getScale();
+
+    // Adjust the half extents based on the scale
+    Vector3 localHalfExtents = (localMax - localMin) * 0.5f;
+    Vector3 worldHalfExtents = Vector3(
+        localHalfExtents.x * std::abs(scale.x),
+        localHalfExtents.y * std::abs(scale.y),
+        0.0f // Only for 2D
+    );
+
+    // Compute world min and max
+    worldMin = worldCenter - worldHalfExtents;
+    worldMax = worldCenter + worldHalfExtents;
 }
 
 // Utility functions

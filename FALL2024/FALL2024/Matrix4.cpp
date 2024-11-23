@@ -1,4 +1,6 @@
 #include "Matrix4.h"
+#include <iostream>
+#include <iomanip>
 
 Matrix4::Matrix4()
 {
@@ -40,6 +42,16 @@ float Matrix4::getElement(int row, int col) const
 const float* Matrix4::getData() const
 {
     return &data[0][0];
+}
+
+void Matrix4::print() const {
+    std::cout << "Matrix4:" << std::endl;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            std::cout << std::setw(10) << std::fixed << std::setprecision(2) << data[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 Matrix4 Matrix4::operator*(const Matrix4& other)

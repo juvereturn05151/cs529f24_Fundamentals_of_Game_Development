@@ -30,6 +30,7 @@ public:
     void         updateElement(int row, int col, float value);
     float        getElement(int row, int col) const;
     const float* getData() const;
+    void print() const;
 
     // Transformation utilities based on matrix
     // For practicity, I added these in the Matrix API,

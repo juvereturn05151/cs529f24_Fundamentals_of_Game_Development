@@ -44,8 +44,10 @@ void Transform::scale(const Vector3& scale) {
 
 Matrix4 Transform::getLocalMatrix(){
     Matrix4 translationMatrix = Matrix4::translation(position.x, position.y, position.z);
+    //translationMatrix.print();
     Matrix4 rotationMatrix = Matrix4::rotationXYZ(rotation.x, rotation.y, rotation.z);
     Matrix4 scaleMatrix = Matrix4::scale(scaling.x, scaling.y, scaling.z);
+    //scaleMatrix.print();
     return translationMatrix * rotationMatrix * scaleMatrix;
 }
 
