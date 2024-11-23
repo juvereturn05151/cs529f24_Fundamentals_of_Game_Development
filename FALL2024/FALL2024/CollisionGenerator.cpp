@@ -14,9 +14,7 @@ bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2,
     if (!shape1 || !shape2) return false;
 
     int type1 = static_cast<int>(shape1->getType());
-    printf("type1: %i\n", type1);
     int type2 = static_cast<int>(shape2->getType());
-    printf("type2: %i\n", type2);
 
     CollisionTest test = collisionTests[type1][type2];
     if (test) 
@@ -35,6 +33,9 @@ bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& con
     const AABB* aabb1 = static_cast<const AABB*>(a);
     const AABB* aabb2 = static_cast<const AABB*>(b);
 
+    //printf("aabb1->getCenter(): %f %f %f \n", aabb1->getCenter().x, aabb1->getCenter().y, aabb1->getCenter().z);
+    //printf("aabb2->getCenter() : %f %f %f \n", aabb2->getCenter().x, aabb2->getCenter().y, aabb2->getCenter().z);
+
     // Check for overlap on each axis
     if (aabb1->getMax().x < aabb2->getMin().x || aabb1->getMin().x > aabb2->getMax().x ||
         aabb1->getMax().y < aabb2->getMin().y || aabb1->getMin().y > aabb2->getMax().y) 
@@ -49,92 +50,59 @@ bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& con
 
 bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) 
 {
-    printf("OBB\n");
-
     const OBB* obb1 = static_cast<const OBB*>(a);
     const OBB* obb2 = static_cast<const OBB*>(b);
 
     Vector3 centerDiff = obb2->getCenter() - obb1->getCenter();
-
+    printf("obb1->getCenter(): %f %f %f \n", obb1->getCenter().x, obb1->getCenter().y, obb1->getCenter().z);
+    printf("obb2->getCenter() : %f %f %f \n", obb2->getCenter().x, obb2->getCenter().y, obb2->getCenter().z);
     float scale = obb1->getHalfExtents().x * 2.0f;
 
     // Axes to test: normals of obb1, obb2, and cross products of these axes
-    std::vector<Vector3> axes = 
+    Vector3 axes[4] =
     {
-        obb1->getRight().normalized(), obb1->getUp().normalized(),
-        obb2->getRight().normalized(), obb2->getUp().normalized()
+        obb1->getRight().normalized(), 
+        obb1->getUp().normalized(),
+        obb2->getRight().normalized(),
+        obb2->getUp().normalized()
     };
 
-    for (const auto& axis : axes) 
+    for (int i = 0; i < 4; ++i)
     {
         // Project both OBBs onto the axis
         float min1, max1, min2, max2;
-        obb1->project(axis, min1, max1);
-        obb2->project(axis, min2, max2);
+        obb1->project(axes[i], min1, max1);
+        obb2->project(axes[i], min2, max2);
 
         float extent1 = (max1 - min1) * 0.5f;
         float extent2 = (max2 - min2) * 0.5f;
 
-        float rawDistance = std::abs(centerDiff.dot(axis));
+        float rawDistance = std::abs(centerDiff.dot(axes[i]));
         float scaledDistance = rawDistance * scale;
 
+        //printf("extent1+2: %f\n", extent1 + extent2);
+        //printf("scaledDistance: %f\n", scaledDistance);
         // Check for overlap
         if (scaledDistance > extent1 + extent2)
         {
-            printf("false\n");
             return false; // Separating axis found
         }
     }
 
     // If no separating axis is found, we have a collision
     contact.point = (obb1->getCenter() + obb2->getCenter()) * 0.5f;
-    printf("true\n");
     return true;
 }
 
-bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) 
+{
     const AABB* aabb = static_cast<const AABB*>(a);
-    const OBB* obb = static_cast<const OBB*>(b);
-
-    // Axes to test: AABB's x, y axes and OBB's right, up axes
-    std::vector<Vector3> axes = 
-    {
-        Vector3(1, 0, 0), Vector3(0, 1, 0),
-        obb->getRight(), obb->getUp()
-    };
-
-    for (const auto& axis : axes) 
-    {
-        // Project both shapes onto the axis
-        float minAABB, maxAABB;
-        if (axis == Vector3(1, 0, 0)) 
-        {
-            // Projection on X-axis: Use min.x and max.x of AABB
-            minAABB = aabb->getMin().x;
-            maxAABB = aabb->getMax().x;
-        }
-        else if (axis == Vector3(0, 1, 0)) 
-        {
-            // Projection on Y-axis: Use min.y and max.y of AABB
-            minAABB = aabb->getMin().y;
-            maxAABB = aabb->getMax().y;
-        }
-
-        float  minOBB, maxOBB;
-        obb->project(axis, minOBB, maxOBB);
-
-        // Check for overlap
-        if (maxAABB < minOBB || maxOBB < minAABB) {
-            return false; // Separating axis found
-        }
-    }
-
-    // If no separating axis is found, we have a collision
-    contact.point = (aabb->getCenter() + obb->getCenter()) * 0.5f;
-    return true;
+    const OBB tempOBB(aabb->getCenter(), aabb->getHalfExtents());
+    return OBBvsOBB(&tempOBB, b, contact);
 }
 
 bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
+    //printf("OBBvsAABB\n");
     return AABBvsOBB(b, a, contact);
 }
 
