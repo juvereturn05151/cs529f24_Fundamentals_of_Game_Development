@@ -45,3 +45,9 @@ Matrix4<float> Transform::getModelMatrix() const
         Matrix4<float>::rotationZ(rotation.z) *
         Matrix4<float>::scale(scale.x, scale.y, scale.z);
 }
+
+void Transform::translate(const Vector3& translateAmount)
+{
+    Vector3 newPosition = getPosition() - translateAmount;
+    setPosition(newPosition);
+}

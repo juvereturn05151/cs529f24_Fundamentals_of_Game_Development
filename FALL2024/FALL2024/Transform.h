@@ -22,5 +22,7 @@ public:
 	Vector3 getScale() const;
 
 	Matrix4<float> getModelMatrix() const;
+
+	void translate(const Vector3& translateAmount);
 };
 
