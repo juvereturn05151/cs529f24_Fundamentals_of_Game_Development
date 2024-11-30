@@ -5,7 +5,7 @@
 class Square : public Mesh {
 protected:
     // Default vertices for a unit square centered at the origin
-    const std::vector<GLfloat> squareVertices =
+    std::vector<GLfloat> squareVertices =
     {
         -0.5f, -0.5f, 0.0f,
         -0.5f,  0.5f, 0.0f,

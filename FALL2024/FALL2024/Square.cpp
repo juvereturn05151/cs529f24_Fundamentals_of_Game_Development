@@ -23,6 +23,16 @@ Square::Square(const Vector3& color, float alpha, Shader* shaderProgram)
 Square::Square(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4, const Vector3& color, float alpha, Shader* shaderProgram)
     : Mesh(color, alpha, shaderProgram)
 {
+    printf("something here\n");
+
+    squareVertices =
+    {
+        point1.x, point1.y, point1.z,
+        point2.x, point2.y, point2.z,
+        point3.x, point3.y, point3.z,
+        point4.x, point4.y, point4.z
+    };
+
     // Initialize vertices with given points and color
     vertices = 
     {

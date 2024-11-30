@@ -24,7 +24,8 @@ protected:
     void updateVertices();
 
 public:
-    AnimatedSquare(const Vector3& color, float alpha, Shader* shaderProgram);
+    AnimatedSquare(float frameWidth, float frameHeight, const Vector3& color, float alpha, Shader* shaderProgram);
+    AnimatedSquare(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4, float frameWidth, float frameHeight, const Vector3& color, float alpha, Shader* shaderProgram);
     void updateAnimation(float deltaTime);
     bool isAnimationFinished() const;
     bool isAtFrame(int frameNumber) const;

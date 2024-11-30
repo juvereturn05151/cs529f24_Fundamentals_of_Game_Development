@@ -36,17 +36,20 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 // Helper for Visual Setup
 void Character::setupVisuals(Renderer& renderer)
 {
-    animatedCharacter = new AnimatedCharacter(Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    animatedCharacter->AddTexture("Ryu2.png");
+    animatedCharacter = new AnimatedCharacter(Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f)
+        , 1.0f/15.0f,1.0f/11.0f,Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    animatedCharacter->AddTexture("sheet_05.png");
     GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());
 
     if (playerSide == 0)
     {
-        visualHolder->getTransform()->setScale(Vector3(4.0f, 4.0f, 3.5f));
+        visualHolder->getTransform()->setScale(Vector3(3.0f, 4.0f, 3.5f));
+        visualHolder->getTransform()->translate(Vector3(-0.5f, -0.1f, 0.0f));
     }
     else
     {
-        visualHolder->getTransform()->setScale(Vector3(-4.0f, 4.0f, 3.5f));
+        visualHolder->getTransform()->setScale(Vector3(-3.0f, 4.0f, 3.5f));
+        visualHolder->getTransform()->translate(Vector3(-0.5f, -0.1f, 0.0f));
     }
 
     addChild(visualHolder);

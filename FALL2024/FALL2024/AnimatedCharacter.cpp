@@ -1,11 +1,25 @@
 #include "AnimatedCharacter.h"
 
-AnimatedCharacter::AnimatedCharacter(const Vector3& color, float alpha, Shader* shaderProgram)
-    : AnimatedSquare(color, alpha, shaderProgram)
+AnimatedCharacter::AnimatedCharacter(float frameWidth, float frameHeight,
+    const Vector3& color, float alpha, Shader* shaderProgram)
+    : AnimatedSquare(frameWidth, frameHeight, color, alpha, shaderProgram)
+{
+    Initialize();
+}
+
+AnimatedCharacter::AnimatedCharacter(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4,
+    float frameWidth, float frameHeight, const Vector3& color, float alpha, Shader* shaderProgram) 
+    : AnimatedSquare(point1,point2, point3, point4, 
+        frameWidth, frameHeight, color, alpha, shaderProgram)
+{
+    Initialize();
+}
+
+void AnimatedCharacter::Initialize()
 {
     animations =
     {
-        { AnimationState::Idle,      {0, 5, 0.2f} },
+        { AnimationState::Idle,      {0, 7, 0.2f} },
         { AnimationState::WalkFront, {1, 6, 0.2f} },
         { AnimationState::WalkBack,  {2, 6, 0.2f} },
         { AnimationState::cMK,       {3, 7, 0.15f} },
@@ -13,8 +27,8 @@ AnimatedCharacter::AnimatedCharacter(const Vector3& color, float alpha, Shader* 
         { AnimationState::Hadoken,   {6, 6, 0.2f} },
         { AnimationState::YouWin,    {7, 6, 0.2f} },
         { AnimationState::YouLose,   {5, 11, 0.2f} },
-        { AnimationState::Block,     {9, 6, 0.2f} },
-        { AnimationState::Throw,     {8, 6, 0.2f} }
+        { AnimationState::Block,     {10, 6, 0.2f} },
+        { AnimationState::Throw,     {9, 6, 0.2f} }
     };
 
     setAnimation(AnimationState::Idle, true);

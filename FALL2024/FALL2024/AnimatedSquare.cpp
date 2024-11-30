@@ -2,10 +2,18 @@
 #include "FrameController.h"
 
 // Constructor initializing animations and default state
-AnimatedSquare::AnimatedSquare(const Vector3& color, float alpha, Shader* shaderProgram)
-    : Square(color, alpha, shaderProgram)
+AnimatedSquare::AnimatedSquare(float frameWidth, float frameHeight
+    ,const Vector3& color, float alpha, Shader* shaderProgram)
+    : frameWidth(frameWidth), frameHeight(frameHeight), Square(color, alpha, shaderProgram)
 {
     
+}
+
+AnimatedSquare::AnimatedSquare(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4, 
+    float frameWidth, float frameHeight, const Vector3& color, float alpha, Shader* shaderProgram)
+    : frameWidth(frameWidth), frameHeight(frameHeight), Square(point1, point2, point3, point4, color, alpha, shaderProgram)
+{
+
 }
 
 // Update animation frame based on elapsed time
