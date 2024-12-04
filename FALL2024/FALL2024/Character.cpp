@@ -72,8 +72,8 @@ void Character::reset()
     beingThrown = false;
     isThrowing = false;
     characterCollisionManager->getHitBox()->setIsActive(false);
-    //hitBox->setIsActive(false);
     animatedCharacter->setAnimation(AnimationState::Idle);
+    physicsComp->setVelocity(Vector3(0, 0, 0));
 }
 
 void Character::cleanup()
