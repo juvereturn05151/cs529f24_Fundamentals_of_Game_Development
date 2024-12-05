@@ -36,6 +36,12 @@ void AnimatedSquare::updateAnimation(float deltaTime)
     updateVertices();
 }
 
+/*
+For further improvement:
+update uv 
+change this instead
+in vec2 texCoord;
+*/
 // Helper function to update vertex UV coordinates
 void AnimatedSquare::updateVertices() 
 {
