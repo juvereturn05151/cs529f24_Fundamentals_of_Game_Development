@@ -20,15 +20,15 @@ void AnimatedCharacter::Initialize()
     animations =
     {
         { AnimationState::Idle,      {0, 7, 0.2f} },
-        { AnimationState::WalkFront, {1, 6, 0.2f} },
-        { AnimationState::WalkBack,  {2, 6, 0.2f} },
+        { AnimationState::WalkFront, {1, 8, 0.1f} },
+        { AnimationState::WalkBack,  {2, 8, 0.1f} },
         { AnimationState::cMK,       {3, 7, 0.15f} },
-        { AnimationState::Hurt,      {4, 4, 0.15f} },
-        { AnimationState::Hadoken,   {6, 6, 0.2f} },
+        { AnimationState::Hurt,      {4, 3, 0.15f} },
+        { AnimationState::Hadoken,   {6, 8, 0.2f} },
         { AnimationState::YouWin,    {7, 6, 0.2f} },
-        { AnimationState::YouLose,   {5, 11, 0.2f} },
+        { AnimationState::YouLose,   {5, 13, 0.2f} },
         { AnimationState::Block,     {10, 6, 0.2f} },
-        { AnimationState::Throw,     {9, 6, 0.2f} }
+        { AnimationState::Throw,     {9, 11, 0.2f} }
     };
 
     setAnimation(AnimationState::Idle, true);

@@ -9,6 +9,8 @@
 class Character : public GameObject
 {
 private:
+    const int finishThrowFrame = 8;
+
     float deltaX = 0.0f, deltaY = 0.0f;
     int playerSide;
     int health;

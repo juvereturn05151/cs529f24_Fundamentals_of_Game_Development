@@ -133,7 +133,7 @@ void Character::updateInput(PlayerInput* input)
 
         if (animatedCharacter->getCurrentState() == AnimationState::YouLose)
         {
-            if (animatedCharacter->isAtFrame(5))
+            if (animatedCharacter->isAtFrame(finishThrowFrame))
             {
                 getPhysicsComp()->setIsActive(true);
 
@@ -234,7 +234,7 @@ void Character::updateInput(PlayerInput* input)
 
                 if (animatedCharacter->getCurrentState() == AnimationState::Throw)
                 {
-                    if (animatedCharacter->isAtFrame(5))
+                    if (animatedCharacter->isAtFrame(finishThrowFrame))
                     {
                         youWin = true;
                         SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
@@ -526,7 +526,7 @@ bool Character::isOpponentWithinThrowRange()
 
         Vector3 newVector = getTransform()->getPosition() - oppoVector;
         float distance = (newVector).magnitude();
-        return distance < 0.6f; // Adjust the distance threshold as needed
+        return distance < 1.0f; // Adjust the distance threshold as needed
     }
 
     return false;
