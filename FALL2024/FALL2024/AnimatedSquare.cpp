@@ -37,6 +37,7 @@ void AnimatedSquare::updateAnimation(float deltaTime)
 }
 
 /*
+* TODO:
 For further improvement:
 update uv 
 change this instead

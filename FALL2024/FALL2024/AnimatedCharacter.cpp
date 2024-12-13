@@ -25,6 +25,7 @@ void AnimatedCharacter::Initialize()
         { AnimationState::cMK,       {3, 7, 0.15f} },
         { AnimationState::Hurt,      {4, 3, 0.15f} },
         { AnimationState::Hadoken,   {6, 8, 0.2f} },
+        //TODO: implement alternate animation for winning
         //{ AnimationState::YouWin,    {7, 6, 0.2f} },
         { AnimationState::YouWin,    {8, 12, 0.2f} },
         { AnimationState::YouLose,   {5, 13, 0.2f} },

@@ -5,15 +5,9 @@
 #include "BoxCollider2D.h"
 
 // Constructor initializes camera and renderer
-Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) 
-{
+Scene::Scene(Camera* cam, Renderer& rend, GameWindow& wind) : camera(cam), renderer(rend), window(wind) { }
 
-}
-
-void Scene::assignObjects()
-{
-
-}
+void Scene::assignObjects(){ }
 
 // Add objects to the scene
 void Scene::addObject(Node* obj) 
