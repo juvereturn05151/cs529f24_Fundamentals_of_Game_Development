@@ -38,7 +38,7 @@ void Character::setupVisuals(Renderer& renderer)
 {
     animatedCharacter = new AnimatedCharacter(Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f)
         , 1.0f/15.0f,1.0f/11.0f,Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
-    animatedCharacter->AddTexture("sheet_05.png");
+    animatedCharacter->AddTexture("juve_sprite.png");
     GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());
 
     if (playerSide == 0)
