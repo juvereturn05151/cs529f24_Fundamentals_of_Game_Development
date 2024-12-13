@@ -18,15 +18,13 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 	accumulatedForce += gravity;
 
 	Vector3 acceleration = accumulatedForce / mass;
-	/*printf("accelerationX %f \n", acceleration.x);
-	printf("deltaTime %f \n", deltaTime);*/
+
 	velocity += acceleration * deltaTime;
 
 	// Apply damping to simulate friction, reducing velocity over time
 	float dampingFactor = 0.98f; // Adjust based on desired friction level
 	velocity *= dampingFactor;
 
-	//printf("velocity %f \n", velocity.x);
 	Vector3 pos = transform->getPosition();
 	pos.x += velocity.x * deltaTime;
 	pos.y += velocity.y * deltaTime;
@@ -47,7 +45,6 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 void PhysicsComponent::applyForce(const Vector3& force) 
 {
 	accumulatedForce = accumulatedForce + force;
-	//printf("apply force %i \n", accumulatedForce.x);
 }
 
 void PhysicsComponent::setVelocity(const Vector3& velocity) 
