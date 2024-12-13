@@ -112,6 +112,23 @@ bool Character::getHitConfirmSuccess()
     return hitConfirmSuccess;
 }
 
+void Character::handleOnLose()
+{
+    if ((beingThrown && animatedCharacter->isAtFrame(finishThrowFrame)) ||
+        (!beingThrown && animatedCharacter->isAtFrame(finishHadokenFrame))) {
+
+        getPhysicsComp()->setIsActive(true);
+
+        if (!hasPlayUrghSound) {
+            SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
+            hasPlayUrghSound = true;
+        }
+
+        float forceDirection = (playerSide == 0) ? -250.0f : 250.0f;
+        physicsComp->applyForce(Vector3(forceDirection, 0.0f, 0.0f));
+    }
+}
+
 void Character::updateInput(PlayerInput* input) 
 {
     if (!isReadyToFight) 
@@ -133,25 +150,7 @@ void Character::updateInput(PlayerInput* input)
 
         if (animatedCharacter->getCurrentState() == AnimationState::YouLose)
         {
-            if (animatedCharacter->isAtFrame(finishThrowFrame))
-            {
-                getPhysicsComp()->setIsActive(true);
-
-                if (!hasPlayUrghSound)
-                {
-                    SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
-                    hasPlayUrghSound = true;
-                }
-
-                if (playerSide == 0)
-                {
-                    physicsComp->applyForce(Vector3(-250.0f, 0.0f, 0.0f));
-                }
-                else
-                {
-                    physicsComp->applyForce(Vector3(250.0f, 0.0f, 0.0f));
-                }
-            }
+            handleOnLose();
         }
 
         return;

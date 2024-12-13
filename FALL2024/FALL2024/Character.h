@@ -10,6 +10,7 @@ class Character : public GameObject
 {
 private:
     const int finishThrowFrame = 8;
+    const int finishHadokenFrame = 4;
 
     float deltaX = 0.0f, deltaY = 0.0f;
     int playerSide;
@@ -41,6 +42,7 @@ private:
     void updateCMKCollider();
     void checkForBlock(PlayerInput* input);
     void executeThrow();
+    void handleOnLose();
 
 public:
     Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide = 1);

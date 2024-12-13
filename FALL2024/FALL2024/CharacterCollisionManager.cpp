@@ -79,9 +79,9 @@ void CharacterCollisionManager::setupHitboxes(const Vector3& pos, int playerSide
         legHurtBox->getTransform()->setPosition(Vector3(centerPos.x - 0.75f, -2.0f, 0.0f));
     }
 
-    hitBox->setIsDrawingActive(true);
+    /*hitBox->setIsDrawingActive(true);
     hurtBox->setIsDrawingActive(true);
-    legHurtBox->setIsDrawingActive(true);
+    legHurtBox->setIsDrawingActive(true);*/
 
     hitBox->setIsActive(false);
     legHurtBox->setIsActive(false);
