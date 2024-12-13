@@ -1,4 +1,11 @@
 #pragma once
+
+/*
+Author: Ju-ve Chankasemporn
+E-mail: juvereturn@gmail.com
+Description: This is basically an empty game object. 
+*/
+
 #include"Matrix4.h"
 #include <vector>
 #include "Transform.h"

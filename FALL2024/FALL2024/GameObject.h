@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+Author: Ju-ve Chankasemporn
+E-mail: juvereturn@gmail.com
+Description: GameObject, must be able to add additional components
+*/
+
 #include "Node.h"
 #include "Mesh.h"
 #include "PhysicsComponent.h"
