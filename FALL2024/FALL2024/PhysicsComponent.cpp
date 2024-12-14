@@ -1,6 +1,6 @@
 #include "PhysicsComponent.h"
 #include "GameObject.h"
-#include "GameConfig.h"
+#include "EngineConfig.h"
 
 PhysicsComponent::PhysicsComponent(GameObject& _owner, float _mass) : Component(_owner), mass(_mass)
 {

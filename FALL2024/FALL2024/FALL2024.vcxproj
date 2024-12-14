@@ -212,7 +212,7 @@
     <ClInclude Include="FightingGameManager.h" />
     <ClInclude Include="FightingGameScene.h" />
     <ClInclude Include="FrameController.h" />
-    <ClInclude Include="GameConfig.h" />
+    <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="HeartUI.h" />

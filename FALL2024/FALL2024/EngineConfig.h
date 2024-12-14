@@ -1,10 +1,10 @@
 #pragma once
 
-#ifndef GAMECONFIG_H
-#define GAMECONFIG_H
+#ifndef ENGINECONFIG_H
+#define ENGINECONFIG_H
 
 #define GROUND_HEIGHT -1.75f
 
 #define GRAVITY -20.0f
 
-#endif // !GAMECONFIG_H
+#endif // !ENGINECONFIG_H

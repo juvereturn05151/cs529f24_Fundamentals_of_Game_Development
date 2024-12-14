@@ -365,7 +365,7 @@
     <ClInclude Include="Component.h">
       <Filter>Header Files\Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameConfig.h">
+    <ClInclude Include="EngineConfig.h">
       <Filter>Header Files\Engine\Utility</Filter>
     </ClInclude>
   </ItemGroup>
