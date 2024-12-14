@@ -1,5 +1,9 @@
 #pragma once
-#include "GameObject.h"
+
+#ifndef COMPONENT_H
+#define COMPONENT_H
+
+class GameObject;
 
 class Component
 {
@@ -8,10 +12,11 @@ class Component
 		bool isActive;
 	public:
 		Component(GameObject& _owner);
-		virtual void initialize() = 0;
-		virtual void update() = 0;
+		virtual void initialize() {};
+		virtual void update(float deltaTime) {};
 		virtual ~Component();
 
 		void setIsActive(bool active);
 };
 
+#endif

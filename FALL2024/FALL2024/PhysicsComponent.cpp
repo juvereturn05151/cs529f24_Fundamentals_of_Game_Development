@@ -1,13 +1,12 @@
 #include "PhysicsComponent.h"
+#include "GameObject.h"
 
-PhysicsComponent::PhysicsComponent(float mass) 
+PhysicsComponent::PhysicsComponent(GameObject& _owner, float mass) : Component(_owner), mass(mass)
 {
-	isActive = true;
-	this->mass = mass;
 	velocity = Vector3(0, 0, 0);
 }
 
-void PhysicsComponent::update(Transform* transform, float deltaTime)
+void PhysicsComponent::update(float deltaTime)
 {
 	if (!isActive) 
 	{
@@ -25,7 +24,7 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 	float dampingFactor = 0.98f; // Adjust based on desired friction level
 	velocity *= dampingFactor;
 
-	Vector3 pos = transform->getPosition();
+	Vector3 pos = owner->getTransform()->getPosition();
 	pos.x += velocity.x * deltaTime;
 	pos.y += velocity.y * deltaTime;
 
@@ -36,7 +35,7 @@ void PhysicsComponent::update(Transform* transform, float deltaTime)
 		velocity.y = 0.0f; // Reset the y velocity to prevent bouncing below the ground
 	}
 
-	transform->setPosition(pos);
+	owner->getTransform()->setPosition(pos);
 
 	// Reset accumulated force for next frame
 	accumulatedForce = Vector3(0.0f, 0.0f, 0.0f);
@@ -60,9 +59,4 @@ Vector3 PhysicsComponent::getVelocity() const
 float PhysicsComponent::getMass() const 
 {
 	return mass;
-}
-
-void PhysicsComponent::setIsActive(bool active)
-{
-	isActive = active;
 }

@@ -1,25 +1,29 @@
 #pragma once
+
+
+#ifndef PHYSICSCOMPONENT_H
+
 #include "Vector3.h"
 #include "Transform.h"
+#include "Component.h"
 
-class PhysicsComponent
+class PhysicsComponent : public Component
 {
 private:
 	Vector3 velocity;
 	float mass;
 	Vector3 accumulatedForce;
-	bool isActive;
 
 public:
 
-	PhysicsComponent(float mass);
-	void update(Transform* transform, float deltaTime);
+	PhysicsComponent(GameObject& _owner,float mass);
+	void initialize() {};
+	void update(float deltaTime);
 	void applyForce(const Vector3& force);
 	void setVelocity(const Vector3& velocity);
 
 	Vector3 getVelocity() const;
 	float getMass() const;
-
-	void setIsActive(bool active);
 };
 
+#endif

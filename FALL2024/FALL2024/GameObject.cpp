@@ -26,7 +26,7 @@ void GameObject::update(float deltaTime)
 {
     if (physicsComp != NULL)
     {
-        physicsComp->update(getTransform(), deltaTime);
+        physicsComp->update(deltaTime);
     }
 
     Node::update(deltaTime);
@@ -63,7 +63,7 @@ void GameObject::addPhysicsComponent(float mass)
 {
     if (physicsComp == NULL)
     {
-        physicsComp = new PhysicsComponent(mass);
+        physicsComp = new PhysicsComponent(*this, mass);
     }
 }
 

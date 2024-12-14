@@ -1,11 +1,11 @@
-#pragma once
-
 /*
 Author: Ju-ve Chankasemporn
 E-mail: juvereturn@gmail.com
 Description: This is an empty game object class, which can serve as a basic building block
              for a scene graph system, where each node can have a transform and child nodes.
 */
+
+#pragma once
 
 #include "Matrix4.h"
 #include <vector>

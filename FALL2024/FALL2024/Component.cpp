@@ -1,4 +1,5 @@
 #include "Component.h"
+#include "GameObject.h"
 
 Component::Component(GameObject& _owner) : owner(&_owner), isActive(true) {}
 
@@ -10,8 +11,5 @@ void Component::setIsActive(bool active)
 
 Component::~Component()
 {
-	if (owner != nullptr) 
-	{
-		delete owner;
-	}
+
 }

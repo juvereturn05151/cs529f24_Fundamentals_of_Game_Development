@@ -1,11 +1,13 @@
-#pragma once
-
 /*
 Author: Ju-ve Chankasemporn
 E-mail: juvereturn@gmail.com
 Description: GameObject class that allows for the addition of components such as Mesh and Physics.
              It inherits from the Node class and is intended to represent an object in the game world.
 */
+
+#pragma once
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 
 #include "Node.h"
 #include "Mesh.h"
@@ -51,3 +53,4 @@ public:
     // Retrieves the PhysicsComponent attached to this GameObject
     PhysicsComponent* getPhysicsComp();
 };
+#endif // !GAMEOBJECT_H
