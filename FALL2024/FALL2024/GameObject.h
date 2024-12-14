@@ -1,8 +1,9 @@
 /*
 Author: Ju-ve Chankasemporn
 E-mail: juvereturn@gmail.com
-Description: GameObject class that allows for the addition of components such as Mesh and Physics.
+Description: GameObject class that allows for the addition of components such as Physics.
              It inherits from the Node class and is intended to represent an object in the game world.
+Note: If you want to create an empty gameObject, don't call this class. Call Node
 */
 
 #pragma once
@@ -23,7 +24,9 @@ protected:
     // Pointer to the Mesh instance that represents the visual component of this object
     Mesh* mesh = nullptr;
 
+    // TODO: should change this to a vector of components
     // Pointer to the PhysicsComponent that handles the physics behavior of this object
+    std::vector<Component*> components;
     PhysicsComponent* physicsComp = nullptr;
 
 public:

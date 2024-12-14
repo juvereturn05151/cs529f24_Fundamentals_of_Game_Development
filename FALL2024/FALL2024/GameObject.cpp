@@ -19,6 +19,15 @@ GameObject::~GameObject()
     cleanup();
     delete mesh;
     delete physicsComp;
+
+    // Iterate through each component in the vector and delete them
+    for (Component* component : components)
+    {
+        delete component; // Free the dynamically allocated memory for each component
+    }
+
+    // Clear the vector to remove dangling pointers
+    components.clear();
 }
 
 // Update function to handle physics and call the base class update
@@ -56,19 +65,4 @@ void GameObject::cleanup()
     {
         mesh->cleanup();
     }
-}
-
-// Add a physics component to the GameObject, if one doesn't already exist
-void GameObject::addPhysicsComponent(float mass)
-{
-    if (physicsComp == NULL)
-    {
-        physicsComp = new PhysicsComponent(*this, mass);
-    }
-}
-
-// Get the physics component
-PhysicsComponent* GameObject::getPhysicsComp()
-{
-    return physicsComp;
 }
