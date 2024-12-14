@@ -1,7 +1,6 @@
 #pragma once
-
-
 #ifndef PHYSICSCOMPONENT_H
+#define PHYSICSCOMPONENT_H
 
 #include "Vector3.h"
 #include "Transform.h"

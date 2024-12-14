@@ -139,6 +139,9 @@
     <Filter Include="Source Files\Engine\Component\Physics">
       <UniqueIdentifier>{34391895-402f-43a1-890a-8341a16471a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Utility">
+      <UniqueIdentifier>{52f6bacd-7cc4-4cbb-954a-0eaef92e2628}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -361,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Header Files\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameConfig.h">
+      <Filter>Header Files\Engine\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

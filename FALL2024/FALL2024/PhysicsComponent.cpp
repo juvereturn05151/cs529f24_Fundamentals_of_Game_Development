@@ -1,5 +1,6 @@
 #include "PhysicsComponent.h"
 #include "GameObject.h"
+#include "GameConfig.h"
 
 PhysicsComponent::PhysicsComponent(GameObject& _owner, float mass) : Component(_owner), mass(mass)
 {
@@ -29,9 +30,9 @@ void PhysicsComponent::update(float deltaTime)
 	pos.y += velocity.y * deltaTime;
 
 	// Clamp the y position to ensure it doesn't go below 0
-	if (pos.y < -1.75f) 
+	if (pos.y < GROUND_HEIGHT) 
 	{
-		pos.y = -1.75f;
+		pos.y = GROUND_HEIGHT;
 		velocity.y = 0.0f; // Reset the y velocity to prevent bouncing below the ground
 	}
 
