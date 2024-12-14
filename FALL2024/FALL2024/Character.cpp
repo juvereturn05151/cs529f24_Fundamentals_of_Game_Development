@@ -36,7 +36,8 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 // Helper for Visual Setup
 void Character::setupVisuals(Renderer& renderer)
 {
-    animatedCharacter = new AnimatedCharacter(Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f)
+    animatedCharacter = new AnimatedCharacter(Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), 
+        Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f)
         , 1.0f/15.0f,1.0f/11.0f,Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
     animatedCharacter->AddTexture("juve_sprite.png");
     GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());

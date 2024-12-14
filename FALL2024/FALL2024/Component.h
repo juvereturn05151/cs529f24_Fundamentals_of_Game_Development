@@ -1,3 +1,9 @@
+/*
+Author: Ju-ve Chankasemporn
+E-mail: juvereturn@gmail.com
+Brief: Component System that can be extendable
+*/
+
 #pragma once
 
 #ifndef COMPONENT_H

@@ -1,10 +1,13 @@
-#pragma once
-
 /*
 Author: Ju-ve Chankasemporn
 E-mail: juvereturn@gmail.com
 Description: Drawing mesh. This can be extendable to all drawing objects in the game.
 */
+
+#pragma once
+
+#ifndef MESH_H
+#define MESH_H
 
 #include "Vector3.h"
 #include <vector>
@@ -58,3 +61,5 @@ public:
     // Add a texture with a specified name and format
     void AddTexture(std::string textureName, GLenum format);
 };
+
+#endif

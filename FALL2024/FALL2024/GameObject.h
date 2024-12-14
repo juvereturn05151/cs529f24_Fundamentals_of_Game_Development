@@ -6,6 +6,7 @@ Description: GameObject class that allows for the addition of components such as
 */
 
 #pragma once
+
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
@@ -53,4 +54,5 @@ public:
     // Retrieves the PhysicsComponent attached to this GameObject
     PhysicsComponent* getPhysicsComp();
 };
+
 #endif // !GAMEOBJECT_H

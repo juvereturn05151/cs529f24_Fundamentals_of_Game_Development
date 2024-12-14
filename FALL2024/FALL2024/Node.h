@@ -7,6 +7,9 @@ Description: This is an empty game object class, which can serve as a basic buil
 
 #pragma once
 
+#ifndef NODE_H
+#define NODE_H
+
 #include "Matrix4.h"
 #include <vector>
 #include "Transform.h"
@@ -61,3 +64,5 @@ public:
     // Retrieves the global position of this node, taking into account the entire transformation hierarchy
     Vector3 getGlobalPosition() const;
 };
+
+#endif

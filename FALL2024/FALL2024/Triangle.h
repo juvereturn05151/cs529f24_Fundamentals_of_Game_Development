@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
+
 #include "Mesh.h"
 #include "Vector3.h"
 
@@ -17,3 +20,5 @@ public:
     Triangle(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& color, float alpha, Shader* shaderProgram);
     Triangle(const Vector3& color, float alpha, Shader* shaderProgram);
 };
+
+#endif

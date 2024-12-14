@@ -1,13 +1,17 @@
-#pragma once
-#include "Vector3.h"
-#include "Matrix4.h"
-
 /*
 Author: Ju-ve Chankasemporn
 E-mail: juvereturn@gmail.com
 Description: Transform component containing position, rotation, and scale of an object.
              This class is used to define the transformation properties of a node in a scene.
 */
+
+#pragma once
+
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
+
+#include "Vector3.h"
+#include "Matrix4.h"
 
 class Transform
 {
@@ -52,3 +56,5 @@ public:
     // Translates (moves) the object by a certain amount in 3D space
     void translate(const Vector3& translateAmount);
 };
+
+#endif // Transform

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef SQUARE_H
+#define SQUARE_H
+
 #include "Mesh.h"
 
 class Square : public Mesh {
@@ -17,3 +20,5 @@ public:
     Square(const Vector3& color, float alpha, Shader* shaderProgram);
     Square(const Vector3& point1, const Vector3& point2, const Vector3& point3, const Vector3& point4, const Vector3& color, float alpha, Shader* shaderProgram);
 };
+
+#endif

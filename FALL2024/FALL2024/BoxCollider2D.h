@@ -5,6 +5,7 @@ Description: A 2D Axis-Aligned Bounding Box (AABB) collider class for collision 
 */
 
 #pragma once
+
 #include <iostream>
 #include <glew/glew.h>
 #include "Square.h"
