@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "GameConfig.h"
 
-PhysicsComponent::PhysicsComponent(GameObject& _owner, float mass) : Component(_owner), mass(mass)
+PhysicsComponent::PhysicsComponent(GameObject& _owner, float _mass) : Component(_owner), mass(_mass)
 {
 	velocity = Vector3(0, 0, 0);
 }
@@ -14,15 +14,14 @@ void PhysicsComponent::update(float deltaTime)
 		return;
 	}
 
-	Vector3 gravity(0.0f, -20.0f * mass, 0.0f);
+	Vector3 gravity(0.0f, GRAVITY * mass, 0.0f);
 	accumulatedForce += gravity;
 
 	Vector3 acceleration = accumulatedForce / mass;
-
 	velocity += acceleration * deltaTime;
 
 	// Apply damping to simulate friction, reducing velocity over time
-	float dampingFactor = 0.98f; // Adjust based on desired friction level
+	// Adjust based on desired friction level
 	velocity *= dampingFactor;
 
 	Vector3 pos = owner->getTransform()->getPosition();

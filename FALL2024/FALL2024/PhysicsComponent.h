@@ -9,6 +9,7 @@
 class PhysicsComponent : public Component
 {
 private:
+	const float dampingFactor = 0.98f;
 	Vector3 velocity;
 	float mass;
 	Vector3 accumulatedForce;
