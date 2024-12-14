@@ -24,10 +24,10 @@ protected:
     // Pointer to the Mesh instance that represents the visual component of this object
     Mesh* mesh = nullptr;
 
-    // TODO: should change this to a vector of components
     // Pointer to the PhysicsComponent that handles the physics behavior of this object
-    std::vector<Component*> components;
     PhysicsComponent* physicsComp = nullptr;
+    
+    std::vector<Component*> components;
 
 public:
     // Default constructor: Initializes the GameObject without any mesh or physics component

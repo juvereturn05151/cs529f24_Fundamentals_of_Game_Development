@@ -551,18 +551,3 @@ CharacterCollisionManager* Character::getCharacterCollisionManager()
 {
     return characterCollisionManager;
 }
-
-// Add a physics component to the GameObject, if one doesn't already exist
-void Character::addPhysicsComponent(float mass)
-{
-    if (physicsComp == NULL)
-    {
-        physicsComp = new PhysicsComponent(*this, mass);
-    }
-}
-
-// Get the physics component
-PhysicsComponent* Character::getPhysicsComp()
-{
-    return physicsComp;
-}

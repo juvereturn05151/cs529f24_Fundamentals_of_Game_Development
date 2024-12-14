@@ -18,7 +18,6 @@ GameObject::~GameObject()
 {
     cleanup();
     delete mesh;
-    delete physicsComp;
 
     // Iterate through each component in the vector and delete them
     for (Component* component : components)
@@ -33,9 +32,9 @@ GameObject::~GameObject()
 // Update function to handle physics and call the base class update
 void GameObject::update(float deltaTime)
 {
-    if (physicsComp != NULL)
+    for (Component* component : components)
     {
-        physicsComp->update(deltaTime);
+        component->update(deltaTime);
     }
 
     Node::update(deltaTime);
@@ -65,4 +64,20 @@ void GameObject::cleanup()
     {
         mesh->cleanup();
     }
+}
+
+// Add a physics component to the GameObject, if one doesn't already exist
+void GameObject::addPhysicsComponent(float mass)
+{
+    if (physicsComp == NULL)
+    {
+        physicsComp = new PhysicsComponent(*this, mass);
+        components.push_back(physicsComp);
+    }
+}
+
+// Get the physics component
+PhysicsComponent* GameObject::getPhysicsComp()
+{
+    return physicsComp;
 }
