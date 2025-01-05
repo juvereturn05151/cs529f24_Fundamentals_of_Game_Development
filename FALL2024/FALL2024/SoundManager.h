@@ -8,7 +8,9 @@ class SoundManager
 {
 private:
 	// Pointer to the sound engine
-	ISoundEngine* soundEngine; 
+	ISoundEngine* soundEngine;
+	const std::string audio_folder = "audio/";
+
 	SoundManager();
 	~SoundManager();
 public:

@@ -1,10 +1,13 @@
 #include "FightingGameScene.h"
 #include "FightingGameManager.h"
 #include "FightingGameCanvasManager.h"
+#include "SoundManager.h"
+#include "GameConfig.h"
 
 FightingGameScene::FightingGameScene(Camera* cam, Renderer& rend, GameWindow& wind)
 	: Scene(cam, rend, wind)
 {
+    SoundManager::getInstance().playSound(BGM_SOUND, true);
 	leftBoundary = -5.5f;
 	rightBoundary = 5.5f;
 }

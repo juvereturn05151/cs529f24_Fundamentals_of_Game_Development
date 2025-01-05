@@ -5,13 +5,11 @@
 #include "FightingGameScene.h"
 #include "FrameController.h"
 #include "InputManager.h"
-#include "SoundManager.h"
 
 int main() 
 {
     try 
     {
-        SoundManager::getInstance().playSound("audio/Street Fighter Alpha Ryu Theme.mp3", true);
         GameWindow window(1920, 1080, "OpenGL Window");
         Renderer renderer(window);
         //printf("Rendered by: %s\n", glGetString(GL_RENDERER));

@@ -23,7 +23,8 @@ void SoundManager::playSound(const std::string& filePath, bool loop)
 {
     if (soundEngine) 
     {
-        soundEngine->play2D(filePath.c_str(), loop);
+        std::string fullPath = audio_folder + filePath;
+        soundEngine->play2D(fullPath.c_str(), loop);
     }
 }
 

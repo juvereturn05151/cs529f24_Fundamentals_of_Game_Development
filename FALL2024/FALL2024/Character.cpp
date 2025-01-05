@@ -174,7 +174,7 @@ void Character::updateInput(PlayerInput* input)
                 if (animatedCharacter->getCurrentState() != AnimationState::YouWin)
                 {
                     hasPlayHitConfirmSound = true;
-                    SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
+                    SoundManager::getInstance().playSound(HITCONFIRM_SOUND, false);
                 }
             }
         }
@@ -182,7 +182,7 @@ void Character::updateInput(PlayerInput* input)
         if (isAnimationFinished() && !youWin) 
         {
             youWin = true;
-            SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
+            SoundManager::getInstance().playSound(YOUWIN_SOUND, false);
             animatedCharacter->setAnimation(AnimationState::YouWin, false);
         }
 
@@ -195,11 +195,11 @@ void Character::updateInput(PlayerInput* input)
         {
             if (InputManager::IsKeyJustPressed(input->GetcMK()) || InputManager::IsGamepadButtonJustPressed(input->GetcMKController(), playerSide))
             {
-                SoundManager::getInstance().playSound("audio/ryuken-hadooken-101soundboards.mp3", false);
+                SoundManager::getInstance().playSound(HADOKEN_SOUND, false);
                 hitConfirmSuccess = true;
                 if (animatedCharacter->getCurrentState() != AnimationState::Hadoken)
                 {
-                    SoundManager::getInstance().playSound("audio/hitconfirm.wav", false);
+                    SoundManager::getInstance().playSound(HITCONFIRM_SOUND, false);
                 }
                 animatedCharacter->setAnimation(AnimationState::Hadoken);
                 return;
@@ -239,7 +239,7 @@ void Character::updateInput(PlayerInput* input)
                     if (animatedCharacter->isAtFrame(finishThrowFrame))
                     {
                         youWin = true;
-                        SoundManager::getInstance().playSound("audio/you-win-street-fighter-101soundboards.mp3", false);
+                        SoundManager::getInstance().playSound(YOUWIN_SOUND, false);
                     }
                 }
             }
@@ -346,7 +346,7 @@ void Character::triggerHurt()
             isBlocking = true;
             if (animatedCharacter->getCurrentState() != AnimationState::Block) 
             {
-                SoundManager::getInstance().playSound("audio/guard-101soundboards.mp3", false);
+                SoundManager::getInstance().playSound(GUARD_SOUND, false);
             }
         }
         
@@ -365,7 +365,7 @@ void Character::triggerHurt()
         if (animatedCharacter->getCurrentState() != AnimationState::Hurt) 
         {
             animatedCharacter->setAnimation(AnimationState::Hurt);
-            SoundManager::getInstance().playSound("audio/hit.wav", false);
+            SoundManager::getInstance().playSound(HIT_SOUND, false);
         }
     }
 
@@ -443,7 +443,7 @@ void Character::moveLeft()
 void Character::attack() 
 {
     isAttacking = true; // Set attacking state
-    SoundManager::getInstance().playSound("audio/ryu_attack_sound.mp3", false);
+    SoundManager::getInstance().playSound(ATTACK_SOUND, false);
     if (animatedCharacter != NULL)
     {
         animatedCharacter->setAnimation(AnimationState::cMK); // Set cMK animation

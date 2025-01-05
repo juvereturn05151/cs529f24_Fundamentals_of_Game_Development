@@ -145,9 +145,6 @@
     <Filter Include="Header Files\GameComponent\Utility">
       <UniqueIdentifier>{e4c9cf15-d5fa-4cd4-8d1f-3b25e27bbaf4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameComponent\Utility">
-      <UniqueIdentifier>{436aa463-d11e-4815-853f-6026449bb485}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FALL2024.cpp">
@@ -257,9 +254,6 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="GameConfig.cpp">
-      <Filter>Source Files\GameComponent\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

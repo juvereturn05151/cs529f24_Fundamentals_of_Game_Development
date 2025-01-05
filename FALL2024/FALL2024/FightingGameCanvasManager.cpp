@@ -1,6 +1,7 @@
 #include "FightingGameCanvasManager.h"
 #include "EventSystem.h"
 #include "SoundManager.h"
+#include "GameConfig.h"
 
 FightingGameCanvasManager::FightingGameCanvasManager(Renderer& rend) : Canvas(rend)
 {
@@ -153,7 +154,7 @@ void FightingGameCanvasManager::update(float deltaTime)
         if (currentCountDownToPostGameUI >= countDownToPostGameUI)
         {
             SoundManager::getInstance().stopAllSounds();
-            SoundManager::getInstance().playSound("audio/result.wav", false);
+            SoundManager::getInstance().playSound(RESULT_SOUND, false);
             postGameBg->setIsActive(true);
             startCountDownToPostGame = false;
         }
