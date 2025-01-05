@@ -4,6 +4,8 @@
 #include "EventSystem.h"
 #include <algorithm>
 #include "SoundManager.h"
+#include "EngineConfig.h"
+#include "GameConfig.h"
 
 Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : GameObject(mesh, modelMatrixLoc)
 {
@@ -17,11 +19,11 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 
     if (playerSide == 0)
     {
-        getTransform()->setPosition(Vector3(-0.75f, -1.75f, 0.0f));
+        getTransform()->setPosition(Vector3(LEFT_POSITION, GROUND_HEIGHT, 0.0f));
     }
     else 
     {
-        getTransform()->setPosition(Vector3(0.75f, -1.75f, 0.0f));
+        getTransform()->setPosition(Vector3(RIGHT_POSITION, GROUND_HEIGHT, 0.0f));
     }
 
     characterCollisionManager->setupHitboxes(getTransform()->getPosition(), playerSide);
@@ -121,7 +123,7 @@ void Character::handleOnLose()
         getPhysicsComp()->setIsActive(true);
 
         if (!hasPlayUrghSound) {
-            SoundManager::getInstance().playSound("audio/ryuken-uggh-101soundboards.mp3", false);
+            SoundManager::getInstance().playSound(URGH_SOUND, false);
             hasPlayUrghSound = true;
         }
 
@@ -332,7 +334,6 @@ void Character::checkForBlock(PlayerInput* input)
         isBlocking = true;
         animatedCharacter->setAnimation(AnimationState::Block); // Set to blocking animation
         characterCollisionManager->getHitBox()->setIsActive(false);
-        //hitBox->setIsActive(false); // Deactivate hitbox in blocking mode
     }
 }
 
@@ -369,7 +370,6 @@ void Character::triggerHurt()
     }
 
     characterCollisionManager->getHitBox()->setIsActive(false);
-   // hitBox->setIsActive(false); // Disable hitbox while in hurt state
 }
 
 
@@ -386,6 +386,7 @@ void Character::updateMovement(PlayerInput* input)
             block = true;
         }
     }
+
     if ( InputManager::IsKeyPressed(input->GetMoveLeft()) || InputManager::IsGamepadButtonPressed(input->GetMoveLeftController(), playerSide))
     {
         moveLeft();

@@ -175,6 +175,7 @@
     <ClCompile Include="FightingGameManager.cpp" />
     <ClCompile Include="FightingGameScene.cpp" />
     <ClCompile Include="FrameController.cpp" />
+    <ClCompile Include="GameConfig.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="HeartUI.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="FightingGameScene.h" />
     <ClInclude Include="FrameController.h" />
     <ClInclude Include="EngineConfig.h" />
+    <ClInclude Include="GameConfig.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="HeartUI.h" />
