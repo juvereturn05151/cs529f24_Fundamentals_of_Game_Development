@@ -80,9 +80,9 @@ void CharacterCollisionManager::setupHitboxes(const Vector3& pos, int playerSide
     }
 
     //For Displaying Collisions
-    /*hitBox->setIsDrawingActive(true);
+    hitBox->setIsDrawingActive(true);
     hurtBox->setIsDrawingActive(true);
-    legHurtBox->setIsDrawingActive(true);*/
+    legHurtBox->setIsDrawingActive(true);
 
     hitBox->setIsActive(false);
     legHurtBox->setIsActive(false);

@@ -51,3 +51,8 @@ void Transform::translate(const Vector3& translateAmount)
     Vector3 newPosition = getPosition() - translateAmount;
     setPosition(newPosition);
 }
+
+void Transform::flipX()
+{
+    this->scale = Vector3(-scale.x,scale.y,scale.z);
+}

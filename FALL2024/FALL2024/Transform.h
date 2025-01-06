@@ -55,6 +55,8 @@ public:
 
     // Translates (moves) the object by a certain amount in 3D space
     void translate(const Vector3& translateAmount);
+
+    void flipX();
 };
 
 #endif // Transform

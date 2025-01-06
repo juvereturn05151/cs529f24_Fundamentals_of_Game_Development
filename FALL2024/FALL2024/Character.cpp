@@ -10,8 +10,8 @@
 Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int playerSide) : GameObject(mesh, modelMatrixLoc)
 {
     this->playerSide = playerSide;
-    movementSpeed = 5.0f;
-    health = 3;
+    movementSpeed = DEFAULT_MOVESPEED;
+    health = MAX_HEALTH;
 
     setupVisuals(renderer);
     characterCollisionManager = new CharacterCollisionManager(renderer, getTransform()->getPosition(), 
@@ -38,21 +38,26 @@ Character::Character(Mesh* mesh, GLint modelMatrixLoc, Renderer& renderer, int p
 // Helper for Visual Setup
 void Character::setupVisuals(Renderer& renderer)
 {
-    animatedCharacter = new AnimatedCharacter(Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), 
-        Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f)
-        , 1.0f/15.0f,1.0f/11.0f,Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+    animatedCharacter = new AnimatedCharacter
+        (Vector3(-1.5f, -0.5f, 0.0f), Vector3(-1.5f, 0.5f, 0.0f), 
+        Vector3(1.5f, 0.5f, 0.0f), Vector3(1.5f, -0.5f, 0.0f),
+        1.0f/15.0f, 1.0f/11.0f, 
+        Vector3(0.0f, 0.0f, 1.0f), 0.5f, renderer.GetShader());
+
     animatedCharacter->AddTexture("juve_sprite.png");
+
     GameObject * visualHolder = new GameObject(animatedCharacter, renderer.GetModelMatrixLoc());
 
     if (playerSide == 0)
     {
-        visualHolder->getTransform()->setScale(Vector3(3.0f, 4.0f, 3.5f));
-        visualHolder->getTransform()->translate(Vector3(-0.5f, -0.1f, 0.0f));
+        visualHolder->getTransform()->setScale(DEFAULT_VISUAL_SCALE);
+        visualHolder->getTransform()->translate(DEFAULT_VISUAL_POSITION);
     }
     else
     {
-        visualHolder->getTransform()->setScale(Vector3(-3.0f, 4.0f, 3.5f));
-        visualHolder->getTransform()->translate(Vector3(-0.5f, -0.1f, 0.0f));
+        visualHolder->getTransform()->setScale(DEFAULT_VISUAL_SCALE);
+        visualHolder->getTransform()->flipX();
+        visualHolder->getTransform()->translate(DEFAULT_VISUAL_POSITION);
     }
 
     addChild(visualHolder);
@@ -63,7 +68,7 @@ void Character::reset()
     isAttacking = false;
     isAttackAnimFinished = false;
     isHurt = false;
-    canHitConfirm = false;
+    isAbleToHitConfirm = false;
     hitConfirmSuccess = false;
     youWin = false;
     youLose = false;
@@ -127,7 +132,7 @@ void Character::handleOnLose()
             hasPlayUrghSound = true;
         }
 
-        float forceDirection = (playerSide == 0) ? -250.0f : 250.0f;
+        float forceDirection = (playerSide == 0) ? -LOSE_FORCE : LOSE_FORCE;
         physicsComp->applyForce(Vector3(forceDirection, 0.0f, 0.0f));
     }
 }
@@ -147,7 +152,7 @@ void Character::updateInput(PlayerInput* input)
         {
             animatedCharacter->setAnimation(AnimationState::YouLose, false);
             health--;
-            health = std::clamp(health, 0, 3);
+            health = std::clamp(health, 0, MAX_HEALTH);
             EventSystem::getInstance().notify("decreasePlayerHealth", playerSide, health);
         }
 
@@ -189,7 +194,7 @@ void Character::updateInput(PlayerInput* input)
         return;
     }
 
-    if (canHitConfirm) 
+    if (isAbleToHitConfirm) 
     {
         if (!hitConfirmSuccess) 
         {
@@ -310,7 +315,9 @@ void Character::updateInput(PlayerInput* input)
 void Character::executeThrow()
 {
     isThrowing = true; // Set to attacking state
+
     float xOffset = 0;
+
     if (playerSide == 0) 
     {
         xOffset = -1.75f;
@@ -319,6 +326,7 @@ void Character::executeThrow()
     {
         xOffset = 1.75f;
     }
+
     opponent->getPhysicsComp()->setIsActive(false);
     opponent->getTransform()->setPosition(getTransform()->getPosition() + Vector3(xOffset,2.0f,0.0f));
     opponent->setBeingThrown(true);
@@ -467,12 +475,12 @@ bool Character::isAnimationFinished()
 
 void Character::setCanHitConfirm(bool isEnemyHurt)
 {
-    canHitConfirm = isEnemyHurt;
+    isAbleToHitConfirm = isEnemyHurt;
 }
 
 bool Character::getCanHitConfirm()
 {
-    return canHitConfirm;
+    return isAbleToHitConfirm;
 }
 
 bool Character::getIsHurt()

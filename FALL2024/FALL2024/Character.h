@@ -25,7 +25,7 @@ private:
     bool isAttacking;
     bool isAttackAnimFinished;
     bool isHurt = false;
-    bool canHitConfirm;
+    bool isAbleToHitConfirm;
     bool hitConfirmSuccess;
     bool youWin;
     bool youLose;
